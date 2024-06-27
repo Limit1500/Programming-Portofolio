@@ -1,0 +1,113 @@
+1.PARTEA DE SERVER:
+	==> PRIN ACEST MOD PUTEM URMARII CANALUL DE REQUESTURI SI RASPUNSURI PENTRU UN ANUMIT URL
+	app.get('/', (req, res) => {});
+
+	==> ATRIBUTELE OBIECTUL REQ:
+		req.url: contine url-ul la care s-a facut requestul
+		req.method: contine tipul de request (poate fii de get / post adica de luat date sau de postat date in server)
+		req.ip: Conține adresa IP a clientului care face cererea.
+		req.hostname: Conține numele gazdei furnizat în antetul cererii HTTP.
+		req.protocol: Conține protocolul utilizat (http sau https).
+		req.secure: un boolean care indică dacă conexiunea utilizează SSL/TLS.
+
+	==> ATRIBUTELE OBIECTULUI RES:
+		res.send(): Permite să trimiteți un răspuns către client. Acesta poate fi text, HTML, JSON, etc.
+		res.json(): Trimite un răspuns JSON către client.
+		res.status(): Setează codul de stare al răspunsului HTTP (de exemplu, 200 pentru "OK", 404 pentru "Not Found", etc.).
+		res.redirect(): Redirecționează clientul către o altă pagină sau URL.
+		res.render(): Utilizat în șabloanele de motor de vizualizare pentru a randeza o pagină cu datele furnizate.
+		res.sendFile(): Trimite un fișier ca răspuns.
+		res.download(): Trimite un fișier pentru descărcare.
+		res.end(): Finalizează răspunsul fără a trimite orice date.
+
+	==> TRIMITEREA DATELOR:
+		by default prin res.send trimitem date de tip html ( putem pune: res.send("<h1> HTML </h1>"); ) dar daca scrii json intre paranteze json se va detecta si se va trimite sub forma de json. Aici intervine res.json care trimite by default text de tip json ci nu un simplu string (este folosit pentru a intelege clientul cum trebuie sa il abordeze) 
+			ex: res.json({ nume: "david"});
+				
+2.PARTEA DE CLIENT:
+	REQUEST DE GET
+=>	  fetch("url")				// prima oara trimitem un request catre serverul care asculata url-ul dat
+=>	    .then(response => response.json())  // aici explicam cum trebuie abordata informatia primita in raspunsul primit(text, hson etc...)
+=>	    .then (function (data) {		// apoi apare al doilea then care se ocupa de datele raspunsului primit (stockeaza doar datele)
+		console.log(data);
+	  });
+	    .catch(function (error) {		// la final prindem erorile si le afisam
+		console.log(error);
+	  });
+
+	+
+	
+	app.get('/', (req, res) => {
+		const userData = {
+  		  id: userId,
+   		 name: 'John Doe',
+   		 email: 'john@example.com'
+  		};
+  		res.json(userData);
+	});
+
+	REQUEST DE POST
+	  fetch('https://api.example.com/submit', {			// apare al doilea parametru care este un obiect care are 3 parametrii
+	    method: 'POST',						// primul atribut este tipul metodei 
+	    headers: {							// aici punem tipul datelor pe care vrem sa le postam in server
+	      'Content-Type': 'application/json',
+	    },
+	    body: JSON.stringify({ key1: 'value1', key2: 'value2' }), // in body punem datele pe care vrem sa le postam (dintr-un obiect js in json)
+	  });
+	    .then(response => response.json()) // ca la get
+	    .then (function (data) {		
+		console.log(data);
+	  });
+	    .catch(function (error) {		
+		console.log(error);
+	  });
+
+	+
+	
+	app.post('/', (req, res) => {
+		let userData = req.body;				// de aici luam datele primite de la client
+		res.send("Datele au fost primite cu succes!");		// aici putem trimite un feedback pentru client
+	});
+
+3.EXEMPLE
+	import express from "express";
+	import fs from "fs";
+	import { setDefaultHighWaterMark } from "stream";
+	
+	const app = express();
+	
+	app.get("/", (req, res) => {
+	  const html = fs.readFileSync("../frontend/index.html", "utf8");
+	  res.send(html);
+	});
+	
+	app.get("/users", (req, res) => {		// ascultam canalul cu url ul /users
+	  res.send("buna");				// daca un request de tip get este trimits se intampla asta
+	});
+	
+	app.use(express.static("../frontend"));
+	app.listen(3000);
+	console.log("Server is on http://localhost:3000");
+
+
+
+
+
+	
+	let button = document.querySelector("button");
+	
+	button.addEventListener("click", () => {
+	  console.log("Request trimis");
+	  fetch("http://localhost:3000/users")
+	    .then((response) => response.text())	// requestul il interpretam ca fiind de tip text
+	    .then((data) => console.log(data))		// datele trimise de catre client sunt afisate ( se va afisa buna )
+	    .catch((error) => console.log("error"));	// prindem eroarea
+	});
+		
+
+
+
+
+!!!TOTUL O SA FIE MAI SIMPLU. TOT CE TREBUIE SA FAC ESTE SA EXERSEZ SI SA CODEZ IN CONTINUU SI TOTUL O SA VINA DE LA SINE
+
+

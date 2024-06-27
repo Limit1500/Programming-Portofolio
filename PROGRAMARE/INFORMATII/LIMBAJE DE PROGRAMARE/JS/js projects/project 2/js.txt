@@ -1,0 +1,18 @@
+let option_div = document.querySelector(".option_div");
+
+let nrPlayer = -1,
+  nrCalculator = -1;
+
+function adaptareElemente() {}
+
+option_div.addEventListener("click", (event) => {
+  if (event.target.className == "rock_div") {
+    nrPlayer = 1;
+  } else if (event.target.className == "paper_div") {
+    nrPlayer = 2;
+  } else if (event.target.className == "scissors_div") {
+    nrPlayer = 3;
+  }
+  nrCalculator = Math.floor(Math.random() * 3) + 1;
+  adaptareElemente();
+});

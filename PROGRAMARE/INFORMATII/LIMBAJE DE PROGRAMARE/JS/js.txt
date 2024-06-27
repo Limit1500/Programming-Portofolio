@@ -1,0 +1,788 @@
+==========CUPRINS==========
+1. CARACTERE SI VARIABILE
+2. CUM SA IEI NR RANDOM / CUM SA TRANSFORMI STRING IN INTIGER + altele
+3. ARROW FUNCTION / SWICH STATEMENT
+4. OBJECTS
+5. FUNCTII
+6. TABLOURI
+7. MANIPULATING DATA (FISIERE SUNT IN NODE)
+8. HTML ELEMENTS / DOM MANIPUTLATION
+9. EVENT LISTENERS
+10.CANVAS + CANVAS ANIMATION
+==========CUPRINS==========
+
+
+
+
+PENTRU A CONECTA JS CU HTML FOLOSIM: <script src="index.js"></script>
+
+------------------------------------------------------------------------------------------------------CARACTERE SI VARIABILE---------------------------------------------------------------------------------------------------------------
+
+SUNT 3 MODURI DE A DECLARA O VARIABILA:
+	1.var			=> nu folosi var (e o prostie)
+	2.let			=> nu te lasa sa reinitializezi o variabila redeclarand-o (ex: var acasa = 1; var acasa = 2 -> fals, var acasa = 1; acasa = 2 -> adevarat)
+ 	3.const			=> nu pot fii reasigned si se denumesc mereu cu litere mari (NUMAR, PI, etc...)
+		-poti declara orice cu const
+		-variabilele uneori pot fii modificare chiar daca au fost declarate cu const asa ca vom folosi Object.freeze(NUME_OBIECT);
+
+	var string = "ana are " + "mere";	<=>	var string = "ana are mere";
+	sau
+	var string = "Buna ";
+	var string2 = "bine!";
+	string += string2;		=> string = "Buna bine!";
+
+PENTRU A LUA:
+	lungimea unui string folosim: 		let lungime = string.lenght;
+	un caracter dintr-un string folosim: 	let string = string[pozitiaCaracterului];
+
+	var string = "ana are " + nrMere + " mere";	<=>	var string = "ana are 5 mere";
+
+CARACTERE SPECIALE:
+	\'	=> daca intr-un sring avem ' putem pune \' pentru a se intelege ca caracterul face parte din string
+	\"	=> daca intr-un sring avem " putem pune \" pentru a se intelege ca caracterul face parte din string
+	\\	=> daca intr-un sring avem \ putem pune \\ pentru a se intelege ca caracterul face parte din string
+	\n	=> new line
+	\r	=> carriage return
+	\t	=> tab
+	\b	=> backspace 
+	\f	=> form feed
+
+CUM SE PUN EGALURI:
+	daca vrem sa verificam valoarea a 2 variabile folosim == ex: 3 == '3'  (ceea ce este adevarat)
+	daca vrem sa verificam si valoarea si tipul a 2 variabile folosim === ex: 3 === '3' (ceea ce este fals)
+
+VARIABILE LOCALE SI VARIABILE GLOBALE:(ca in c++)
+	-variabilele globale se declara inafara oricarei functii;
+	-cele locale se declara in interiorul unei functii si poate fii folosita doar acolo
+!! in cazul in care avem o variabila globala care are aceelasi nume cu o alta variabila locala, variabila locala are prioritate (adica nu se baga in seama cea globala)
+
+--------------------------------------------------------------------------------------------------ARROW FUNCTION / SWICH STATEMENT------------------------------------------------------------------------------------------------------
+
+swich(numar){	
+	case 5:				=> ia numarul (parametrul) si daca este egal cu 5 atunci se aplica instructiunile
+		numar = 1;
+		break;
+	case 10:			=> ia numarul (parametrul) si daca este egal cu 10 atunci se aplica instructiunile
+		numar = 2;
+		break;
+	case 12:			=> ia numarul (parametrul) si daca este egal cu 12 atunci se aplica instructiunile
+		numar = 3;
+		break;
+}
+
+O FUNCTIE NORMALA:
+	let myConcat = function(arr1, arr2){
+	return arr1.concart(arr2);
+};
+<=>
+	let myConcat = (arr1, arr2) => arr1.concart(arr2);
+
+------------------------------------------------------------------------------------------------------------------OBJECTS-------------------------------------------------------------------------------------------------------------------
+
+DECLARAREA UNU OBIECT:
+var obiect = {
+	nume = "David",		=> un adjectiv poate fii orice tip de date
+	picioare = 2,
+}
+
+PENTRU A ACCESA O PROPRIETATE A OBIECTULUI FOLOSIM: obiect.proprietate
+!! daca proprietatea contine space in ea (ex: de citi) o putem accesa astfel: obiect["nume proprietate"];
+
+POTI SCHIMBA PROPRIETATEA PRIN: obiect.proprietate = nouaProprietate;
+
+POTI ADAUGA O PROPRIETATE ASTFEL: obiect["proprietateNoua"] = valoareProprietate;
+
+POTI ELIMIA O PROPRIETATE ASTFEL: delete obiect.proprietate;
+
+POTI VERIFICA DACA UN OBIECT ARE O ANUMITA PROPRIETATE: obiect.hasOwnProperty(proprietateaVerificata);		=> returneaza adevarat daca are si fals daca nu are
+
+POTI CREA UN ARRAY DE OBIECTE:
+	let array [{
+			frumos = 1;
+			bun = 1;
+		},{
+			frumos = 0;
+			bun = 0;
+		}]
+
+DE ASEMENEA POTI CREA OBIECTE INTR UN OBIECT:
+
+	let obiect = {
+		mancaruri: "sarmale",
+		sporturi: {
+				sport1: football,
+				sport2: baschet,
+	},
+}
+
+PUTEM AVEA FUNCTII:
+	numar = {
+	  a: 3,
+	  b: 2,
+	  impartire: function () {			// trebuie scris funcion => nu se poate sa folosim arraw functions
+	    return this.a / this.b;
+	  },
+	};
+	
+	console.log(numar.impartire());			// trebuie apelata ca o functie
+
+-------------------------------------------------------------------------------------------------------------------FUNCTII--------------------------------------------------------------------------------------------------------------
+
+FUNCTIILE POT FII DECLARATE ASTFEL:
+	function functie();		=> poate sa returneze o valoare insa nu trebuie (daca nu returneaza nici o valoare se subintelege ca returneaza undefined)
+
+PARAMETRII FUNCTIILOR SUNT INTRODUSI ASTFEL;
+	function functie(numarul, cifra, numele, varsta);
+
+APELUL FUNCTIILOR SE FACE ASTFEL:
+	numeFunctie (parametru1, parametru2);
+
+CA IN C++ POTI SA APELEZI O FUNCTIE FARA UN PARAMETRU DOAR DACA ACEL PARAMETRU ARE O VALOARE DEJA:
+function nume(par1, par2 = 1){
+	return par1 + par2;
+}
+nume(5, 6);
+nume(5);		=> ambele sunt bune
+
+FUNCTIILE CONSTRUCTOARE: (initializeaza un obiect / orice dupa o anumita forma;  spre ex: daca se logeaza un nou user, trebuie sa aiba un object al lui care sa aiba o forma prestabilita. In acest caz creem o functie care sa ii atribuie 			caracteristicile necesare si care sa il initializeze pentru a nu recrea o alta structura de user)
+1.FORMA GREA (fara keywords care ne pot ajuta, este menita explicatiei);
+
+function initializareUser(nume, prenume, varsta) {
+  let user = {};
+  user.nume = nume;
+  user.prenume = prenume;
+  user.varsta = varsta;
+  return user;
+}
+
+let user256 = initializareUser("Tamas", "David", 16);
+
+console.log(user256);
+
+2.FORMA USOARA:
+
+function initializareUser(nume, prenume, varsta){
+	this.nume = nume;					// adica this este numele unui obiect care va fii copia celui care va avea proprietatile
+	this.prenume = prenume;
+	this.varsta = varsta;					// se da automat return la this
+}								// this este folosit atunci cand intr-un obiect ai nevoie de caract. acestuia (nu mai scii in obiect: culoare: obiect.rosu + obiect.verder ci this.rosu + this.verde)
+
+let user256 = new initializareUser("Tamas", "David", 16);	// indica scopul functiei
+
+----------------------------------------------------------------------------------------------------------------TABLOURI-----------------------------------------------------------------------------------------------------------------
+
+SE DECLARA ASTFEL:
+	var array = ['john', 23];	// vector
+	var array = [[david, 23], [victor, 43]]
+
+PENTRU A LUA UN ELEMENT DIN TABLOU FOLOSIM:
+	array[0];		=> ia primul element din vector
+	array[0][0]		=> ia elementul din coloana 0 linia 0
+
+PENTRU A PUNE UN ELEMENT IN CAPATUL TABLOULUI FOLISM:
+	var array = [20, 30];
+	array.push(40, 50); 		=> array = [20, 30, 40, 50];
+
+	var array = [[1, 2][3, 4]];
+	array.push([5, 6]);
+
+PENTRU A LUA ULTIMUL ELEMENT DIN TABLOU FOLOSIM:
+	var array = [1, 2, 3];
+	var ultimulElement = array.pop();	=> ultimul element = 3; && array = [1, 2];
+
+	var array = [[1, 2], [3, 4]];
+	var ultimulElement = array.pop();	=> ultimul element = [3, 4]; && array = [[3, 4]]
+
+PENTRU A LUA PRIMUL ELEMENT DIN TABLOU FOLOSIM:
+	var array = [1, 2, 3];
+	var primulElement = array.shift();	=> primul element = 1; && array = [2, 3];
+
+	var array = [[1, 2], [3, 4]];
+	var primulElement = array.shift();	=> primul element = [1, 2]; && array = [3, 4];
+
+PENTRU A PUNE UN ELEMENT PE PRIMA POZITIE:
+	var array = [1, 2, 3];
+	array.unshift(0);	=>array = [0, 1, 2, 3];
+
+	var array = [[3, 4]];
+	array.unshift([1, 2]);	=> array = [[1, 2][3, 4]];
+
+---------------------------------------------------------------------------------------------------------MANIPULATING DATA------------------------------------------------------------------------------------------------------------------
+
+MANIPULATING DATA:
+	1.str.lenght = lungimea stringului
+	2.string.slice(start,end)		// ia o parte dintr-un string mai mare si o pune in alt string (parametrul 1 indica nr caracterului de la care sa inceapa iar parametrul 2 indica numarul caracterului la care se termina)
+	  string.substr(start,length)		// analog sus
+	3.const str = "Hello World";
+	  const newStr = str.replace("World", "Universe"); // "Hello Universe" / inlocuieste aparițiile unui subșir cu un alt șir.
+	4.const str = "apple,orange,banana";
+	  const arr = str.split(","); // ["apple", "orange", "banana"]	// un fel de getline din c++
+	  const joinedStr = arr.join(";"); // "apple;orange;banana"	
+	5.const str = "   Hello   ";
+	  const trimmedStr = str.trim(); // "Hello"	// scoate toate spatiile albe din string
+	6.const str = "Hello World";
+	  const lowerCaseStr = str.toLowerCase(); // "hello world"
+	  const upperCaseStr = str.toUpperCase(); // "HELLO WORLD"
+	7.const str = "Hello World";
+	  const startsWithHello = str.startsWith("Hello"); // true	// verifica daca stringul incepe cu un alt string
+	  const endsWithWorld = str.endsWith("World"); // true		// verifica dace stringul se termina cu un alt string
+	8.const str = "Hello World";
+	  const includesHello = str.includes("Hello"); // true		// verifica daca un string apare in alt string si afiseaza locul de unde incepe
+	  const indexOfWorld = str.indexOf("World"); // 6		// verifica daca un string apare in alt string si afiseaza locul de unde incepe
+
+--------------------------------------------------------------------------------------------------------HTML ELEMENTS / DOM MANIPUTLATION---------------------------------------------------------------------------------------------------
+
+PENTRU A LUA UN ELEMENT:
+	1. let variabila = document.getElementById("id-ul");
+	2. let variabila = document.getElementByClassName("clasa");
+	3. let variabila = document.getElementByTagName("p");		// selecteaza toate elementele care au tagul corespunzator
+	CELE MAI FOLOSITE:
+	4. let variabila = document.querySelector("div");		// selecteaza primul element care are numele tagului
+						 (".clasa");		// selecteaza primul element care are numele clasei
+						 ("#id-ul");		// selecteaza primul element care are id-ul dintre paranteze
+	5. let variabila = document.querySelectorAll("div");		// selecteaza toate elementele care au numele tagului
+						 (".clasa");		// selecteaza toate elementele care au numele clasei
+						 ("#id-ul");		// selecteaza toate elementele care au id-ul dintre paranteze
+	!!! in cazul in care document.querySelectorAll selecteaza mai multe elemente variabila devine vector si contine pe cate o pozitie fiecare element
+
+PENTRU A ACCESA / MODIFICA UN ATRIBUT (ex: title, id, class);
+	let h1 = document.getElementById("id_h1");		// prima oara luam elementul din html
+
+	let valoareaTitle = h1.title; 				// se salveaza intr-o variabila titlul pe care l-am pus lui h1
+
+	h1.setAttribute("title", "noulTitlu")		 	// asa putem modifica valoarea atributului titlu
+
+	h1.removeAttribute("title");				// asa scoatem atributele
+
+	h1.classList.add("numele clasei");			// asa adaugam o clasa (se va stiliza automat daca acea clasa este stilizata)
+
+	h2.getAtribute("id") 					// preia atributul scris in paranteze
+
+PENTRU A CREA UN ELEMENT:
+	let unorderList = document.querySelector("ul");		// creem o variabila care sa reprezinte o lista
+	let listElement = document.createElement("li");		// creem un element care sa fie de tip li si care este reprezentat de variabila listElement
+	unorderList.append(li);					// listei ii adaugam inca un element cu tag-ul li (se creaza inca un element)
+
+	sau
+	
+	let div = document.querySelector(".clasaDivului");	// creem o variabila care sa reprezinte un element de tip div
+	let paragraf = document.createElement("p");		// creem o variabila care sa reprezint un nou element creat de tip paragraf
+	div.append("paragraf");					// introducem paragraful in div (in html se va crea un element p in div)
+
+MODIFICAREA UNUI TEXT:
+	-in html:
+	<p><strong> Buna
+	            ce faci? </strong></p>
+
+	1.console.log(firstListItem.innerText);
+		se afiseaza: 
+			Buna ce faci?				// se afiseaza modul in care arata textul in pagina
+	!! pentru a aduna un nr din h1 folosim firstListItem.innerText++;
+
+	2.console.log(firstListItem.textContent);
+		se afiseaza:
+			Buna					// se afiseza modul in care arata textul in HTML
+			ce faci?
+
+	3.console.log(firstListItem.innerHTML);
+		se afiseaza:
+			<strong> Buna				// se afiseaza intr-un mod ciudat (nu e recomadat din motive de securitate)
+				 ce faci? </strong>
+
+PENTRU A SCOATE UN ELEMENT DIN PAGINA FOLOSIM:
+	let div = document.createElement("div");
+	div.remove();						// il scoate doar din html
+
+PENTRU A SCHIMBA UN RULE DIN CSS PUTEM FOLOSI:
+	h1.style.color = "red";			// numele variabilei care reprezinta elementul / .style / cu ce vrem sa stilizam
+
+DOM TREE:
+	elementDinHTML.chldNodes		// reprezinta toate elementele care sunt implementate in tag-ul superior (este un vector care contine fiecare element pe cate o pozitie)
+	elementDinHTML.firstChild		// reprezinta primul element care este implementat in tag-ul superior
+	elementDinHTML.lastChild		// reprezinta ultimul element care este implementat in tag-ul superior
+	elementDinHTML.previousSibling		// reprezinta elementul dinaintea celui curent care face parte din acelasi tag superior
+	elementDinHTML.nextSibling		// reprezinta elementul de dupa cel curent care face parte din acelasi tag superior
+
+	1.MERSUL INAPOI IN STRUCTURA
+	elementDinHTML.parentNode		// parintele
+	elementDinHTML.parentNode.parentNode	// parintele parintelui
+
+	2.MERSUL IN FATA IN STRUCTURA
+	elementDinHTML.children				// reprezinta toate elementele care sunt implementate in tag-ul elementDinHTML (este un vector care contine fiecare element pe cate o pozitie)
+	elementDinHTML.firstElementChild		// reprezinta primul element care este implementat in tag-ul elementDinHTML
+	elementDinHTML.lastElementChild			// reprezinta ultimul element care este implementat in tag-ul elementDinHTML
+
+
+---------------------------------------------------------------------------------------------------------EVENT LISTENERS----------------------------------------------------------------------------------------------------------------
+
+PENTRU A DECLARA UN EVENT LISTENER: (putem folosi "windows" pe post de element, ca efect se va crea un event listener care va inregistra orice interactiune)
+	element.addEventListener("candSaSeActiveze", FunctiaCareSeApeleaza);
+	
+	ex1:
+let backgroundDiv = document.querySelector(".div");
+
+function schimbaCuloarea(){
+	backgroundDiv.style.backgroundColor = "blue";
+}
+
+backgroundDiv.addEventListener("mouseover", schimbaCuloarea);		// efect: cand tinem mouseul pe div isi va schimba culoarea
+	
+	ex2:
+let button = document.querySelector("#buton");
+
+function alerta(){
+	alert("Alerta!");
+}
+
+button.addEventListener("click", alerta);
+
+EVENT DELEGATION (FOLOSIREA UNUI SINGUR EVENT LISTENER PENTRU MAI MULTE ELEMENTE):
+
+functia .addEventListener("click", numeFunctie(parametru1));   //are ca prim parametrul declansatorul eventului si o functie de callback care are si ea un parametru. Acesta contine toate informatiile care tin de eveniment. Spre exemplu, 							         elementul, pozitia, etc..   pentru a pune pe un set de elemente care sunt "frati" un singur event listener trebuie sa punem listener-ul pe "parintele" elementului
+spre exemplu:
+  unorderList.addEventListener("click", (event) => {		// doar sub forma aste se poate transmite parametrul event care detine toate informatiile legate de eveniment
+    target = event.target;					// event.target inseamna elementul care a declasat evenimentul
+    if (target.className == "delete_img") {			// algoritm
+      target.parentNode.remove();
+      tasks--;
+});
+
+EVENT DELEGATION 2:	(METODA MAI INEFICIENTA)
+	let buttons = document.querySelectorAll("button");
+	
+	buttons.foreEach(button funtion(){
+		button.addEventListener("click", numeFunctie);
+})
+	sau
+	elements.forEach(element => {
+    		element.addEventListener('click', eventHandler);
+});
+!!! este posibil ca in unele variante elementele sa nu fie definite sau adaptate inainte de addEventListener
+	
+---------------------------------------------------------------------------------------------------------------CANVAS---------------------------------------------------------------------------------------------------------------
+
+PENTRU A PUNE MARIMEA SITEULUI:
+body, html {
+  height: 100%;
+  margin: 0;
+  overflow: hidden;
+}
+canvas {
+  display: block;
+}
+
+PENTRU A PUTEA CREA O VARIABILA CARE SA REPREZINTE SPATIUL CANVASULUI (TOOL UL PENTRU DESENARE):
+	let canvas = querySelector("canvas");
+	let c = canvas.getContext("2d");
+
+!! pentru a desena forme vom folosi functii precum: c.fillRect(x, y, width, height);
+
+ELEMENTELE DINTR-UN CANVAS:
+	1. PATRAT
+	2. LINII
+	3. CERCURI
+	4. CURBE
+	5. IMAGINI
+	6. TEXT
+
+PENTRU A CREA MAI MULTE ELEMENTE FOLOSIM FOR:
+ex:
+	for (int i = 0; i < 3; i++){
+		c.fillRect((i + 1) * 50, (i + 2) * 50, 100, 100);
+}
+
+1.PATRATUL
+	CREAREA + UTILIZAREA: pentru a crea un patrat folosim: c.fillRect(x, y, width, height);
+
+	PARAMETRII: x = distanta de la marginea din stanga a canvasului
+		    y = distanta de la marginea de sus a canvasului
+		    witdh = latimea patratului
+		    height = inaltimea patratului
+
+CUM APLICAM CULORILE PATRATELOR IN CANVAS: 
+	!!! toate elementele dintr-un canvas iau culoarea pe care am precizat-o in comanda: c.fillStyle = "blue"; (in cazul in care nu am precizat-o se ia culoarea standard negru)
+	elementele iau culoarea actuala in cod a canvasului (pentru a pune elemente cu culori diferite trebuie sa schimbam culoarea canvasului de fiecare data inainte de fiecare element de culoare diferita)
+
+ex: (3 PATRATE)
+	c.fillRect(x, y, width, height);		// patratul va avea culoarea standard (negru)
+	c.fillStyle = "blue";				// scimbam culoare canvasului in albastru
+	c.fillRect(x, y, width, height);		// patratul va avea culoarea actuala a canvasului (albastru)
+	c.fillStyle = "red";				// scimbam culoare canvasului in rosu
+	c.fillRect(x, y, width, height);		// patratul va avea culoarea actuala a canvasului (rosu)
+
+2.LINII
+	CREAREA + UTILIZAREA: (toti parametrii x si y sunt la fel ca la patrat)
+		c.beginPath();			// incepe o linie
+		c.moveTo(x, y);			// punctul initial de la care porneste linia
+		c.lineTo(x, y);			// punctul urmator 
+		c.lineTo(x, y);			// punctul urmator
+		c.strokeStyle = "red";		// coloram linia (trebuie scris inainte de comanda stroke)
+		c.stroke();			// pentru a lega punctele creand o linie si pentru a termina o linie folosim stroke
+
+3. CERCURI
+	CREAREA: c.arc(x, y, lungRazaCerc, grdDeInceput, grdFinale, ceDirectie);
+
+	PARAMETRII: 
+		x = distanta de la marginea din stanga a canvasului
+		y = distanta de la marginea de sus a canvasului
+		lungRazaCerc = lungimea razei cercului;
+		grdDeInceput = gradele de la care incepem sa trasam cercul
+		grdFinale = gradele de la care terminam de trasat cercul (ele pot fii si sub forma de pi: Math.PI * 2 <=> 360 grd)	
+		ceDirectie = directia in care sa se traseze (poate avea doua valori: true pentru directia ceasului si false invers)
+
+	UTILIZARE:
+		c.beginPath();							// pentru a nu conecta fostele linii cu cercul nostru facem o un nou path	
+		c.arc(x, y, lungCerc, grdDeInceput, grdFinale, ceDirectie);
+		c.strokeStyle = "red";						// coloram cercul (trebuie scris inainte de comanda stroke)
+		c.stroke(); 							// stroke deseneaza cercul
+		
+==================================================ANIMATION==================================================
+
+PENTRU A ANIMA TREBUIE SA FOLOSIM O FUNCTIE SPECIFICA:
+	function animatia() {					// creem o functie care sa provoace animatia
+		requestAnimationFrame(animatia);		// aceasta functie apeleaza functia animatia care la randul ei apeleaza functia animeaza pana cand se incalca conditia pe care am pus-o (ca un loop, iar functia animatia 
+}								poate fii comparata cu un frame care se modifica si care se afiseaza de mai multe ori pt a crea o animatie)
+
+		function animate() {}				
+
+==> ACEASTA ESTE STRUCTURA STANDARD INSA CEA MAI FOLOSITA METODA DE UTILIZARE ESTE PRIN APELAREA PROPRIE DE FIECARE DATA (animatia se creeaza modificand coordonatele x si y folosind o variabile) 
+	function animeaza() {					// creem o functie care sa provoace animatia
+		requestAnimationFrame(animatia);		// aceasta functie se auto apeleaza (daca punem cod sub reqest frame acesta se va repeta fara probleme) 
+		-COD-	
+}	
+
+==> DACA VREM SA TRANSMITEM PARAMETRII IN FUNCTIA requestAnimationFrame:
+  requestAnimationFrame(() => {
+    animate(x, y, xm, ym);
+  });
+
+ex:
+	let x;
+	function animeaza() {
+		requesteAnimationFrame(animeaza);		// se reapeleaza animatia
+	
+		c.clearRect(x, y, width, height);		// aceasta comanda sterge o bucata din canvas care are coordonatele x, y, width, height (sunt fix ca la patrat) daca nu o puneam, ramaneau toate cercurile
+
+		c.arc(x, 0, 20, 0, 360, true);			// creez o forma de cerc
+		c.stroke();					// o desenez
+
+		x++;
+	
+}	
+
+!! innerWidth, innerHeight = latimea si inaltimea ferestrei
+!! Math.random(); = creeaza random orice nr de la 0 la 1  		// spre ex daca vrem sa creem random un nr care sa fie intre coordonatele maxime: let x = Math.random() * innerWidth;
+
+2.ANIMAREA CHARACTERELOR CU FRAMEURI:
+	=> o sa avem nevoie de o imagine transparenta care are toate frameurile necesare
+	
+	let c = canvas.getContext("2d");
+	c.drawImage(imagine, pozSecX, pozSecY, pozSecWidth, pozSecHeight, pozImgX, pozImgY, pozWidth, pozHeight);
+
+	=> parametrii: imaginea care contine toate frameurile, pozitia de la stanga la dreapta din care incepe frameul (de obicei se foloseste nrFrame * widthFrame), analog poz de sus in jos, width ul secventei, height-ul secventei, pozitia de la stanga la dreapta a ecranului de la care incepem sa desenam toata imaginea, analog de sus in jos, width-ul imaginii (se compreseaza), analog height
+
+3.SETAREA DE BACKGROUND TRANSPARENT
+https://www.youtube.com/watch?v=h8IfRewcYns
+
+==================================================INTERACTION==================================================
+
+PENTRU A CREA UN EVENT LISTENER CARE SA DETECTEZE MISCAREA MAUSE-ULUI:
+
+window.addEventListener("mousemove", (event) => {			// eventul va fii mouse-ul
+	console.log(event);						// pentru a afla toate datele despre mouse (precum coordonate culoare ...) putem da console log si ne va arata toate argumentele
+})
+
+DACA CANVASUL NOSTRU NU VA FII FULL SCREEN DUPA RESIZE TREBUIE SA II ATRIBUIM O FUNCTIE;
+
+window.addEventListener("resize", function() {
+	canvas.width = window.innerWidth;
+	canvas.height = window.innerHeight;
+})
+
+site pentru combinatii de culori: kuler
+
+
+CUM SA IEI DATE DINTR-O PAGIN HTML IN ALTA PAGINA HTML (NU MERGE CU IMPORT/EXPORT)
+
+// In page1.html
+localStorage.setItem('data', 'myData');
+
+// In page2.html
+const data = localStorage.getItem('data');
+
+
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+let canvas = document.querySelector("canvas");
+let c = canvas.getContext("2d");
+let character_img = document.querySelector("#character_img");
+let bullet_img = document.querySelector("#bullet_img");
+
+canvas.width = window.innerWidth;
+canvas.height = window.innerHeight;
+
+window.addEventListener("resize", () => {
+  canvas.width = window.innerWidth;
+  canvas.height = window.innerHeight;
+  location.reload();
+});
+
+// CHARACTER
+let character = {
+  hp: 20,
+  raza: 20,
+  x: window.innerWidth / 2 - 20,
+  y: window.innerHeight / 2 - 20,
+  xm: 0,
+  ym: 0,
+  speedAdd: 0.35,
+  frame: 0,
+  i: 0,
+};
+let holdingKeys = [];
+window.addEventListener("keydown", (event) => {
+  if (!holdingKeys.includes(event.key)) holdingKeys.push(event.key);
+});
+window.addEventListener("keyup", (event) => {
+  for (let i = holdingKeys.length - 1; i >= 0; i--) {
+    if (holdingKeys[i] === event.key) {
+      holdingKeys.splice(i, 1);
+    }
+  }
+});
+
+// PROJECTILE
+let projectileArray = [];
+let projectileType = {
+  width: 5,
+  damage: 1,
+  speed: 2.5,
+};
+let mouseX, mouseY;
+window.addEventListener("mousemove", (event) => {
+  mouseX = event.x;
+  mouseY = event.y;
+});
+window.addEventListener("click", () => {
+  projectileArray.push({
+    x: character.x,
+    y: character.y,
+    width: projectileType.width,
+    xm: mouseX - character.x,
+    ym: mouseY - character.y,
+    damage: projectileType.damage,
+  });
+});
+
+// ENEMY
+let enemyArray = [];
+let spawnEnemyTime = 1000;
+let enemyType = {
+  width: 30,
+  damage: 5,
+  speed: 1,
+};
+
+function addEnemy() {
+  let X, Y;
+  if (Math.round(Math.random()) == 1) X = -60;
+  else X = window.innerWidth + 60;
+  if (Math.round(Math.random()) == 1) Y = -60;
+  else Y = window.innerHeight + 60;
+  enemyArray.push({
+    width: enemyType.width,
+    damage: enemyType.damage,
+    hp: 5,
+    speed: enemyType.speed,
+    x: X,
+    y: Y,
+    xm: 0,
+    ym: 0,
+  });
+  setTimeout(addEnemy, spawnEnemyTime);
+}
+addEnemy();
+
+let pozSecY, pozSecX;
+// ALL MOVEMENT
+function animate() {
+  requestAnimationFrame(animate);
+
+  // CHARACTER MOVEMENT
+  if (character.x + character.xm > window.innerWidth - 24) {
+    character.xm = 0;
+    character.x = window.innerWidth - 24;
+  } else if (character.x + character.xm < 20) {
+    character.xm = 0;
+    character.x = 20;
+  }
+  if (character.y + character.ym > window.innerHeight - 24) {
+    character.ym = 0;
+    character.y = window.innerHeight - 24;
+  } else if (character.y + character.ym < 20) {
+    character.ym = 0;
+    character.y = 20;
+  }
+
+  c.clearRect(0, 0, canvas.width, canvas.height);
+  c.beginPath();
+  c.arc(
+    character.x + character.xm,
+    character.y + character.ym,
+    character.raza,
+    0,
+    Math.PI * 2,
+    false
+  );
+
+  character.i++;
+  if (character.i == 5) {
+    character.frame++;
+    if (character.frame > 6) character.frame = 0;
+    pozSecX = character.frame;
+    pozSecY = 0;
+    character.i = 0;
+  }
+  c.drawImage(
+    character_img,
+    pozSecX * 64,
+    pozSecY,
+    64,
+    64,
+    character.x - 45,
+    character.y - 25,
+    100,
+    48
+  );
+
+  let cornerSpeed = character.speedAdd * 0.65;
+  if (
+    holdingKeys.includes("a") &&
+    holdingKeys.includes("s") &&
+    holdingKeys.includes("d") &&
+    holdingKeys.includes("w")
+  )
+    holdingKeys = holdingKeys;
+  else if (
+    holdingKeys.includes("a") &&
+    holdingKeys.includes("s") &&
+    holdingKeys.includes("d")
+  )
+    character.ym += character.speedAdd;
+  else if (
+    holdingKeys.includes("w") &&
+    holdingKeys.includes("s") &&
+    holdingKeys.includes("d")
+  )
+    character.xm += character.speedAdd;
+  else if (
+    holdingKeys.includes("a") &&
+    holdingKeys.includes("w") &&
+    holdingKeys.includes("d")
+  )
+    character.ym -= character.speedAdd;
+  else if (
+    holdingKeys.includes("a") &&
+    holdingKeys.includes("s") &&
+    holdingKeys.includes("w")
+  )
+    character.xm -= character.speedAdd;
+  else if (holdingKeys.includes("w") && holdingKeys.includes("s"))
+    holdingKeys = holdingKeys;
+  else if (holdingKeys.includes("a") && holdingKeys.includes("d"))
+    holdingKeys = holdingKeys;
+  else if (holdingKeys.includes("s") && holdingKeys.includes("d")) {
+    character.ym += cornerSpeed;
+    character.xm += cornerSpeed;
+  } else if (holdingKeys.includes("d") && holdingKeys.includes("w")) {
+    character.ym -= cornerSpeed;
+    character.xm += cornerSpeed;
+  } else if (holdingKeys.includes("w") && holdingKeys.includes("a")) {
+    character.ym -= cornerSpeed;
+    character.xm -= cornerSpeed;
+  } else if (holdingKeys.includes("a") && holdingKeys.includes("s")) {
+    character.ym += cornerSpeed;
+    character.xm -= cornerSpeed;
+  } else if (holdingKeys.includes("w")) character.ym -= character.speedAdd;
+  else if (holdingKeys.includes("a")) character.xm -= character.speedAdd;
+  else if (holdingKeys.includes("s")) character.ym += character.speedAdd;
+  else if (holdingKeys.includes("d")) character.xm += character.speedAdd;
+
+  character.xm = (character.xm / 100) * 93;
+  character.ym = (character.ym / 100) * 93;
+
+  character.x += character.xm;
+  character.y += character.ym;
+
+  // PROJECTILE MOVEMENT
+  projectileArray.forEach((projectile) => {
+    let pozXm, pozYm;
+    if (projectile.xm < 0) pozXm = projectile.xm * -1;
+    else pozXm = projectile.xm;
+    if (projectile.ym < 0) pozYm = projectile.ym * -1;
+    else pozYm = projectile.ym;
+    let max = Math.max(pozXm, pozYm);
+    let imp = max / projectileType.speed;
+    if (imp < 0) imp *= -1;
+
+    if (
+      projectile.x > window.innerWidth + 50 ||
+      projectile.x < -50 ||
+      projectile.y > window.innerHeight + 50 ||
+      projectile.y < -50
+    ) {
+      projectileArray.splice(projectileArray.indexOf(projectile), 1);
+    }
+
+    projectile.x += projectileType.speed * (projectile.xm / imp);
+    projectile.y += projectileType.speed * (projectile.ym / imp);
+    c.beginPath();
+    c.arc(projectile.x, projectile.y, projectile.width, 0, Math.PI * 2, false);
+    c.drawImage(bullet_img, projectile.x, projectile.y);
+  });
+
+  // ENEMY MOVEMENT
+  enemyArray.forEach((enemy) => {
+    enemy.xm = character.x - enemy.x;
+    enemy.ym = character.y - enemy.y;
+
+    let pozXm, pozYm;
+    if (enemy.xm < 0) pozXm = enemy.xm * -1;
+    else pozXm = enemy.xm;
+    if (enemy.ym < 0) pozYm = enemy.ym * -1;
+    else pozYm = enemy.ym;
+    let max = Math.max(pozXm, pozYm);
+    let imp2 = max / enemyType.speed;
+    if (imp2 < 0) imp2 *= -1;
+
+    if (pozXm < 40 && pozYm < 40) {
+      character.hp -= enemy.damage;
+      if (character.hp < 1) console.log(character.hp);
+      enemyArray.splice(enemyArray.indexOf(enemy), 1);
+    }
+
+    projectileArray.forEach((projectile) => {
+      let xDif, yDif;
+      xDif = enemy.x - projectile.x;
+      yDif = enemy.y - projectile.y;
+      if (xDif < 0) xDif *= -1;
+      if (yDif < 0) yDif *= -1;
+      if (xDif < 40 && yDif < 40) {
+        enemy.hp -= projectileType.damage;
+        if (enemy.hp < 1) enemyArray.splice(enemyArray.indexOf(enemy), 1);
+        projectileArray.splice(projectileArray.indexOf(projectile), 1);
+      }
+    });
+
+    enemy.x += enemyType.speed * (enemy.xm / imp2);
+    enemy.y += enemyType.speed * (enemy.ym / imp2);
+    c.beginPath();
+    c.arc(enemy.x, enemy.y, enemy.width, 0, Math.PI * 2, false);
+    c.fillStyle = "red";
+    c.fill();
+  });
+}
+animate();

@@ -1,0 +1,1442 @@
+======================GRAFURI====================
+
+GRAFURI ORIENTATE:
+segmentele se numesc arce;
+iar varfurile unui arc se numesc extremitate initiala si extremitate finala
+multimea E este reprezentata cu paranteze patrate: E = {[3, 4];[2, 3];[1, 2]};
+
+GRAFURI NEORIENTATE:
+segmentele se numesc muchii
+iar varfurile se numesc extremitati
+multimea E este reprezentata cu paranteze rotunde: E = {(1, 2);(2, 3);(3, 4)}
+
+ELEMENTE COMUNE:
+daca exista un arc sau o muchie cu elementele x si y atunci varfurile sunt adiacente si se numesc incidente cu muchia / arcul respectiv
+vom considera ca extremitatile unei muchii / arc sunt distincte (adica graful nu contine bucle)
+
+OBS:
+1. intre oricare doua varfuri ale unui graf poate exista cel mult o muchie / 2 arce. Daca intre doua varfuri exista mai multe muchii / arce atunci structura se numeste multigraf
+
+GRADUL UNUI VARF: 
+Grafurile neorientate:
+	este numarul de muchii / arce care sunt incidente cu varful respectiv (d(x) = grd vf)
+	varful izolat este varful care are gradul 0
+	varful care are gradul mai mare ca 0 se numeste varf terminal
+
+Grafurile orientate:
+	sunt doua tipuri de grade: grad exterior si grad interior
+	gradul interior al lui x este numarul de arce care au ca extremitate initiala pe x ( d+(x) )
+	gradul exterior al lui x este numarul de arce care au ca extremitate finala pe x ( d-(x) )
+		
+SUMA GRADELOR UNUI GRAF:
+Grafurile neorientate: 2 * nr de muchii
+Grafurile orientate: suma gradelor interioare este egala cu suma gradelor exterioare si sunt egale cu numarul arcelor din graf
+
+NUMARUL MAX DE MUCHII: n * (n - 1) / 2 (unde n = nr de pct) pag 12
+
+LANT CICLU DRUM CIRCUIT
+lant este un set de varfuri conectate prin orice fel de arc sau muchie
+ciclu este un lant care se uneste la capete
+drum este un set de varfuri care sunt conectate prin arcuri care duc de la el precedent la urmatorul el.
+circuit este un drum care se uneste la capete
+
+	Toate acestea pot fii:
+		-elementare (daca nu au nici un varf care se repeta)
+		-simple (daca nu au nici o muchie sau arc care sa se repete)
+		-hamiltonian (daca trece prin toate vf. grafului)
+		-eulerian (daca trece prin toate muchiile / arcele grafului)
+
+!lungimea acestora se masoara in nr de muchii / arce
+
+GRAFURI ASOCIATE
+1. graf partial: este un graf care contine o parte din muchiile grafului mare
+
+2. subgraf: este un graf care are o parte din punctele din alt graf si contine toate muchiile care pot fii formate cu acele pct.
+
+3. subgraf partial: contine o parte din punctele din alt graf si o parte din muchiile care pot fii formate cu acele puncte
+
+4. subgraf transpus: este specific grafului orientat; el este identic cu graful mare doar ca toate arcele au sensul inversat.
+
+TIPURI SPECIALE DE GRAFURI
+1. graf complet: oricare 2 varfuri din graf sunt adiacente
+
+2. graf antisimetric: specific grafurilor orientate; daca exista arcul x, y atunci nu exista arcurl y x;
+
+3. graf turneu: un graf orientat complet si antisimetric
+
+4. graf bipartit: este un graf ale carui puncte pot fii impartite in 2 multimi nevida a.i. toate muchiile / arcele au cate o extremitate in fiecare
+multime
+
+5. graf bipartit complet: un graf bipartit este complet daca oricare varf din multimea a este adiacent cu fiecare varf din multimea b
+
+6. graf regulat: specific grafurilor neorientat; toate varfurile sale au acelasi grad
+
+REPREZENTAREA GRAFIURILOR IN MEMORIE
+1. matrice de adiacenta: este o matrice cu proprietatea ca daca a[i][j] = 1 atunci exista muchia / arcul i, j (intr un graf neorientat este simetrica matricea)
+
+2. liste de adiacenta: se va crea o matrice care contine pe fiecare coloana numere formand cu nr coloanei o muchie; pe fiecare coloana pe poz 0 se va retine numarul de muchii / arce ale punctului care este egal cu nr coloanei
+
+3. lista muchiilor si a arcelor: pur si simplu se face o matrice de [128][2] care contine extremitatile fiecarei muchii / arc
+
+OBS: nu exita cel mai bun mod de a reprezenta un graf. Conteaza cum vom prelucra datele ulterior si ce trebuie sa aflam
+a) un mod secundar de a reprezenta un graf este prin matricea tranzitiva. Ea este la fel ca una normala formata din 0 si 1 doar ca daca elementul i apartine unui lant sau drum a[i][i] = 1
+b) matricea inchiderii reflexive si tranzitive este la fel ca cea tranzitiva doar ca ...
+
+CITIREA UNUI GRAF FOLOSIND MATRICEA DE ADIACENTA
+1. se introduc n si m care sunt nr de varfuri si nr de muchii / arce
+2. se citesc apoi m linii pe fiecare fiind 2 nr reprezentand extremitatile muchiilor
+3. la citire, in cazul unui graf neorientat, se va scrie a[i][j] = a[j][i] = 1. In cazul unui graf orientat se va scrie a[i][j] = 1
+
+GRAFURI PONDERATE
+	=> Grafurile ponderate sunt grafuri care au un numar corespunzator al fiecarei muchii / arc (ex: ca un cablu care are un cost si care trebuie tras de la un punct la altul / sau uneori poate fii lungimea dintre cele 2 puncte)
+	REPREZENTAREA LOR:
+	1. in matricea de adiacenta in loc de 1 sau 0 se va pune costul adica: a[i][j] reprezinta costul muchiei i j
+	2. ...
+	3. in lista muchiilor care are 2 coloane se va adauga inca o coloana pentru costul muchiilor
+
+PARCURGEREA GRAFURILOR
+	=> sunt 2 mari metode de parcurgere a grafurilor: parcurgerea in adancime si parcurgerea in latime
+	PARCURGEREA IN ADANCIME: se alege un nod de start apoi mergem, folosind backtracking, la fiecare varf vecin (vecin = are o muchie / arc de la punctul actual la el) nevizitat. Varfurile cu cat sunt mai mici in numar, cu atat se vor vizita primele avand prioritate. Varfurile vizitate vor fii puse intr un vector in ordinea vizitarii.
+	PARCURGEREA IN LATIME: se alege un nod de start apoi se viziteaza vecinii nevizitati apoi vecinii vecinilor nevizitati s.a.m.d. pana cand s au vizitat toti. De asemenea se foloseste prioritatea in functie de numar (se va gasi cel mai rapid drum dintre oricare 2 elemente folosind metoda asta)
+
+CONEXITATE
+	=> un graf se numeste conex daca are un lant intre oricare 2 puncte (adica sa se ajunga din orice punct in orice punct (nu neaparat drum la grafurile orientate)) 
+	=> COMPONENTA CONEXA MAXIMALA este un subgraf conex maxim la care daca i am mai adauga oricare alt punct din graf, nu ar mai fii conex
+	=> componentele conexe ale unui graf sunt disjuncte, adica nu au puncte comune
+
+OBS: pentru a parcurge un graf in adancime (pentru a verifica daca este bipartit sau aciclic etc...) trebuie sa parcurgem fiecare componenta conexa
+
+TARECONEXITATE 
+	=> un graf orientat care are un drum intre oricare 2 puncte se numeste tare-conex
+	=> COMPONENTA TARE-CONEXA MAXIMALA este un subgraf tare-conex maxim (la fel ca la conexitate)
+
+ARBORI
+	=> UN GRAF NEORIENTAT CONEX SI ACICLIC SE NUMESTE ARBORE
+	=> UN GRAF NEORIENTAT ACICLIC SI NECONEX SE NUMESTE PADURE
+OBS: fiecare componenta conexa a unui graf aciclic neconex (padure) este un arbore
+
+Teorema de caracterizare a arborilor:
+	=> fie G un graf neorientat cu n varfuri. Urmatoarele afirmatii sunt echivalente:
+1. G este arbore
+2. oricare 2 puncte din G sunt unite printr un lant simplu unic
+3. G este conex minimal
+4. G este conex si are n - 1 muchii
+5. G este aciclic si are n - 1 muchii
+6. G este aciclic maximal
+
+Teorema: 0 <= d2 <= d3 ..... <= dn (fie d urile gradele fiecarui punct al unui graf cu n puncte). Graful este arbore doar daca d1 + d2 + d3 + ... + dn = 2n - 2
+
+Cu n varfuri se pot construi n ^ (n - 2)
+
+GASIREA FIECARUI ARBORE PARTIAL DINTR UN GRAF CONEX
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int m, n, matrice[64][64] = {{0}}, viz[64] = {0}, muchii[128][2];
+
+void initializare()
+{
+  fstream file;
+  file.open("info.txt", ios::in);
+  file >> m >> n;
+  for (int i = 0; i < n; i++)
+  {
+    int x, y;
+    file >> x >> y;
+    matrice[x][y] = 1;
+    matrice[y][x] = 1;
+  }
+}
+
+void afisare()
+{
+  cout << endl;
+  for (int i = 0; i < m - 1; i++)
+    cout << muchii[i][0] << " " << muchii[i][1] << "  ";
+}
+
+void generare(int k, int punct)
+{
+  if (k == m - 1)
+  {
+    afisare();
+    return;
+  }
+  viz[punct] = 1;
+  for (int i = 1; i <= m; i++)
+    if (matrice[punct][i] == 1 && viz[i] == 0)
+    {
+      muchii[k][0] = punct;
+      muchii[k][1] = i;
+      generare(k + 1, i);
+    }
+  viz[punct] = 0;
+}
+
+int main()
+{
+  initializare();
+  generare(0, 1);
+}
+
+
+6 7
+1 2 
+2 3
+3 5 
+3 6
+4 5
+4 6
+1 6
+
+DETERMINAREA ARBORELUI PARTIAL DINTR UN GRAF CONEX FOLOSIND PARCURGEREA IN ADANCIME SI IN LATIME 
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int m, n, matrice[64][64] = {{0}}, viz[64] = {0}, vf;
+
+void initializare()
+{
+  fstream file;
+  file.open("info.txt", ios::in);
+  file >> m >> n;
+  for (int i = 0; i < n; i++)
+  {
+    int x, y;
+    file >> x >> y;
+    matrice[x][y] = 1;
+    matrice[y][x] = 1;
+  }
+  file >> vf;
+  file.close();
+}
+
+void generareBFS(int k, int punct)
+{
+  if (k == m - 1)
+    return;
+  viz[punct] = 1;
+  for (int i = 1; i <= m; i++)
+    if (matrice[punct][i] == 1 && viz[i] == 0)
+    {
+      cout << punct << " " << i << "  ";
+      generareBFS(k + 1, i);
+      break;
+    }
+  viz[punct] = 0;
+}
+
+int stiva[128], fi = 0, ls = 0;
+
+void verificarePct(int punct, int &ls2)
+{
+  for (int i = 1; i <= m; i++)
+    if (viz[i] == 0 && matrice[punct][i] == 1)
+    {
+      viz[i] = 1;
+      ls2++;
+      stiva[ls2] = i;
+      cout << punct << " " << i << "  ";
+    }
+}
+
+void generareDFS()
+{
+  int ls2 = ls;
+  for (int i = fi; i <= ls; i++)
+  {
+    verificarePct(stiva[i], ls2);
+  }
+  fi = ls + 1;
+  ls = ls2;
+  if (ls > fi)
+    generareDFS();
+}
+
+int main()
+{
+  initializare();
+  generareBFS(0, vf);
+  cout << endl;
+  viz[vf] = 1;
+  stiva[0] = vf;
+  generareDFS();
+}
+
+
+6 7
+1 2 
+2 3
+3 5 
+3 6
+4 5
+4 6
+1 6
+
+
+ARBORI PARTIALI DE COST MINIM
+	=> in practica deseori se cauta variantele cele mai eficiente din punct de vedere al costului
+	=> costul este suma tuturor muchiilor
+	=> costul minim se produce atunci cand luam cel mai mic nr de muchii (arbori)
+
+	ALGORITMI
+		=> algoritmul lui Kruskal: pt a determina un arbore partial de cost minim se considera initial ca arborele nu are nici o muchie. La fiecare pas al algoritmului se ia cea mai ieftina muchie care nu creeaza cicluri si se pune.
+
+		=> algoritmul lui Prim: funcționează pornind de la un nod sursă și adăugând pe rând cea mai mică muchie care leagă un nod deja inclus în arbore de un nod neinclus, astfel încât să nu se formeze cicluri. Procesul continuă până când toate nodurile sunt incluse în arbore.
+
+BICONEXITATE
+	=> punct de articulatie (daca il eliminam graful nu mai e conex)
+	=> un graf biconex nu are puncte de articulatie
+	=> un algoritm este sa eliminam fiecare punct si sa vedem daca mai e conex ceea ce a ramas
+
+DESCOMPUNEREA PE NIVELURI A UNUI GRAF FARA CIRCUITE
+	=> se verifica fiecare punct din graf. Cele care au grad interior 0 se elimina. Acest lucru se repeta pana nu mai raman puncte in graf marindu se de fiecare data nivelul
+
+SORTARE TIPOLOGICA
+	=> se alege punctul cu gradul interior cel mai mic, se pune in lista si se elimina. acest procedeu se repeta pana cand nu mai ramane nici un punct. Va rezulta o sortare a punctelor
+
+GRAFURI HAMILTONIENE
+	=> un graf este hamiltonian daca contine un ciclu / circuit hamiltonian (trece prin toate punctele)
+	=> teorema lui ore spune ca daca intru un graf  neorientate cu n > 2 varfuri daca suma gradelor oricaror doua varfuri neadiacente din graf este >= n atunci graful este hamiltonian
+
+GRAFURI EULERIENE
+	=> un graf este eulerian daca contine un ciclu / circuit eulerian (un ciclu eulerian trece prin toate muchiile)
+	=> un graf este eulerian daca nu are varfuri izolate, este conex si toate varfurile sale au grad par (gradul interior este egal cu gradul exterior)
+
+DRUMURI MINIME IN GRAF
+	=> un drum minim intr un graf este cel mai ieftin drum de la un punct la altul
+	=> algoritm: (algoritmul lui Dijkstra)
+
+RETELE DE TRANSPORT
+	=> retea de transport are urmatoarele:
+		- exista un singur varf care are grad interior 0
+		- exista un singur varf care are grad exterior 0
+		- graful este conex si exista drumuri de la varful sursa la cel destinatie
+		- fiecare arc are o capacitate (fostul cost)
+
+	=> flux in retea de transport: este ca un numar de masini iar arcele sunt ca strazile 
+	=> algoritm: se gaseste fiecare drum de la sursa la destinatie si se retine capacitatea minima si laturile parcurse. Dupa ce a fost gasit fiecare capacitate a tuturor drumurilor se scade cu capacitatea minima. Capacitatea minima se adauga la fluxul total al grafului 
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int m, n, matriceAdiacenta[64][64] = {{0}}, sursa, destinatie, fluxTotal = 0;
+
+void initializare()
+{
+  fstream file;
+  file.open("info.txt", ios::in);
+  file >> m >> n;
+  for (int i = 0; i < n; i++)
+  {
+    int x, y, f;
+    file >> x >> y >> f;
+    matriceAdiacenta[x][y] = f;
+  }
+  file >> sursa >> destinatie;
+  file.close();
+}
+
+int drumCurent[64][2], lungimeDrumCurent = 0;
+
+void generareDrumuri(int pct, int fluxMinim)
+{
+  if (pct == destinatie)
+  {
+    for (int i = 0; i < lungimeDrumCurent; i++)
+      matriceAdiacenta[drumCurent[i][0]][drumCurent[i][1]] -= fluxMinim;
+    fluxTotal += fluxMinim;
+    return;
+  }
+  for (int i = 1; i <= m; i++)
+  {
+    if (matriceAdiacenta[pct][i] != 0)
+    {
+      drumCurent[lungimeDrumCurent][0] = pct;
+      drumCurent[lungimeDrumCurent][1] = i;
+      lungimeDrumCurent++;
+      if (matriceAdiacenta[pct][i] < fluxMinim)
+        generareDrumuri(i, matriceAdiacenta[pct][i]);
+      else
+        generareDrumuri(i, fluxMinim);
+      lungimeDrumCurent--;
+    }
+  }
+}
+
+int main()
+{
+  initializare();
+  generareDrumuri(sursa, 1000);
+  cout << fluxTotal;
+}
+
+
+7 11
+1 2 20
+1 6 5
+1 3 2
+2 5 4
+2 6 3
+3 7 8
+3 4 9
+4 7 20
+5 7 3
+6 3 4
+6 5 40
+1 7
+
+
+CUPLAJ MAXIMAL IN GRAF BIPARTIT
+	---
+
+
+COD DE 7 ORE CARE FACE PROBLEMA LATERNA PAG 121 CARTEA 3
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+int numarPuncte, numarMuchii, matriceAdiacenta[64][64] = {{0}};
+int punctePrietene[64], puncteGasite[64], puncteCosturi[64], punctePre[64], puncteCosturiFinale[64];
+
+void initializare()
+{
+  ifstream file("info.txt");
+  file >> numarPuncte;
+  for (int i = 1; i <= numarPuncte; i++)
+  {
+    file >> punctePrietene[i];
+    puncteGasite[i] = 0;
+    punctePre[i] = 0;
+    puncteCosturi[i] = 9999;
+    puncteCosturiFinale[i] = 0;
+  }
+  file >> numarMuchii;
+  for (int i = 1; i <= numarMuchii; i++)
+  {
+    int x, y, c;
+    file >> x >> y >> c;
+    matriceAdiacenta[x][y] = c;
+    matriceAdiacenta[y][x] = c;
+  }
+  file.close();
+  puncteCosturi[1] = 0;
+  puncteCosturiFinale[1] = 0;
+}
+
+int gasirePunct()
+{
+  int punctMinim = -1, valoareMinima = 10000;
+  for (int i = 1; i <= numarPuncte; i++)
+    if (puncteCosturi[i] < valoareMinima && puncteGasite[i] == 0)
+    {
+      punctMinim = i;
+      valoareMinima = puncteCosturi[i];
+    }
+  return punctMinim;
+}
+
+void prelucrarePuncte(int punct)
+{
+  puncteGasite[punct] = 1;
+  for (int i = 1; i <= numarPuncte; i++)
+  {
+    if (matriceAdiacenta[punct][i] != 0 && puncteGasite[i] == 0)
+    {
+      int costulIdentificat;
+      if (punctePrietene[punct] == 1)
+        costulIdentificat = matriceAdiacenta[punct][i];
+      else
+        costulIdentificat = matriceAdiacenta[punct][i] + puncteCosturi[punct];
+      if (costulIdentificat < puncteCosturi[i])
+        puncteCosturi[i] = costulIdentificat;
+      int costulMaxim;
+      if (costulIdentificat > puncteCosturiFinale[punct])
+      {
+        puncteCosturiFinale[i] = costulIdentificat;
+        punctePre[i] = punct;
+      }
+      else
+      {
+        puncteCosturiFinale[i] = puncteCosturiFinale[punct];
+        punctePre[i] = punct;
+      }
+    }
+  }
+}
+
+int main()
+{
+  initializare();
+  prelucrarePuncte(1);
+  for (int i = 1; i < numarPuncte; i++)
+    prelucrarePuncte(gasirePunct());
+  cout << puncteCosturiFinale[numarPuncte];
+}
+
+
+7 
+1 0 1 0 0 0 0
+7
+1 2 3
+1 4 5
+2 3 3
+4 3 1
+3 6 3
+6 5 2
+5 7 1
+
+
+LUCRURI IMPORTANTE
+
+https://www.youtube.com/watch?v=pnhGOznp0UM        CLASE SI OBIECTE!!!
+!!!STRUCT ESTE CA O CASA CARE NU ARE PUBLIC SI PRIVAT. BY DEFAULT TOATE ELEMENTELE SUNT PUBLIC (STRUCT SE FOLOSESTE MAI MULT CAND STOCAM STRUCTURI DE DATE IAR CLASE FOLOSIM ATUNCI CAND TREBUIE SA DETINEM INFORMATII DESPRE CASE MASINI OAMENI ETC) OARECUM  https://www.youtube.com/watch?v=IW16boBvQpc&t=85s
+
+
+typedef int e_t			// _t este o conventie pentru typedef
+e_t numeVarInitia		// putem declara in modul in care s-a declarat e_t folosind e_t
+
+
+int variabila = 15;
+
+int* pointer;			// am creat un pointer 	!! semnul * este specific pointerelor iar semnul & este specific adreselor
+pointer = &variabila; 		// pointerul arata catre adresa variabilei
+
+int& referinte = variabila;	// am creat o referinta si am initializat o. Diferenta dintre cele doua este ca referinta est ca un pointer care se initializeaza o data
+
+daca avem un poiter care contine adresa unui obiect nu putem folosi: pointer.numeObiect ci trebuie sa folosim  pointer->numeObiect  (sageata a apariut pentru a ocoli scrierea complicata (*pointer).numeObiect )
+
+
+
+======================LISTE INLANTUITE====================
+
+LISTE SIMPLU INLANTUITE
+
+!! elementele listelor se numes noduri. Nodurile au 2 elemente: informatia nodului si un pointer care indica urmatorul element din lista (ultimul element din lista are un pointer nul)
+	OPERATII FUNDAMENTALE:
+	1. inserarea unui nod in lista
+	2. stergerea unui nod din lista
+	3. consultarea unei liste
+
+INSERAREA
+	=> pentru inserare vom insera o functie care implementeaza noduri (insert va avea 3 parametrii:)
+			1. prim = pointer care contine adresa nodului urmator (pe care trebiue sa il aiba)
+			2. p = pointer care care contine adresa nodului pe care il introducem acum
+			3. x = informatia nodului care urmeaza sa fie inserat in lista
+
+
+INSERARE SI ELIMINARE LA INCEPUT DE LISTA INLANTUITA
+
+#include <iostream>
+using namespace std;
+
+struct masini
+{
+  int info;
+  masini *curent;
+  masini *urmator;
+};
+
+void afisare(masini *head)
+{
+  masini *adresa = head->curent;
+  while (adresa != NULL)
+  {
+    cout << adresa->info << " ";
+    adresa = adresa->urmator;
+  }
+  cout << endl;
+}
+
+void insertLaInceput(masini *&head, int informatii)
+{
+  masini *masinaNoua = new masini;
+  masinaNoua->info = informatii;
+  masinaNoua->curent = masinaNoua;
+  masinaNoua->urmator = head->curent;
+
+  head = masinaNoua;
+}
+
+void eliminareLaInceput(masini *&head)
+{
+  masini *deleteHead = head;
+  head = head->urmator;
+  delete deleteHead;
+}
+
+int main()
+{
+  masini *head = new masini;
+  head->info = 1;
+  head->curent = head;
+  head->urmator = NULL;
+  insertLaInceput(head, 2);
+  insertLaInceput(head, 3);
+  eliminareLaInceput(head);
+  insertLaInceput(head, 4);
+  afisare(head);
+}
+
+
+
+==============================STRUCTURI DE DATE ARBORESCENTE===============================
+
+
+PENTRU A CREA O IERARHIE A INFORMATIILOR, ELE S AU GRUPAT IN STRUCTURI DE DATE ARBORESCENTE 
+STRUCTURA SEAMANA CU UN ARBORE GENEALOGIC (AU RELATII DINTRE NODURI ASEMANATOARE)
+
+TERMINOLOGIE
+	=> acesti arbori se numesc arbori cu radacina
+	=> nodurile descendente sunt nodurile care stau pe un nivel mai inaintat in arbore
+	=> nivelul radacinii este 0
+	=> nodurile descendente pot forma alti subarbori
+	=> nodul parinte este un nod care are nivelul mai mic cu 1 decat nodul fiu
+	=> doua noduri sunt frati daca au acelasi parinte
+	=> daca este un drum de la y la x atunci y este ascendent sau stramos al lui x
+	=> daca un nod nu are ascendenti acesta se numeste nod terminal sau frunza
+	=> inaltimea este un nivelul maxim al arborelui
+
+ARBORI BINARI
+	=> un arbore binar este un arbore care are fiecare nod are cel mult 2 subarbori
+	=> fiecare subarbor se numeste fiu stag sau drept
+	TIPURI SPECIALE DE ARBORI BINARI:
+		=> arbore binar strict: daca oricare nod are exact 2 subarbori sau este terminal
+		=> arbore binar plin: daca oricare nod are exact 2 subarbori (este inic in functie de inaltime)
+		=> arbore binar complet: este exact ca unul plin doar ca de pe ultimul nivel se elimina cateva noduri
+		=> arbore biar degenerat: are n noduri dispuse pe n niveluri
+		=> arbore binar echilibrat: daca numarul de noduri din subarborele stang este mai mare sau mai mic decat numarul nodurilor din subarborele drept al oricarui nod
+
+REPREZENTAREA ARBORILOR CU RADACINA
+
+	1.REPREZENTAREA CU REFERINTE DESCENDENTE
+		=> se va crea un struct care detine informatia fiecarui nod al arborelui
+		ex: arbore in general
+		struct nod
+		{
+			int nr;
+			struct nod *fii[nrMaxFii];
+		}
+		(struct nod *radacina;		// prin aceasta referinta avem acces la toate nodurile avem dubla referinta)
+	
+		ex: arbore binar
+		struct nod
+		{
+			int nr;
+			struct nod *fiuStang, *fiuDrept;
+		}
+	
+	2.REPREZENTAREA CU REFERINTE ASCENDENTE
+		=> se va crea un vector (asemanator cu cel pre[]) in v[i] este parintele lui i
+
+	3.REPREZENTAREA FIU-FRATE (o gasesc in cartea a 3 a la pag 173)
+
+	3.REPREZENTAREA SECVENTIALA
+		=> este folosita in cazul orborilor binari completi deoarece:
+			-fiul stang a lui x este 2 * x
+			-fiul drept al lui x este 2 * x + 1
+			-nodul parinte a lui x este x / 2
+
+CREAREA UNUI ARBORE BINAR
+	=> 2 PROCEDURI PREZENTATE PENTRU FIECARE MOD DE REPREZENTARE
+
+	1. se creeaza o functie recursiva care creeaza un nod si ii atribuie numarul si informatia oferita de utilizator. Daca are nod drept sau stang se da run la functie din nou pentru fiecare caz in caz afirmativ
+	ex:
+	struct nod
+	{
+	  int nr;
+	  nod *stang, *drept;
+	};
+	
+	nod *Creare()
+	{
+	  char c;
+	  nod *nodNou = new nod;
+	  cout << "Informatia nodului: ";
+	  cin >> nodNou->nr;
+	  cout << "Exista fiu stang? (d/n) ";
+	  cin >> c;
+	  if (c == 'd')
+	    nodNou->stang = Creare();
+	  else
+	    nodNou->stang = NULL;
+	  cout << "Exista fiu drept? (d/n) ";
+	  cin >> c;
+	  if (c == 'd')
+	    nodNou->drept = Creare();
+	  else
+	    nodNou->stang = NULL;
+	  return nodNou;
+	}
+
+	2. e o prostie doar pt arborele binar echilibrat
+
+PARCURGEREA ARBORILOR BINARI
+
+	1.PARCURGEREA IN ADANCIME
+		=> se creeaza o functie care ia ca parametru un nod al arborelui (prima data se da call cu nodul de start); sunt 3 operatii: afisarea informatiei nodului curent, se da call functiei cu fiul drept, se da call functiei cu fiul stang
+		=> sunt trei tipuri de afisare: preordine inordine postordine (diferenta este ordinea celor 3 operatii)
+			afisare
+			call st
+			call dr
+
+			call st
+			afisare
+			call dr
+
+			call st
+			call dr
+			afisare
+
+	2.PARCURGEREA PE NIVELURI
+		=> aceasta parcurgere este asemanatoare cu parcurgerea in latime (se viziteaza mai intai fiecare nod de rang x si se salveaza intr o lista fiecare nod de rang x + 1 si apoi din nou se parcurg etc..)
+
+DETERMINAREA INALTIMII UNUI ARBORE
+	=> daca arborele este vid se considera prin conventie ca inaltimea sa este de -1 (se parcurge pe niveluri)
+
+
+
+==============================HEAP-URI===============================
+
+EXPLICATII
+	=> ESTE UN MOD DE A FOLOSI ARBORII SELECTAND INFORMATIILE URMARIND UN ANUMIT OPTIM
+	=> exemple: max heap in care toate nodurile au fii cu numar mai mic
+		    min heap in care toate nodurile au fii cu numar mai mare
+
+CREAREA UNUI HEAP PRIN INSERARI SUCCESIVE
+	=> se colecteaza informatiile despre un arbore stocat sub forma secventiala si se modifica astfel incat sa devina heap(se pune element cu element iar daca elementul are parintele mai mic atunci se schimba cu acesta pana cand nu mai e mai mic)
+
+CREAREA UNUI HEAP PRIN COMBINARI SUCCESIVE
+	=> TOTAL USELESS (PAG 189)
+
+EXTRAGEREA VALORII MAXIME A UNUI HEAP
+	=> se schimba in reprezentarea secventiala a heapului primul element (adica radacina) cu ultimul element si se scade cu 1 lungimea reprezentarii (adica eliminam ultimul element). Dupa ce s a extras, refacem heapul folosing inserarile succesive
+
+HEAP SORT
+	=> o aplicatie a heapurilor este sortarea unui vector (heapSort)
+	=> este optim in cazul in care elementele sunt in cele mai nefavorabile locuri
+	=> cartea nu explica cum trebuie
+
+COZI CU PRIORITATE
+	=> cea mai utilizata aplicatie
+	=> o coada cu prioritate este o structura de date care are o valoare numita cheie sau prioritate si care suporta 2 operatii
+		a) insert: insereaza elementul x in coada cu prioritate q
+		b) extractMax: extrage din coada cu prioritate q elementul de valoare maxima si returneaza valoarea acestui element
+	ex: calculatoarele trebuie sa execute programele urmand o anumita prioritate. Adaugarea unui program se realizeaza prin insert. Heap ul este cela mai eficienta structura de date care poate sa faca asta.
+
+MIN MAX HEAP
+  => un mix max heap este un heap care are niveluri care contin parinti care sunt mai mari decat fii lor sau mai mici (pe primul nivel 
+    parintii sunt de tip min iar alternativ se schimba intre min si max)
+  => in practica se folosesc structurile de date numite cozi cu dubla prioritate (min max heap)
+    acestea au urmatoarele functii:
+      -insert: insereaza elementul x in coada cu prioritate q;
+          -aceasta se face prin acelasi procedeu prin care se insereaza in heapul normal, doar ca conditia de promovare se modifica in functie de tipul parintelui
+      -extractMax: extrage din coada de prioritate q elementul de valoare maxima
+          -aceasta se face prin acelasi procedeu prin care se extrage din heapul normal doar ca elementul extras este fiul cel mai mare al radacinii
+           (se schimba cu ultimul element si se scade lungimea heapului cu 1 si apoi se reface heapul min max retrogradand elementul modificat)
+      -extractMin: extrage din coada de prioritate q elementul de valoare maxima
+          -aceasta se face la fel ca la maxim doar ca mai simplu deoarece elementul minim este pe nivelul 0; procedeul este la fel
+
+ARBORI BINARI DE CAUTARE
+  => este o structura fundamentala in inforamtica deoarece este folosita in foarte mult aplicatii in care este necesara o gasire
+  a datelor eficienta dintr o multime mare. Acest lucru se poate face creand structuri de date care au o cheie specifica cu care 
+  informatia cautata se poate identifica
+    ex: gasirea unui cuvant in dictionar se face verificand cuvantul cautat stiind primele 2 litere ale lui. Din toate multimile
+    se vor selecta cele care au cheia care reprezinta datele care au prima litera dorita si din acestea, pe cele care au cheia care
+    este reprezentata pentru cele ceare au a doua litera corespunzatoare
+  
+  => un arbore binar de cautare are urmatoarele caracteristici:
+      a) pentru orice nod x, cheile nodurilor din subarborele stang al lui x sunt mai mici decat cheia lui x
+      b) pentru orice nod x, cheile nodurilor din subarborele drept al lui x sunt mai mari decat cheia lui x
+
+  obs: pentru parcurgerea inordine a arborilor binari de cautare vom obtine numere ordonate crescator
+
+DICTIONAR
+  => este o structura de date care suporta 3 operatii:
+    a) search(x): cauta cheia x din structura de date
+    b) insert(x): insereaza cheia x in structura de date daca este posibil (cheia x nu se gaseseste deja in structura de date)
+    c) delete(x): sterge cheia x din structura de date, daca este posibil(cheia x se gaseste in structura de date)
+
+CAUTAREA IN DICTIONAR
+  => comparam cheia cautata cu cheia nodului curent. Daca cheia nodului curent este egala cu cheia cautata ne oprim. Daca 
+  cheia cautata este mai mica decat nodul curent dam call la aceeasi functie in mod recursiv la subarborele stang. Daca cheia
+  cautata este mai mare decat nodul curent dam call la aceeasi functie in mod recursiv la subarorele drept. Functia returneaza
+  in cazul in care s a gasit nodul cu cheia cautata, adresa nodului, in caz contrar returneaza NULL
+  => algoritmul este foarte eficient
+
+INSERAREA IN DICTIONAR
+  => cautam nodul pe care vrem sa il inseram. Daca nu l am gasit atunci il inseram ca fiu stang sau drept a ultimului nod gasit
+
+STERGEREA DIN DICTIONAR
+  => cautam nodul si dupa ce l am gasit avem 3 variante:
+        1. nu are niciun fiu: inlocuim legatura spre acesta cu nullptr si il stergem din MEMORIE
+        2. are un fiu: inlocuim legatura spre el cu legatura care duce spre fiul sau
+        3. are 2 fii: cautam nodul cu cheia cea mai mare din subarborele stang si schimbam cheia acestuia cu cheia nodului pe care vrem sa il stergem.
+dupa asta stergem nodul cu cheia maxima prin procedeul de la punctul 2 pt ca el nu are fiu drept
+
+
+
+CELE 3 FUNCTII:
+
+#include <iostream>
+#include <fstream>
+using namespace std;
+
+struct nod
+{
+  int cheie = -1;
+  nod *fiuStang = nullptr;
+  nod *fiuDrept = nullptr;
+  nod *parinte = nullptr;
+};
+nod *head = new nod;
+
+nod *cautareCheie(int cheieCautata, nod *nodCurent = head)
+{
+  if (nodCurent->cheie == cheieCautata)
+    return nodCurent;
+  else if (nodCurent->cheie > cheieCautata)
+  {
+    if (nodCurent->fiuStang == nullptr)
+      return nodCurent;
+    else
+      cautareCheie(cheieCautata, nodCurent->fiuStang);
+  }
+  else
+  {
+    if (nodCurent->fiuDrept == nullptr)
+      return nodCurent;
+    else
+      return cautareCheie(cheieCautata, nodCurent->fiuDrept);
+  }
+}
+
+nod *inserareNod(int cheieInserata)
+{
+  nod *parinte = cautareCheie(cheieInserata, head);
+  if (parinte->cheie == cheieInserata)
+    cout << "A fost introdus deja.";
+  else
+  {
+    if (cheieInserata > parinte->cheie)
+    {
+      nod *nouFiuDrept = new nod;
+      nouFiuDrept->cheie = cheieInserata;
+      nouFiuDrept->parinte = parinte;
+      parinte->fiuDrept = nouFiuDrept;
+      return nouFiuDrept;
+    }
+    else
+    {
+      nod *nouFiuStang = new nod;
+      nouFiuStang->cheie = cheieInserata;
+      nouFiuStang->parinte = parinte;
+      parinte->fiuStang = nouFiuStang;
+      return nouFiuStang;
+    }
+  }
+}
+
+nod *cautareMax(nod *nodCurent)
+{
+  if (nodCurent->fiuDrept != nullptr)
+    return cautareMax(nodCurent->fiuDrept);
+  else
+    return nodCurent;
+}
+
+int stergereNod(int cheieNod)
+{
+  nod *nodul = cautareCheie(cheieNod);
+  if (nodul->cheie == cheieNod)
+  {
+    if (nodul->fiuDrept == nullptr && nodul->fiuStang == nullptr)
+    {
+      if (nodul->parinte->fiuDrept == nodul)
+        nodul->parinte->fiuDrept = nullptr;
+      else if (nodul->parinte->fiuStang == nodul)
+        nodul->parinte->fiuStang = nullptr;
+      delete nodul;
+    }
+    else if (nodul->fiuDrept == nullptr && nodul->fiuStang != nullptr || nodul->fiuDrept != nullptr && nodul->fiuStang == nullptr)
+    {
+      if (nodul->parinte->fiuDrept == nodul)
+      {
+        if (nodul->fiuStang != nullptr)
+          nodul->parinte->fiuDrept = nodul->fiuStang;
+        else if (nodul->fiuDrept != nullptr)
+          nodul->parinte->fiuDrept = nodul->fiuDrept;
+        delete nodul;
+      }
+      else if (nodul->parinte->fiuStang == nodul)
+      {
+        if (nodul->fiuStang != nullptr)
+          nodul->parinte->fiuStang = nodul->fiuStang;
+        else if (nodul->fiuDrept != nullptr)
+          nodul->parinte->fiuStang = nodul->fiuDrept;
+        delete nodul;
+      }
+    }
+    else if (nodul->fiuDrept != nullptr && nodul->fiuStang != nullptr)
+    {
+      nod *max = cautareMax(nodul->fiuStang);
+      swap(max->cheie, nodul->cheie);
+      stergereNod(max->cheie);
+    }
+    return 1;
+  }
+  else
+    return 0;
+}
+
+nod *cautareCheieAfisare(int cheieDeCautat)
+{
+  nod *nodul = cautareCheie(cheieDeCautat);
+  if (nodul->cheie == cheieDeCautat)
+    return nodul;
+  else
+    return nullptr;
+}
+
+int main()
+{
+  head->cheie = 10;
+  inserareNod(11);
+  inserareNod(12);
+
+  stergereNod(12);
+
+  cout << cautareCheieAfisare(11)->cheie;
+}
+
+
+ARBORI BINARI DE CAUTARE OPTIMALI
+  => arborii binari pot fii facuti in moduri diferite. Cei mai optimi au:
+  a) subarborele stang al radacinii are diferenta cat mai mica de nivel in comparatie cu subarborele drept al radacinii
+
+
+REPREZENTAREA MULTIMILOR DISJUNCTE
+  => fiind data o multime, se pot forma alte submultimi ale acesteia. Aceste submultimi sunt create in functie de niste criterii. 
+  => aceasta structura de date are 2 functii:
+    a) find(x): gaseste multimea din care face parte x
+    b) union(s1, s2): uneste cele 2 multimi transmise ca parametru (in loc de s1 si s2 se creeaza s3)
+
+    ex: in cazul unei paduri in care multimea reprezinta toate punctele iar submultimile reprezinta toti arborii. Prin functia 
+  find se gaseste arborele care cuprinde nodul cautat iar functia union ii atribuie radacinii inca un fiu care este radacina celei
+  de a doua multime
+
+  OBS: aceste atribuiri si modificari se pot face in mod optim respectand niste reguli
+    1. regula de pondere: daca numarul de niveluri din arborele cu radacina i este mai mic decat numraul de niveluri din arborele cu radacina
+    j atunci j va deveni parintele lui i. Altfel i va de veni parintele lui j
+    2. regula de compresie: orice nod y de pe drumul de la radacina arborelui la nodul x va deveni fiu al radacinii arborelui
+
+
+ARBORI DE COMPRESIE HUFFMAN
+  => de multe ori in practica avem fisiere care contin date care sunt reprezentate printr un cod complex binar (de 1 si 0). In cazul in care
+  un caracter apare de multe ori in acel cod, este inutil sa il reprezentam in forma lui standard deoarece necesita foarte multi biti.
+  => pentru a compresa datele le putem modifica codul binar cu unul mult mai scurt. Acest lucru poate eficientiza stocarea cu 20 - 90%
+  => un mod eficient de a codifica informatiile este prin arborii lui HUFFMAN
+
+  EXPLICATIE: citeste fiecare caracter din fisier si creeaza un arbore pentru fiecare in parte. De asemenea, se memoreaza frecventa caracterului
+  cu care apare in fisier. Arborul HUFFMAN se creeaza unind arborii caracterelor care apar cel mai rar. Arborii caracterelor care apar cel mai rar formeaza 
+  subarborele drept si stang al unui nou arbore care are ca radacina un nou nod care retine suma aparitiilor celor 2 caractere. Se unesc pe rand toti arborii formand 
+  un arbore binar care este si heap maxim deoarece fiecare nod este suma fiilor sai.
+    Aflarea codului fiecarui caracter se face monitorizand drumul de la radacina grafului pana la el tinand cont ca de fiecare data
+  cand mergem in subarborele drept se adauga 1 iar daca mergem in subarborele stang se adauga 0 in codul binar. Fiecare caracter este o 
+  frunza a grafului HUFFMAN
+    Decodificarea se face prin codul binar al fisierului si prin arborele HUFFMAN dupa care s a facut codificare. Se citeste numar cu
+  numar si se parcurge in stanga daca numarul este 0 si in dreapta daca numarul este 1. Cand s a ajuns la o frunza (adica la un caracter) se salveaza acesta si
+  se ia de la capat parcurgerea. Acest lucru se intampla pana am parcurs tot codul binar.
+    Pentru a stoca codul binar rezultat se va face o scriere speciala si mai complicata in fisier. Nu se considera a fii binar un
+  cod de 0 si 1 scris in mod normal intr un fisier de tip text si automat nu se salveaza biti ba char se pierd.
+
+
+DINTR UN FISIER (INFO1.TXT) SE PREIA TEXTUL SI SE CODIFICA (INFO2.TXT)
+
+#include <iostream>
+#include <fstream>
+#include <unordered_map>
+using namespace std;
+
+struct nod
+{
+  char caracter = '0';
+  int codBinar[128], lungimeCodBinar = 0;
+  int nrAparitii = 0, esteValid = 1;
+  nod *stanga = nullptr, *dreapta = nullptr;
+};
+nod arboriCaractereDinFisier[128];
+int numarArboriCaractereDinFisier = 0;
+string fisier = "";
+
+void citireFisier()
+{
+  nod arboriCaractere[128];
+  ifstream file("info1.txt");
+  char caracterCurent;
+  while (file.get(caracterCurent))
+  {
+    arboriCaractere[caracterCurent].nrAparitii++;
+    fisier.push_back(caracterCurent);
+  }
+
+  for (int i = 1; i <= 128; i++)
+    if (arboriCaractere[i].nrAparitii != 0)
+    {
+      char caracter = static_cast<char>(i);
+      arboriCaractereDinFisier[numarArboriCaractereDinFisier] = arboriCaractere[i];
+      arboriCaractereDinFisier[numarArboriCaractereDinFisier].caracter = caracter;
+      numarArboriCaractereDinFisier++;
+    }
+
+  file.close();
+}
+
+void unite(int indexArbore1, int indexArbore2)
+{
+  nod nodNou;
+  nodNou.stanga = &arboriCaractereDinFisier[indexArbore1];
+  nodNou.dreapta = &arboriCaractereDinFisier[indexArbore2];
+  nodNou.nrAparitii = arboriCaractereDinFisier[indexArbore1].nrAparitii + arboriCaractereDinFisier[indexArbore2].nrAparitii;
+
+  arboriCaractereDinFisier[indexArbore1].esteValid = 0;
+  arboriCaractereDinFisier[indexArbore2].esteValid = 0;
+  arboriCaractereDinFisier[numarArboriCaractereDinFisier] = nodNou;
+  numarArboriCaractereDinFisier++;
+}
+
+nod creareArboreHuffman()
+{
+  int numarCurentArbori;
+  numarCurentArbori = numarArboriCaractereDinFisier;
+  arboriCaractereDinFisier[48].nrAparitii = fisier.length() + 1;
+  while (numarCurentArbori > 2)
+  {
+    numarCurentArbori--;
+    int minim1 = 48, minim2 = 48;
+    for (int i = 0; i < numarArboriCaractereDinFisier; i++)
+      if (arboriCaractereDinFisier[i].nrAparitii < arboriCaractereDinFisier[minim1].nrAparitii && arboriCaractereDinFisier[i].esteValid == 1)
+        minim1 = i;
+    for (int i = 0; i < numarArboriCaractereDinFisier; i++)
+      if (arboriCaractereDinFisier[i].nrAparitii < arboriCaractereDinFisier[minim2].nrAparitii && i != minim1 && arboriCaractereDinFisier[i].esteValid == 1)
+        minim2 = i;
+
+    if (minim1 == 48 || minim2 == 48)
+    {
+      cout << "nu s-au gasit minimurile corect!";
+      return nod();
+    }
+    unite(minim1, minim2);
+  }
+  for (int i = 0; i < numarArboriCaractereDinFisier; i++)
+    if (arboriCaractereDinFisier[i].esteValid == 1)
+      return arboriCaractereDinFisier[i];
+  cout << "eroare";
+  return nod();
+}
+
+int cod[128];
+void codificare(nod *nodCurent, int k = 0)
+{
+  if (nodCurent->stanga == nullptr && nodCurent->dreapta == nullptr)
+  {
+    for (int i = 0; i <= k; i++)
+      nodCurent->codBinar[i] = cod[i];
+    nodCurent->lungimeCodBinar = k + 1;
+  }
+  else
+  {
+    if (nodCurent->stanga != nullptr)
+    {
+      cod[k + 1] = 0;
+      codificare(nodCurent->stanga, k + 1);
+    }
+    else if (nodCurent->dreapta != nullptr)
+    {
+      cod[k + 1] = 1;
+      codificare(nodCurent->dreapta, k + 1);
+    }
+  }
+}
+
+void mapareCoduri(nod *nodCurent, unordered_map<char, string> &coduri, string codCurent)
+{
+  if (nodCurent == nullptr)
+    return;
+  if (nodCurent->stanga == nullptr && nodCurent->dreapta == nullptr)
+  {
+    coduri[nodCurent->caracter] = codCurent;
+  }
+  else
+  {
+    mapareCoduri(nodCurent->stanga, coduri, codCurent + "0");
+    mapareCoduri(nodCurent->dreapta, coduri, codCurent + "1");
+  }
+}
+
+void scrieFisierCodificat(const unordered_map<char, string> &coduri)
+{
+  ofstream outFile("info2.txt", ofstream::trunc);
+  if (!outFile.is_open())
+  {
+    cout << "Nu s-a putut deschide fisierul info2.txt" << endl;
+    return;
+  }
+
+  for (char c : fisier)
+  {
+    outFile << coduri.at(c);
+  }
+
+  outFile.close();
+}
+
+int main()
+{
+  citireFisier();
+  nod headHoffman = creareArboreHuffman();
+  codificare(&headHoffman);
+
+  unordered_map<char, string> coduri;
+  mapareCoduri(&headHoffman, coduri, "");
+
+  scrieFisierCodificat(coduri);
+
+  return 0;
+}
+
+
+ARBORI ASOCIATI EXPRESIILOR ARITMETICE
+  => este o aplicatie a arborilor si un mod de a reprezenta expresiile aritmetice (mai multe detalii in carte)
+
+
+
+=====================PATTERN MATCHING=============================
+
+
+  => PATTERN MATCHING ESTE GASIREA UNUI PATTERN DE LITERE INTR UN SIR DE LITERE
+
+
+  ALGORITMUL NAIV
+      => pur si simplu parcurgem textul si daca gasim o litera care este identica cu prima litera a paternului, continuam sa verificam si celelalte litera. Daca 
+  celelalte litere nu coincid inaintam cu o litera si o luam de la capat
+
+  ALGORITMUL KMP
+      => este un algoritm mai complex care are 2 parti.
+            a) initializarea vectorului care indica lungimea grupului de litere comun regasit in primele litere a paternului (prefix) cat si in ultimele litere
+  (subfix)
+                ex: aberabuy:  00001200  (adica bucata din pattern care se opreste la indexul 6 inclusiv are subfixul si prefixul egal de 2 litere, in cazul 
+                indexului 5 cuvantul se termina si incepe intr o litera comnuma iar in rest nu are prefix si subfix comun)
+
+            b) parcurgerea textului folosind vectorul creat.
+                => se parcurge textul pana cand litera curenta coincide cu prima din pattern. Se continua pana cand nu mai coincide. Cand nu mai coincide, se 
+                reintoarce la cautarea caracterului cu indexul inidicat in array ul initializat la pozitia de la care prima cifra nu mai coincide. Daca iara nu 
+                coincide atunci iarasi se intoarce la indexul indicat de array la pozitia numarului curent care nu mai coincide
+
+ALGORITMUL:
+
+#include <iostream>
+#include <fstream>
+#include <string.h>
+using namespace std;
+
+char t[128], p[128];
+int a[128];
+int n = 0, m = 0;
+
+void init()
+{
+    ifstream file("info1.txt");
+    do
+    {
+        file.get(t[n++]);
+    } while (t[n - 1] != '\n');
+
+    do
+    {
+        file.get(p[m++]);
+    } while (!file.eof());
+
+    m -= 2;
+    file.close();
+    a[0] = 0;
+}
+
+void initArray()
+{
+    int i = 0;
+    for (int j = 1; j < m; j++)
+    {
+        if (j[p] != i[p])
+        {
+            i = 0;
+            a[j] = i;
+        }
+        else
+        {
+            i++;
+            a[j] = i;
+        }
+    }
+}
+
+int parcurgere()
+{
+    int gasit = 0;
+    int indexText = 0;
+    int indexPattern = 0;
+
+    while (indexText <= n)
+    {
+        if (t[indexText] == p[indexPattern])
+        {
+            indexPattern++;
+
+            if (indexPattern == m)
+                return indexText - indexPattern + 1;
+        }
+        else
+            indexPattern = a[indexPattern - 1];
+
+        indexText++;
+    }
+
+    return -1;
+}
+
+int main()
+{
+    init();
+    initArray();
+    cout << parcurgere();
+}
+
+
+=========================HASHING=======================
+
+    => HASHING este un mod de a stoca datele prin tabele hash (tabele de dispersie)
+    => aceste tabele au o functie hash care asociaza unui set de date, un index in acest tabele
+        ex:  cel mai bun exemplu este atunci cand fiecarui nod dintr un graf ii atribui un numar. Folosind acel numar
+    reusim sa gasim informatiile specifice acelui punct care se afla intr un alt loc. (functia pre[x] care reprezinta
+    numarul nodului care se afla inaintea nodului x ). In acest exemplu functia hash este simpla ( f(x) = x )
+    => cu alte cuvinte, prin acea data reusim sa extragem un index care reprezinta o informatie despre ea intr un alt
+    tablou la indexul respectiv
+
+    => pe noi ne intereseaza sa gasim o functie care este cea mai eficienta si care atribuie datelor indexuri cat mai
+    uniforme. De obicei aceste indexuri sunt naturale
+
+    DOUA FUNCTII HASH UTILE:
+        1. o prima metoda de a obtine un index natural din intervalul [0, m - 1] este : h (x) = x % m
+            => in acest caz este indicat sa evitam ca m sa fie de forma 2 ^ p
+
+        2. o alta metoda este prin inmultire: h (x) = [m * frac(x * y)], unde frac este partea fractionara
+            => avantajul in acest caz este ca pentru m nu exista valori nepotrivite.
+
+        3. hashing universal: ???
+
+    REZOLVAREA COLIZIUNILOR
+        => cand o functei hash produce aceeasi valoare pentru 2 date diferite se numeste ca s a produs o coliziune
+        
+        REZOLVAREA COLIZIUNILOR PRIN CHAINING
+            => fiecare index creat de functia hash indica inceputul unei liste simple inlantuite care contine toate
+            elementele care au acelasi index. Este un mod simplu de a rezolva coliziunile.
+                => functia de insert se duce la lista indicata de functia hash si insereaza la final un nou nod al listei
+                => functia search se duce la lista indicata de functia hash si cauta cheia parcurgand element cu element
+                => functia delete se duce la liste indicata de functia hash is cauta cheia parcurgand element cu element
+                si stere nodul
+        
+        REZOLVAREA COLIZIUNILOR PRIN OPEN ADRESSING
+            => tabela hash de data asta nu va indica pointeri catre liste ci va indica data respectiva indexului formandu se
+            locuri ocupate si libere in tabela
+            => pentru functia de insert se vor face mai multe verificari pana cand se gaseste locul potrivit de inserare
+            pozitiile care se examineaza depind de cheia x. in acest caz functia hash va avea 2 parametrii: cheia x si 
+            numaul de incercari curente (numerotarea lor va incepe de la 0)
+            => stergerea din tabela este dificila deoarece daca marcam pozitia stearsa ca fiind goala atunci o sa se dea
+            peste cap mai multe noduri deoarece influenteaza cautarea lor. O solutie pentru aceasta problema este sa marcam
+            elementele sterse cu o alta valoare diferita de cea care indica facptul ca indexul este gol. Pentru a merge codul
+            in acest mod trebue sa modificam conditia de inserare a elementelor. Va trebui sa se insereze ori pe pozitiile goale
+            ori pe cele sterse
+
+            OBS: pentru ca o functie hash sa fie eficienta trebuie sa genereze cu probabilitate egala oriceare dintre cele 
+            m! permutari ale multimii 1, 2, 3, ... m - 1
+
+            PENTRU A DETERMINA SECVENTA POZITIILOR DE EXAMINAT SE UTILIZEAZA 3 TEHNICI:
+                1. examinare liniara: 
+                    este o functie hash auxiliara care indica elemenele de verificat: h (x, i) =  (h' (x) + i) & m
+                    => este usor de implementat doar ca poate sa creasca timpul de executie a cautarii (primary clustering)
+
+                2. examinare patratica:
+                    este functia: h (x, i) = (h' (x) + c1 * i + c2 * i * i) % m
+                    => este mai eficienta insa nu se garanteaza faptul ca toate elementele din tabela sunt folosite.
+                    => pentru a se folosi toate elementele trebuie sa se respecte niste conditii. (exemplu in carte pag 244)
+
+                3. hashing dublu:
+                    este functia: h (x, i) = (h1 (x) + i * h2 (x)) % m, unde h1 si h2 sunt functii auxiliare hash
+                    => pentru ca toata tabela sa fie examinata, valoarea h2 (x) trebuie sa fie relativ prima cu m.
+                    O metoda sigura este de a l alege pe m ca o putere a lui 2, iar h2 sa produca numere < m
+
+            OBS: hashingul dublu este cel mai eficient
+
+    HASHING PERFECT
+        => hashingul se numeste perfect daca nu are coliziuni
+        => atat (mai multe informatii in carte)
+
+    ALGORITMUL LUI RABIN-KARP
+        => este un algoritm de pattern matching care foloseste tablele hash
+        => daca avem un text t de lungime n si vrem sa gasim patternul p de lungime m prima oara se calculeaza
+        valoarea functiei hash a primelor m caractere si a patternlui. se compara cele doua si in cazul in care
+        este egal atunci este o probabilitate mare ca acea secventa sa fie egala cu patternul iar daca nu este 
+        egal atunci sigur nu este o secventa potrivita. secventa se modifica prin elimiarea primului element si 
+        adaugare urmatorului element gasit in text si se verifica din nou. Acest lucru se intampla pana cand in 
+        text nu mai ramane niciun caracter
+
+
+========================GEOMETRIE COMPUTATIONALA============================
+
+    => se ocupa cu algoritmii care sunt facuti pentru a rezolva problemele de geometrie in plan (2D) sau in spatiu (3D). In acest capitol sunt prezentate cateva aspecte de baza
+    => de obicei datele de intrare sunt puncte ( P(x, y) ) sau segmente ( P1P2 ) sau poligonuri etc..
+    => datele de iesire raspund la niste intrebari despre datele de intrare
+
+    ELEMENTE DE BAZA:
+        punctul: este reprezentat intr un reper cartezian xoy sub forma P(abscisa, ordonata) 
+        segmentul: este reprezentat de 2 puncte P1P2
+
+    PUNCTE SI DREPTE
+        => daca avem doua puncte P1(x1, y1) si P2(x2, y2) lungimea segmentului P1P2 = sqrt((x2 - x1) ^ 2 + (y2 - y1) ^ 2)
+
+        POZITIA UNUI PUNCT FATA DE UN SEGMENT
+            1. COLINIARITATEA: 
+                pentru a afla daca un punct se afla pe un segment prima oara trebuie sa verificam daca este pe dreapta formata de cele 2 puncte ale segmentului.
+                => ecuatia dreptei se poate afla prin: (y - y1) * (x2 - x1) - (x - x1) * (y2 - y1) = 0, unde exista P1(x1, y1) si P2(x2, y2)
+                dupa ce am determinat faptul ca punctul se afla pe dreapta segmentului atunci trebuie sa aflam daca se afla in segment. pentru a face asta trebuie
+                sa respecte urmatorarele conditii: x >= min (x1, x2) si x <= max(x1, x2) si/sau
+                                                   y >= min (y1, y2) si y <= max(y1, y2)
+            2. NECOLINIARITATEA:
+                daca punctul nu este coliniar asta inseamna ca ecuatia dreptei ( (y - y1) * (x2 - x1) - (x - x1) * (y2 - y1) = 0 ) nu este egala cu 0. In acest caz, daca valoarea dreptei este pozitiva atunci punctul obligatoriu se
+                afla in partea stanga a dreptei. In cazul in care valoarea dreptei este negativa atunci punctul se afla in dreapta segmentului
+
+        POZTITIA SEGMENTULUI ORIENTAT P0P1 FATA DE SEGMENTUL P0P2
+            => pentru inceput vom considera ca cele 2 segmente au capatul comun in originea axelor ( P1(x1, y1) si P2(x2, y2) )
+            => produs incrucisat = P1 x P2 = x1 * y2 - x2 * y1 (acest produs reprezinta si aria cu semn a celor 2 puncte cu puncul 0)
+            => daca produsul incrucisat a doua puncte este pozitiv atunci P1 este pozitionat in sensul acelor de ceasorinic fata de punctul P2
+            iar daca acest produs este negativ P1 este pozitionat in sens trigonometric fata de P2
+
+            => daca segmentele nu au un cap comun atunci pentru a aplica regula de mai sus trebuie sa le translatam astfel incat capul initial sa fie in 0 sau puntem folosi
+            formula pentru a calcula produsul incrucisat: (P1 - P0) * (P2 - P0) = (x1- x0) * (y2 - y0) - (x2 - x0) * (y1 - y0) unde P0 este originea comuna diferita de originea
+            axelor xo si oy
+
+        POZITIA A DOUA SEGMENTE CONSECUTIVE
+            => pozitia a doua segmente P0P1 si P1P2 care sunt consecutive poate fii in 2 feluri. Pe noi ne intereseaza daca de la al doilea segment, ruta punctelor o ia la 
+            dreapta sau la stanga
+                1. daca ruta o ia la stanga atunci trecerea se face in sens trigonometric (antiorar)
+                2. daca ruta o ia la dreapta atunci trecerea se face in sens orar
+
+            => pentru a determina pozitia dintre 2 segmente consecutive se va folosi din nou produsul incrucisat (P1 - P0) * (P2 - P0)
+                a) daca produsul este negativ atunci in P1 se va face o intoarcere in sensul acelor de ceasorinic
+                b) daca produsul este pozitiv atunci in P1 se va face o intoarcere in sens trigonometric
+                c) daca produsul este 0 atunci cele 3 puncte sunt coliniare
+
+            => se poate crea o functie care ia ca parametrii 3 puncte si returneaza pozitiv neutru si negativ in cazurile de mai sus
+
+        INTERSECTIA A DOUA SEGMENTE DIN DREAPTA
+            1. prima oara se face "respingerea rapida": daca dreptunghiul cu diagonala P1P2 nu se intersecteaza cu dreptunghiul cu diagonala P3P4 atunci cele 2 segmente nu se
+            intersecteaza
+                => conditiile sunt: x2 >= x3 && x4 >= x1 && y2 >= y3 && y4 >= y1
+            2. cea de a doua conditie care certifica faptul ca doua segmente se intersecteaza este: P4 si P3 sa fie de o parte si de alta a dreptei detemrinate de segmentul P1P2
+            analog pentru P1 si P2 (daca P1 si P2 se afla de o parte si de alta a dreptei deteminate de segmentul P3P4)
+                => acest lucru este adevarat daca: pozSegmente(P1, P2, P3) * pozSegmente(P1, P2, P4) = negativ (punctele P3 si P4 se afla de o parte si de alta)
+                                                   pozSegmente(P3, P4, P1) * pozSegmente(P3, P4, P2) = negativ (punctele P1 si P2 se afla de o parte si de alta)
+                                                   
+                                                   unde: pozSegmente este functia de mai sus de la pozitia a doua segmente consecutive
+                OBS: daca unul dintre cele 2 produse dau 0 atunci unul dintre cele 2 capete este pe segment
+
+    POLIGOANE
+        => un poligon este determinat de o secventa de puncte in plan care sunt unite prin segmente. Fiecare 2 puncte consecutive determina o latura a poligonului. (dupa ultimul
+        element urmeaza primul)
+        => el este reprezentat sub forma de succesiune de puncte
+
+        TIPURI DE POLIGOANE
+            1. simplu: daca nu se autointersecteaza (fiecare latura se intersecteaza cu alta latura doar in varfurile sale)
+                a) convexe: daca pentru orice latura a sa varfurile poligonului se afla pe aceeasi parte a dreptei suport
+                b) neconvexe: opusul
+        OBS: laturile poligonului impart multimea punctelor planului in doua submultimi: puncte interioare poligonului si puncte exterioare poligonului. Punctele aflate pe laturile
+        poligonului sunt considerate ca puncte interioare (segmentul format din oricare 2 puncte din interiorul poligonului este total inclus in acesta)
+
+        ARIA UNUI TRIUNGHI
+            => aria unui triunghi este modul din jumatate din produsul incrucisat a doua segemente: |(x1- x0) * (y2 - y0) - (x2 - x0) * (y1 - y0)| / 2
+
+        ARIA UNUI POLIGON CONVEX
+            => aria se calculeaza usor portionand poligonul in triunghiuri, calculand aria fiecaruia
+        
+        ARIA UNUI POLIGON OARECARE
+            => se complica mai mult. Se trang paralele cu oy la toate punctele. Oricare 2 paralele consecutive creeaza cu axa ox si segmentul care uneste cele 2 puncte un trapez dr
+            => functia este:
+
+            double arie(Poligon p, int n){
+              double arie = 0;
+              for (int i = 1; i <= n; i++)
+                arie += P[i].x * (P[i + 1].y - P[i - 1].y);
+              return abs(arie / 2);   // abs returneaza valoarea absoluta a unui numar (adica daca este negativ il inmulteste cu -1)
+            }
+
+        INFASURAREA CONVEXA
+            => fie o multime de puncte in plan. Se numeste infasurare convexa a multimii de puncte un poligon de arie minima care are proprietatea ca orice punct al multimii se gaseste
+            in interiorul lui
+
+            => algoritm:
+                1. prima oara se selecteaza punctul P0 care are abscisa(y) minima. In cazul in care sunt mai multe puncte cu aceeasi abscisa se ia punctul cu ordonata(x) minima din cele
+                selectate.
+                2. vom translata axa xoy astfel incat originea sa fie in punctul P0 selectat. Se ordoneaza in ordine crescatoare punctele dupa unghiul polar (unghiul polar a doua puncte
+                este unghiul format dintre paralela primului punct la ox si dreapta suport a celor doua puncte). Daca exista mai multe puncte cu acelasi punct polar atunci se retine
+                punctul care este cel mai departe de P0
+                3. punctele rezultate sortarii vor fii: P0, P1, P2 ... Pn . Pentru fiecare dintre aceste 3 puncte consecutive ( Pi, Pi+1, Pi+2) daca acestea reprezinta o intoarcere
+                la stanga sau la dreapta. Daca reprezinta o intoarcere la dreapta, punctul din mijloc (Pi+1) nu poate face parte din infasurare, si este eliminat si se continua cu
+                analiza (Pi-1, Pi, Pi+1). Daca reprezinta o intoarcere la stanga, analiza continua cu tripletul (Pi+1, Pi+2, Pi+3)
+
+        PUNCT IN POILIGON
+            => un punct poate fii in poligon, inafara acestuia si pe el
+            => daca poligonul este convex atunci trebuie sa verificam pentru fiecare segment daca m se afla de partea stanga a sa.
+            => daca poligounul este unul oarecare, atunci se traseaza o semidreapta oarecare care porneste din m. Daca dreapta intersecteaza poligonul de un numar impar de ori
+            atunci punctul este in poligon, iar daca intersecteaza de un numar par atunci nu este in poligon
+            !! apar 2 situatii in care aceasta regula nu merge: atunci cand punctul este pe poligon si atunci cand semidreapta intersecteaza intr un nod al poligonului ( o singura data )
+            acest lucru se rezolva verificand aceeasi semidreapta pentru punctele vecine ( P[i-1].x si P[i+1].y) si in functie de raspuns adunam sau scadem nr de aparitii.
+
+        INTERSECTIA A DOUA POLIGOANE CONVEXE
+          => intersectia a doua poligoane inseamna partea care apare in ambele. Ea este sub forma de poligon
+          ALGORITM: prima oara se parcurge latura cu latura unul dintre cele doua poligoane si se elimina toate punctele care sunt in exteriorul / partea dreapta a unui segment al poligonului
+            In cazul in care punctul eliminat alaturi de urmatorul creeaza un segment care se intersecteaza cu poligonul initial, atunci inainte de a l elimina (deoarece este in exterior)
+            punem in solutie intersectia celor doua segmente ale celor 2 poligoane diferite. Acest lucru poate functiona dacal la fiecare eliminare, verificam mai intai daca intersecteaza
+            una dintre laturile poligonului initial.
+              Dupa toate astea, la final se ia ca poligon fix al doilea poligon si eliminam punctele care nu se afla in interiorul acestuia. Dupa ce am ramas cu cele 2 puncte
+            care reprezinta punctele de intersectie a celor 2 poligoane si cu restul de puncte care nu au ramas eliminate (la inceput solutia se initializeaza cu toate punctele posibile
+            din care vom scadea la rularea algoritmului), se face algoritmul de infasurare a punctelor intr un poligon convex si se afiseaza in ordinea laturilor
+
+    GEOMETRIA DREPTUNGHIULUI
+      
+      INTERSECTIA A DOUA TRIUNGHIURI
+        => se dau 2 dreptunchiuri oferindu se doar colturile stanga sus si dreapta jos.
+        => pentru a det aria intersectie si perimetru acesteia:
+          1. verificam daca cele 2 dreptunghiuri se intersecteaza: un dreptunghi se interseceaza cu celalalt daca unul dintre puncte intra in suprafata celuilalt (este o functie 
+          simpla care verifica coordonatele)
+          NOT: dr1(css1, cdj1), dr2(css2, cdj2)     // unde dr1, dr2 sunt dreptunghiurile si css si cdj sunt colturile stanga sus si dreapta jos 
+          2. daca css1 este in dr 2 at intersectia este = dr3(css1, cdj2)
+             daca cdj1 este in dr 2 at intersectia este = dr3(css2, cdj1)
+             daca css1 si cdj1 sunt in dr 2 at intersectia este = dr3(css1, cdj1)
+
+      REUNIUNEA DREPTUNGHIULUI
+        => aria reuniunii este data de formula: suma ariilor celor doua dr - aria intersectiei celor 2 dr
+
+
+=================================================================================================================================================================================
+==========================================================THE END================================================================================================================
+=================================================================================================================================================================================
+
+CHESTII RANDOM
+
+return (n % 3 == 0); // returneaza 0 sau 1 (e un if)

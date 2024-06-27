@@ -1,0 +1,67 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto&display=swap');
+
+:root {
+  background-color: antiquewhite;
+}
+
+* {
+  font-family: "Roboto";
+  color: black;
+  padding: 0px;
+  margin: 10px;
+  border-radius: 6px;
+}
+
+.container_div {
+  background-color: white;
+  border: 3px solid rgb(238, 236, 236);
+  width: 80%;
+  height: 700px;
+  margin-left: auto;
+  margin-right: auto;
+}
+button {
+  color: black;
+}
+
+h1 {
+  align-self: center;
+  padding: 30px;
+}
+
+input {
+  font-size: 1.5rem;
+  width: 60%;
+  margin-left: 80px;
+}
+
+button {
+  font-size: 1.5rem;
+  width: 20%;
+}
+
+ul {
+  font-size: 150%;
+  margin-left: 60px;
+}
+
+p {
+  font-size: 150%;
+  margin-left: 100px;
+}
+
+h1 {
+  margin-left: 40%;
+}
+
+.edit_img {
+  width: 1.25rem;
+  margin-bottom: 0px;
+  margin-left: 15px;
+}
+
+.delete_img {
+  width: 1.5rem;
+  margin-bottom: 0px;
+  margin-left: 0px;
+}

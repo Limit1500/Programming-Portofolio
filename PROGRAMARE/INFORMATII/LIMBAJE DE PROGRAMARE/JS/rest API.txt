@@ -1,0 +1,29 @@
+1.CE ESTE API: 
+	API = aplication programming interface este un mod de interactiune cu serverul. Sunt ca un fel de conectori care expun functionalitatile deja pregatite ale serverului atat timp cat se supun contitiilor (parametrii)
+	ex: 	-un API este ca un port usb pe care il bagi in calculator. Cu ajutorul lui, vei putea indeplinii diverse sarcini cu ajutorul functionalitatii calculatorului (sa incarci telefonul, sa transferi date, sa dai share la conexiunea telefonului etc...)
+		-telecomanda. Telecomanda este unealta pe care televizorul o ofera pentru a interactiona cu el
+
+2.CE ESTE REST API:
+	REST = representational state transfer este set de principii pe care aplicatia trebuie sa le respecte (se comporta restfull daca le respecta)
+Unul dintre aceste pricipii este ca datele trasferate printr-un server http sa fie format json
+
+3.STRUCTURA UNUI URL:
+      ex:
+	https://myapp/employees/1			( https://domeniul/resursa/id-ul)
+	https://myapp/products?category=food		( https://domeniul/resursa/queryString)
+	
+	      componente:
+		-domeniu aka numele siteului care poate fii cumparat
+		-resursa reprezinda de multe ori o tabela din baza de date
+		-id-ul resursei asupra caruia vrem sa actionam
+		-prin query stringul: ?category=food se intelege ca vrem sa extragem din lista doar acele produse care sunt in categoria food
+
+4.FOLOSIREA LUI REST API:
+	app.post("/users/:id", (req, res) => {
+	  let id = req.params;
+	  let logo = req.body;
+		
+	})
+
+
+STRUCTURARE: PRIMA OARA CREEM UN INPUT PRIN CARE SA INTRODUCEM ID-UL USERULUI PE CARE VREM SA IL AFLAM, APOI INPUTUL SALVEAZA VALOAREA INTR-O VARIABILA, VARIABILA ESTE FOLOSITA IN CREAREA REQUESTULUI CARE ARE CA URL https://app/users/${id-ul}, APOI LUAM ID-UL DIN REQUEST CA MAI SUS SI DAM IMPORT DINTR UN ALT FISIER CARE CONTINE BAZA DE DATE CU ID-UL, DUPA CE AM LUAT DATELE IN FUNCTIE DE ID LE TRANSMITEM IN RASPUNS

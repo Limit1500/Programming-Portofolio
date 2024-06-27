@@ -1,0 +1,161 @@
+==========CUPRINS==========
+1. CE ESTE NODE
+2. MODURI IN CARE PUTEM SA IL UTILIZAM
+3. RULAREA UNUI PROIECT
+4. VARIABILE GLOBALE
+5. MODULE
+6. CUM POT SA EXPORTEZ DATE DINTR-UN MODUL
+7. CUM POT SA IMPORTEZ DATE DINTR-UN MODUL
+8. CUM POT SA APELEZ CODUL DIN ALT FISIER
+9. MODULELE CARE SUNT DEJA IN NODE
+10.NODE PACAGE MANAGER (NPM)
+11.STREAMS
+12.SYNC - ASYNC PROGRAMING MODES
+==========CUPRINS==========
+
+CE ESTE NODE: node este un engine (acelasi engine ca al lui crome) care ruleaza cod java script si care are un set de module (librarii; DACA FOLOSIM NODE SITEUL NU MAI ESTE STATIC SI NU MAI POATE FII ONLINE FOLOSID GITHUB)
+	-browserul crome are acelasi engine care ruleaza cod java script insa acesta ofera pe langa consola, si interfata siteului nostru
+	-in browser putem scrie cod js la fel ca in node
+	-pentru a putea obtine interfata siteului folosim un modul al lui node care se numeste https (cred). Acesta ne poate lasa sa integram un alt modul care ne permite sa lucram cu fisiere (fs)
+
+DIFERENTELE DINTRE NODE SI BROWSER:
+	-node contine doar logica fara interfata grafica a unui browser
+	-node nu are un window
+	-node are multe beneficii (se bazeaza pe versiunile node-ului ci nu pe browserul utilizatorului, se auto adapteaza)
+
+SUNT 2 MODURI PRINCIPALE DE A UTILIZA NODE: (pentru a selecta fosta comanda folosim arrow up in consola)
+	1. repl = read eval print loop (SE FOLOSESTE DOAR CAND VREM SA SCRIEM COD JS IN NODE)
+		-pentru a intra in repl si pentru a putea scrie cond js in node scriem: node
+		-pentru a iesi din repl: Ctrl + C
+	2. cli = executabil (ESTE FOLOSIT MEREU CAND VREM SA EXECUTAM PROIECTE IN NODE; il folosim mereu)
+
+RULAREA UNUI PROIECT (terminalul din vs code poate fii folosit in locul terminalului din pc):
+	1. crearea unui proiect in vs code (ex: index.js)
+	2. selectarea proiectului in node: cd locatie_proiect	// sau cel mai simplu luam folderul cu proiectul si il tragem in dreptul locului in care ar trebui sa scrie locatia
+	3. node nume_proiect.js 	// pentru a da run la program (ex: node index.js)
+
+VARIABILELE GLOBALE CARE SUNT DEJA DECLARATE IN NODE:
+	1. NU MAI AVEM OBIECTUL GLOBAL WINDOW IN NODE (adica nu mai putem folosi: window.innerWidth sau alte atribute)
+	2. __dirname = drumul catre folderul actual
+	3. __filename = numele fisierului actual
+	4. require = este o functie folosita in inportul modulelor
+	5. module = info despre modulul curent (este un obiect)
+	6. process = info despre env unde programul este executat (un obiect enorm si important)
+
+MODULE:
+	-ce este un modul: un modul este orice fisier
+	
+CUM POT SA EXPORTEZ DATE DINTR-UN MODUL:
+	1.MODUL 1:
+	export const myVariable = 10;
+	
+	export function myFunction() {
+	  return "Hello!";
+	}
+	
+	export class MyClass {
+	  constructor() {
+	    this.property = "Value";	
+  	  }
+	}	
+
+	2.MODUL DEFAULT:
+	const myVariable = 10;
+	
+	function myFunction() {
+	  return "Hello!";
+	}
+	
+	class MyClass {
+	  constructor() {
+	    this.property = "Value";
+	  }
+	}
+	
+	export default {
+	  myVariable,
+	  myFunction,
+	  MyClass
+	};
+
+
+CUM POT SA IMPORTEZ DATE DINTR-UN MODUL:
+	1.MOD 1:
+	import { myVariable, myFunction, MyClass } from './module.js';
+	
+	// Use the imported variables/functions/classes here
+	console.log(myVariable); // Output: 10
+	console.log(myFunction()); // Output: Hello!
+	const instance = new MyClass();
+	console.log(instance.property); // Output: Value
+				
+	2. modulul nu se afla pe calculator dar este deja descarcat de catre node (ex: os):
+		import express from "express";	// numele modulului
+
+	2.MOD DEFAULT
+	import module from './module.js';
+	
+	// Access the default export members using the module object
+	console.log(module.myVariable); // Output: 10
+	console.log(module.myFunction()); // Output: Hello!
+	const instance = new module.MyClass();
+	console.log(instance.property); // Output: Value
+
+
+CUM POT SA APELEZ CODUL DIN ALT FISIER:
+	1. fisierul pe care il apelez:
+			.
+			.
+		AICI SE AFLA CODUL CARE SE VA APELA
+			.
+			.	
+		addValues()				// aceasta functie ii da voie fisierului sa fie apelat
+
+	2. fisierul care apeleaza:
+
+		import express from "express";			// se apeleaza fisierul din paranteze precum o functie (codul acestui fisier nu este afectat)
+
+MODULELE CARE SUNT DEJA IN NODE: (cateva dintre ele)
+	1. OS		// info despre sistemul de operare (de cat timp este deschis, cata memorie mai are disponibila...)
+	2. PATH		// ajuta la lucrarea cu path-uri
+	3. FS		// lucrarea cu fisiere
+	4. HTTP		// live server
+
+NODE PACAGE MANAGER (NPM):
+	-npm este managerul al node-ului care se ocupa de module / package-uri
+	EL ESTE FOLOSIT LA 3 LUCRURI:
+		1. pentru a reutiliza module din alte proiecte ale noastre
+		2. pentru a folosit modulele altora de pe online (npmjs.com)
+		3. pentru a da share la modulele noastre
+
+	CUM SA IL FOLOSESTI:
+		1. fiecare modul poate fii instalat doar pentru proiectul curent
+			npm i <packageName>	// de obicei o sa folism local
+		2. modulul poate fii instalat global (adica va fii downloadat by default)
+			npm install -g <packageName>
+	
+	FISIERUL DE TIP package.json:
+		EXPLICATIA: prima oara va trebui intr-un proiect sa folosim un fisier care sa contina "setarile principale ale proiectului". 				Printre aceste setari se va regasi si un obiect (dependencies) care contine toate modulele instalate.
+		CREAREA UNUI ASTFLE DE FISIER:
+			npm init 	// pentru a introduce fiecare setare
+			npm init -y	// pentru a introduce setarile default
+		
+			-efect: se va crea un file in radacina directorului proiectului care sa contina aceste date
+
+			-adaugarea modulelor in proiect si inplicit in fisierul .json:
+				npm i lodash	// adauga package-ul lodash in fisierul .json (instalare doar pt proiectul actual)
+						// se creeaza un folder numit node_modules in care vor fii toate modulele
+			-dezinstalarea packagelor: 
+				npm uninstall moduleName
+
+			!!! daca instalezi un modul care depinde de alte module, in folderul cu module se vor crea toate modulele iar in 			fisierul .json va fii doar cel principal
+
+
+	PENTRU A SE DA RUN AUTOMAT LA UN FILE ATUNCI CAND ESTE SALVAT FOLOSIM:
+		node --watch numeFile
+	
+SYNC + ASYNC	=> SYNC NU STA DUPA O FUNCTIE CARE RULEAZA FOARTE MULT CI LE FACE SI PE CELELALTE IN TANDEM IAR ASYNC LE FACE IN ORDINE (ESTE RECOMANDAT SYNC)
+
+!!! TREBUIE INVATATE MODULE / FRAMEWORKURI PENTRU A EVOLUA IN NODE
+!!! PENTRU A RULA UN PROIECT PATH-UL TREBUIE SA FIE CATRE FOLDERUL IN CARE SE AFLA PROIECTUL PT CA SE VA RULA AUTOMAT FILE-URILE HTML SI IN SPECIAL INDEX.HTML (INDEX ESTE UN NUME REZERVAT)
+

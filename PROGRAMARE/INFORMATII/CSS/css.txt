@@ -1,0 +1,344 @@
+==========CUPRINS==========
+1. CUM SA CREEZI LAYOUTURI CARE SA ARATE BINE
+2. TAGURI GENERALE
+3. STILIZAREA UNUI DIV
+4. UNITATI
+5. ELEMENT SELECTORS
+6. FLEX BOX
+7. GRID LAYOUT
+8. IMAGINI
+9. TEXT
+10.VARIABILE
+11.BUTOANE
+12.TRANZITII
+13.ANIMATII
+==========CUPRINS==========
+
+---------------------------------------------------------------------------------------------------CUM SA CREEZI LAYOUTURI CARE SA ARATE BINE----------------------------------------------------------------------------------------------
+
+1. FOLOSESTE ELEMENTE CARE SA AIBA DIMENSIUNI DIFERITE: daca in siteul tau ai 6 elemente poti sa faci 1 din ele sa fie mare , 2 elemente sa aima marime medie iar ultimele 3 elemente sa fie mici
+
+2. SA IMBIN FOCAL POINT (PARTEA DIN LAYOUT CARE ATRAGE CHIUL PRIMA OARA) SI SPATIUL ALB (NU TREBUIE SA FIE NEAPARAT ALB CI TREBUIE SA FIE CALM SI RELAXANTIOKBGHJV) INTR-UN MOD IN CARE NU EXAGEREZ CU NICIUNUL DIN CELE DOUA SI SA CONDUC OCHIUL 
+
+3. ALAGEREA CORECTA A CULORILOR (TREBUIE ALESE 3 CULORI: UNA ESTE DOMINANTA IAR CELELALTE DOUA NU SUNT DOMINANTE) ELE TREBUIE APLICATE IN PROCENT DE 60% 30% SI 10%
+	=> trebuie alese 3 culori, una dominanta iar 2 non dominante
+	=> trebuie aplicate in procent de 60% 30% si 10%
+	=> trebuie sa inteleg mesajul culorilor
+		1.  ALBASTRU: autoritate libertate stabilitate rece
+		2.  ROSU: pasiuna iubire sange furie caldura
+		3.  PORTOCALIU: fun fericire energie entuziasm
+		4.  GALBEN: creativitate bucurie caldura
+		5.  VERDE: viata speranta sanatate natura crestere 
+		6.  ROZ: imaturitate romantic delicat inocenta
+		7.  MOV: mister spiritualitate magie loialitate lux
+		8.  NEGRU: putere eleganta mister
+		9.  ALB: puritate speranta lumina
+		10. GRI: neutralitate calm stabilitate 
+	=> trebuie sa aleg 3 culori care sa se potriveasca	(cauta pe net combinatii)
+
+4. INAINTE DE A INCEPE UN DESIGN TREBUIE SA IMI STABILESC UN MESAJ PE CARE VREAU SA IL TRANSMIT
+
+5. TOATE ELEMENTELE DIN DESIGN TREBUIE SA TRANSMITA ACELASI MESAJ (IMAGINILE TREBUIE SA FIE IN CORCONDANTA CU TEXTUL)
+------------------------------------------------------------------------------------------------------------TAGURI GENERALE-----------------------------------------------------------------------------------------------------------------
+
+1. border: (grosimea, tipul, culoarea)
+2. border-bottom: (in loc de bottom putem pune top left right)
+3. border-radius: 50% (cat de mult sa se taie colturile)
+4. padding: (grosimea paddingului) desparte elementele de margine
+5. font size: 500% (mareste orice element 100% = default)
+6. color: (culoare)
+7. background-color: (culoare)
+8. background-image: (imaginea) 
+9. background-position: (care parte a imaginii de pe fundal sa se vada) top right, top left, center, etc...
+10. backgroud-image: linear-gradient (culoare1 / to right, culoare2, culoare3)	(tranzitie frumoasa de la o culoare la alta transformadu-se usor)	!to right inseamna de la stanga la dreapta tranzitia
+
+----------------------------------------------------------------------------------------------------------STILIZAREA UNUI DIV---------------------------------------------------------------------------------------------------------------
+
+background-color: (culoare)
+background-image: url(images/background.jpeg); (imagine)
+background-position: (care parte a imaginii de pe fundal sa se vada) top right, top left, center, etc...
+backgroud-image: linear-gradient (culoare1 / to right, culoare2, culoare3)	(tranzitie frumoasa de la o culoare la alta transformadu-se usor)	!to right inseamna de la stanga la dreapta tranzitia
+    width:100%;
+    height: 100vh;		=> MARIMEA MAXIMA
+
+
+
+------------------------------------------------------------------------------------------------------------------UNITATI-------------------------------------------------------------------------------------------------------------------
+
+1 cm = 38px
+50% din marimea default (50% din 50% este 25% din intreg)
+1 rem = unitatea default 
+2 rem = 2 * unitatea default
+40ch = lungime de 40 caractere
+
+
+------------------------------------------------------------------------------------------------------------------ELEMENT SELECTORS---------------------------------------------------------------------------------------------------------
+
+1. TAGUL (ex: p {})
+2. CLASA ('.' ex: .clasa {}, cel mai folosit)
+3. IDUL  ('#' ex: #idul {})
+
+SE POT PUNE MAI MULTE SELECTOARE: p, h1, h2 {}
+
+PENTRU A SELECTA TOATE ELEMENTELE FOLOSIM: * {}
+
+ATENTIE LA ORDINEA IN CARE AU PRIORITATE ARGUMENTELE
+
+PENTRU A STILIZA ELEMENTE CARE AU UN ANUMIT STATUS FOLISM:
+a:visited {}
+a:hover {}
+a:active {}
+
+--------------------------------------------------------------------------------------------------------------------FLEX BOX------------------------------------------------------------------------------------------------------------
+
+FLEX BOX ESTE O GRUPARE DE ELEMENTE INTR-UN DIV (EX: 6 PATRATE INTR-UN CHENAR)
+PENTRU A FOLOSI FLEX TREBUIE SA SCRIEM: 
+display: flex;							=> TOATE ACESTE ATRIBUTE SE PUN IN STILIZAREA CONTAINERULUI IN CARE SE AFLA ELEMENTELE (AICI DECLARI TIPUL ELEMETELOR: TIP FLEX)
+justify-content: flex-end / center / space-around; 		=> ASEZARE ORIZONTALA: toate elementele se duc intr-o parte / toate elementele se aliniaza in centru / toate elementele se aliniaza in centru si creaza un gap pe laterala
+justify-content: space-between / space-evenly;			=> ASEZARE ORIZONTALA: toate elementele au un spatiu intre ele / toate elementele au spatiu intre ele si pe lateral
+gap: 1rem;							=> distanta dintre elemente
+align-items: flex-start / flex-end / center;			=> ASEZARE VERTICALA: toate elementele stau by default / toate elementele stau in marginea opusa startului flexului / toate elementele se aliniaza in centru
+flex-direction: column / row;					=> asezare a elementelor vertical / asezarea elementelor orizontal
+row-reverse;							=> elementele se schimba (de la ultimul la primul)
+column-reverse;							=> elementele se schimba (de la ultimul la primul)
+flex-wrap: wrap;						=> !!! ELEMENTELE SE REDISTRIBUIE CORESPUNZATOR IN CAZUL IN CARE PAGINA WEB NU MAI ESTE IN FULL SCREEN
+flex-wrap: row wrap;						=> aliniaza elementele bangand cat de multe pe un singur rand !!
+
+pentru a alinia in centru un element intr-un div folosim:
+display: flex;
+justify-content: center;
+allign-items: center;
+
+flex-grow: 1;							=> daca intr-un div sunt doua elemente iar un element are grow 1 iar altul grow 2 inseamna ca ambele vor umple golul ramas si se vor extinde pana nu mai e loc in div insa
+flex-grow: 2;							al doilea element o sa ia de doua ori mai mult spatiu ramas pt ca are grow 2
+flex-basis: 250px; 						=> ofera o marime initiala
+
+--------------------------------------------------------------------------------------------------------------------GRID LAYOUT-----------------------------------------------------------------------------------------------------------
+
+PENTRU A FOLOSI GRIDURI FOLOSIM:
+display: grid;							=> aratam tipul elementelor
+grid-auto-flow: column / row;					=> gridurile sunt afisate vertical / orizontal
+grid-template-colums: 1fr 1fr 2fr / 200px 1fr 2fr;		=> creeaza trei coloane care vor avea lungimea in raport de 1:1:2 / sau 200px:200px:400px
+row-gap: 1em;							=> creeaza spatiu intre raw-uri
+column-gap: 1em;						=> creeaza spatiu intre colimns
+gap: 1em;							=> creeaza spatiu intre oricare elemente
+allign-items: flex-start / flex-end / center;
+justify-content: flex-start / flex-end / center;		=> la fel ca sus
+
+pentru a mari un grid ii scriem:
+grid-column: 1 / 4;						=> va avea lungimea primelor 3 coloane
+grid-row: 1 / 3;						=> va avea inaltimea primelor 2 randuri
+
+-------------------------------------------------------------------------------------------------------------------IMAGINI-----------------------------------------------------------------------------------------------------------------
+
+1.ALEGEREA IMAGINII:
+	-trebuie sa tinem cont de px pe care imaginea o are. (ex: in cazul in care vrem sa punem in background o imagine de 200x200px aceasta va fii foarte blurata)
+	-trebuie sa tinem cont de ceea ce vom pune peste ea
+
+2.MARIMEA IMAGINII:
+	-marimea imaginii se pune in procente (procentele din containerul in care se afla imaginea) pentru ca in cazul in care pagina web se modifica imaginea se va mula corespunzator
+	-pentru a regla width cu hight punem o dimesiune pt una dintre ele iar la cealalta punem "auto;"
+	
+3. TAGURI:	
+	1.border-radius: 50% (cat de mult sa se taie colturile)
+
+---------------------------------------------------------------------------------------------------------------------TEXT-------------------------------------------------------------------------------------------------------------------
+
+TAGURI:
+font-size: 22px
+font-style: italic
+text-align: center / bottom / right
+text-decoration: underline / none
+text-transform: uppercase / lowercase
+color: red;
+word-spacing: 10px
+line-hight: 40px;
+pentru mai multe fonturi: google fonts	(import @ punem in css la inceput)
+	font-family: 'numeFont'
+
+--------------------------------------------------------------------------------------------------------------------VARIABILE---------------------------------------------------------------------------------------------------------------
+
+--bg-color: #405580;		// declararea unei variabile ( nume / tip )
+var(--bg-color)			// apelul unei variabile
+
+:root {
+	--bg-color: #405580;	// in root declaram variabilele ( roor reprezinta tagul html )
+}
+
+--------------------------------------------------------------------------------------------------------------------BUTOANE--------------------------------------------------------------------------------------------------------------
+
+EX1:
+button {
+  background-color: rgb(67, 67, 155);
+  padding: 15px;
+  font-size: 150%;
+  border-radius: 8px;
+  color: white;
+  border-color: #FFFFFF;
+}
+
+------------------------------------------------------------------------------------------------------------------TRANZITII--------------------------------------------------------------------------------------------------------------
+
+PROPRIETATILE PE CARE TREBUIE SA LE STIU: (!! toate aceste proprietati se pun in blocul butonului)
+	1. transition-property: transform;      						// care schimbare sa aiba tranzitia (asta punem la :hover)
+	2. transition-duration: 0.3s;           						// timpul necesar pentru a se termina toata tranzitia
+	3. transition-timing-function: ease / ease-in /  ease-out / ease-in-out / linear; 	// acceleratia cu care se parcurge tranzitia (ease e default, ease-in este atunci cand incepe mai greu, ease-out incepe mai rapid, ease-in-	 											   out incepe mai greu si se termina mai rapid, linear este constant)   
+	4. transition-delay: 0s;                						// dupa cat tipm de la activare se intampla tranzitia
+
+SAU
+
+transition: transform 0.3s ease 0s;
+
+      TOATE ESTEA LE SCRIEM IN BLOCUL ELEMENTULUI
+
+element:hover {
+  transform: translateY(-10px) / translateX(-10px);   					// il muta
+  background-color: var(--clr-culoarea);              					// daca tinem mouseul pe element se intampla astea
+  color: var(--clr-culoarea);                         
+}
+
+transition: transform 0.3s ease 0s;                   					// in cazul asta doar mutarea elementului se va anima
+                                                      					// pentru a anima si celelalte proprietati (ex: shimbarea culorilor) trebuie sa le precizam
+transition: transform 0.3s ease 0s, background-color 0.3s, color, 0.3s;   		// daca nu precizam fiecare mod se subintelege ca au valorile :default
+
+SAU
+
+transition: all 0.3s ease 0s;                          					// toate schimbarile o sa aiba tranzitia
+
+---------------------------------------------------------------------------------------------------------------------ANIMATII---------------------------------------------------------------------------------------------------------------
+
+CUM CREEM O ANIMATIE:	(!!diferenta intre animatie si tranzitie este ca la tranzitii creem un nou block ex: elelement:hover{} iar la animatii creem un nou block de tip @keyFrames)
+1. adaugam un @keyFrames: 
+
+@keyFrames nume {
+	from{
+		transform: translateX(0px);		// in from punem pozitia initiala (animatia s-a facut in proportii de 0%)
+	} 
+	to {
+		transform: translateX(100px);
+	}
+}
+
+2. adaugam cateva proprietati necesare (ca la tranzitii) in blocul elementului care se animeaza
+	1. animation-name: numekeyFrames;		// punem keyFrames-ul pe care il folosim
+	2. animation-duration: 1s;			// cat va dura sa se completeze animatia (1 lap)
+	3. animation-timing-function: ease;		// acceleratia animatiei (fix ca la tranzitie)
+	4. animation-delay: 0s;				// dupa cat timp se va intampla animatia de la declansare
+	5. animation-iteration-count: 2 / infinite;	// de cate ori sa se faca animatia ( un nr / infinit)
+	6. animation-direction: normal / reverse;	// daca se intampla animatia de la 0% la 100% sau de la 100% la 0%	
+	7. animation-fill-mode: none / forwards / backwords / both; 	 // dupa finalizarea animatiei elementul: isi reia pozitia initiala / ia pozitia in care ajunge la finalul animatiei (100% sau to{}) / ia pozitia initiala a animatiei (0% sau from{}) / are ca pozitie uzuala pozitia descrisa in from{} ( 0% din animatie) si ramane la 100% din animatie adica to{}
+	
+	SAU
+	
+	animation: numekeyFrames 1s ease 0s 2 normal none;	// fiecare caracteristica pe rand (daca o proprietate nu este precizate se subintelege ca are valoare default)
+
+CLASE:
+se considera clasele (in css):
+
+.animate-duration_fast {					// un nume sugestiv
+	animation-duration: 1s;
+}
+
+.animate-duration_slow {					
+	animation-duration: 3s;
+}
+
+
+.animate-count_1 {
+	animation-iteration-count: 1;
+}
+
+.animate-count_infinite {
+	animation-iteration-count: infinite;
+}
+
+
+.animate {							// caracteristicile noastre generale
+	animation: numekeyFrames 2s ease 0s 5 normal none;
+}
+
+in HTML:
+
+<p class="animate"> Hello world! </p>				// preia doar caracteristicile scrise in .animate
+
+<p class="animate animate-duration_fast animate-count_1"> Hello world! </p>	// preia caracterisicile celor 3 clase separate de spatiu (ultimele clase au prioritate)
+
+<p class="animate animate-duration_slow animate-count_infinite"> Hello world! </p>
+
+CAZ PARTICULAR:
+se considera clasele 
+
+animate.animate-count_infinite {			// animatia generala . animatie secundara (efect: animatia secundara poate fii pusa doar daca inainte a fost identificata clasa animatiei generale)
+	animation-iteration-count: infinite;
+}
+
+
+.animate {							
+	animation: numekeyFrames 2s ease 0s 5 normal none;
+}
+
+PENTRU A SE INVARTII UN ELEMENT:
+
+@keyFrames invarteala {
+	from {
+		transform: rotate(0deg)
+	}
+	to {
+		transform: rotate(360deg)
+	}	
+
+}
+
+.animation-rotate {
+	animation-name: invarteala;
+	animation-timing-function: linear;
+
+	transform-origin: center / top left / bottom right;		// din ce punct se va invarti
+}
+
+PENTRU A PRECIZA NOILE CARACTERISTICI ALE ANIMATIEI DE LA UN PUNCT: (bounce efect)
+
+@keyFrames invarteala {
+	0% {						// am inlocuit from cu 0% si to cu 100%
+		transform: translateY(0px);
+	}
+	40% {
+		transform: translateY(-30px);		// putem adauga alte repere de la care sa isi modifice target-ul
+	}
+	50% {
+		transform: translateY(0px);		
+	}
+	100% {
+		transform: translateY(0px);
+	}	
+}	
+
+pentru a nu ne repeta cu transform: translateY(0px); putem folosi:
+
+@keyFrames invarteala {
+	0%, 50%, 100% {						// putem face asta deoarece, calculatorul preia automat valorile procentelor in ordine
+		transform: translateY(0px);
+	}
+	40% {
+		transform: translateY(-30px);		
+	}
+}	
+
+!!!DACA VREM SA PUNEM MAI MULTE transform: 	
+
+100% {						// !!!GRESIT!!!
+		transform: translateY(0px);
+		transform: translateY(0px);
+}
+	
+100% {						// !!!CORECT!!!
+		transform: translateY(0px) translateY(0px);
+}
+
+SA FIU ATENT LA SINTAXA (NU SE PUN VIRGULE LA ANIMATION SAU LA TRANSITION)
+
+----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
+
+
+

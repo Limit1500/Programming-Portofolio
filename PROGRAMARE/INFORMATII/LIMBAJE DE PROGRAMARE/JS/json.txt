@@ -1,0 +1,119 @@
+1.CE ESTE JSON:
+	JSON = javascript obiect notation un mod de a reprezenta data, este folosit in majoritatea api-urilor, este usor de folosit si de inteles, este javascript la care adaugam cateva imbunatatiri => putem scrie cod js
+
+2.DIFERENTE JSON SI JS:
+	in json atributele se declara:
+		"nume": "David",
+		
+	in js se declara:
+		nume: "David",
+
+pentru a declara un array de obiecte:
+	let array = [];
+	array.push({
+		"nume": "David",
+		"varsta": 16,
+	})
+3.EXEMPLU DE JSON CARE INDICA UTILIZATORII INREGISTRATI IN BAZA DE DATE
+
+users.json
+
+[				// indica un array de obiecte
+  {				// indica primul obiect
+    "nume": "david",		// un atrbut al primului obiect
+    "varsta": 16,
+    "esteIncepator": true,
+  },
+  {				// indica al doilea obiect
+    "nume": "victor",
+    "varsta": 16,
+    "esteIncepator": false,
+  }
+]
+
+4.IN CAZUL IN CARE VREM SA LUAM DATE DIN JSON, ACESTEA VOR FI CONVERTITE AUTOMAT IN STRING IAR DACA VREM SA FOLOSIM ATRIBUTELE SI OBIECTELE, NU PUTEM PT CA ACESTEA REPREZINTA DOAR UN SCRIS ORARECARE. PENTRU A LE CONVERTI IN OBIECTE, ATRIBUTE ETC.. DIN JS FOLOSIM:
+
+	console.log(companies);				// in mod normal, datele json sunt transmise sub forma de string
+	console.log(JSON.parse(companies));		// parin acest mod, convertim stringul in cod js!!
+
+5.CUM SA IMPORTEZI DATA DINTR-UN FISIER JSON INTR-UN FISIER JAVASCRIPT
+		==>data.json
+	{
+	    "name": "John Doe",
+	    "age": 30,
+	    "email": "john@example.com"
+	}	
+
+		==>script.js
+	const fs = require('fs');
+	
+	// Read the JSON file
+	const rawData = fs.readFileSync('data.json');
+	const jsonData = JSON.parse(rawData);
+	
+	// Access the data
+	console.log(jsonData.name);  // Output: John Doe
+	console.log(jsonData.age);   // Output: 30
+	console.log(jsonData.email); // Output: john@example.com
+
+6.EXEMPLU DE TRANSMITERE ARRAY CARE SA CONTINA USERII:
+
+	ex:
+let button = document.querySelector("button");
+
+button.addEventListener("click", () => {
+  console.log("Request trimis");
+  fetch("http://localhost:3000/users")
+    .then((response) => response.json())
+    .then((data) => console.log(data[1]))
+    .catch((error) => console.log(error));
+});
+
+
+
+
+
+app.get("/users", (req, res) => {
+  const users = fs.readFileSync("./database/users.json");
+  res.send(users);
+});
+
+
+	ex:
+app.post("/postUser", (req, res) => {
+  const users = JSON.parse(fs.readFileSync("./database/users.json", "utf8"));	// citim un fisier json (la citiere se transforma in string) iar
+  users[0].usersRegistered++;							apoi il trecem in json
+  users.push({									// avandul in json adaugam un element prin push
+    id: users[0].usersRegistered,
+    name: req.body.name,
+    password: req.body.password,
+  });
+  fs.writeFile("./database/users.json", JSON.stringify(users), "utf8", (err) => // la final il punen din nou in string pt a putea fii trimis in file
+    console.log(err)
+  );
+
+
+  fetch("http://localhost:3000/postUser", {
+    method: "POST",				// cele 3 atribute
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({
+      id: undefined,
+      name: name_input.value,
+      password: password_input.value,
+    }),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log(data);
+    })
+    .catch((error) => {
+      console.log(error);
+    });
+
+
+
+-prin JSON.stringify() facem din json in string
+-prin JSON.parse() facem din strin in json
+-daca citim un fisier, acesta va fii convertit automat in string

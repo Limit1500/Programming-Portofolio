@@ -1,0 +1,29 @@
+=> este foarte underrated
+=> este mai simpla, rapida si portabila decat python
+=> are doar 21 de cuvinte rezervate
+=> are doar un tip de date (table)
+=> nu sunt clase. totul se poate face doar cu functii
+
+variabila = "BUNA"              // asa se creeaza o variabila globala. pur si simplu punem un nume si o valoare
+
+local variabilaLocala = "hey"   // asa se creeaza o variabila locala
+
+print("hello")                  // output in consola
+
+
+function numeFunctie(parametru1, parametru2)        // o functie se declara prin functin si se opreste la end. se returneaza prin return
+    return n * 2
+end
+
+numeFunctie(1, 2)       // asta este un apel al unei functii
+
+altaFunctie(numeFunctie)    // poti sa pui ca parametru o alta functie
+
+
+numeArray = {"cirese", 3, "mere"}       // indexarea se face de la 1! (asa se declara un vector)
+
+numeDictionar = {           // asa se declara un dictionar sau obiect
+    ["nume"] = "tamas"
+    ["prenume"] = "david"
+    ["varsta"] = 17
+}
