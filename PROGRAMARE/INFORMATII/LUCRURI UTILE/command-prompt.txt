@@ -1,0 +1,59 @@
+este un mod de a comunica cu stistemul de operare
+este folosit pentru a l menegeria si pentru a l controla
+
+COMENZI:
+
+ipconfig            // informatii despre ip
+ipconfig /all       // mai multe informatii 
+ipconfig /all | findstr DNS     // din toate informatii prezentate, afiseaza doar cele ce tind de DNS
+ipconfig /release               // stergi ip ul
+ipconfig /renew                 // se genereaza un alt ip
+ipconfig /displaydns            // toate websiteurile care sunt memorate si adresele lor    
+ipconfig /displaydns | clip     // face acelasi lucru doar ca toate datele sunt copiate (ctrl c) pentru a le putea analiza intr un fisier txt mai usor
+informatii /flushdns            // sterge tot dns ul
+cls                 // sterge consola
+powercfg /energy    // ofera un feedback legat de energia care este furnizata calculatorului
+powercfg /batteryreport     // ofera un feedback legat de baterie
+assoc                       // arata fiecare tip de document cu ce aplicatie va fi rulat by default (ex: mp4 cu media player)
+assoc .mp4=VLC.VLC          // schimbi aplicatia default pt fisiere .mp4
+chkdsk /f           // gaseste erorile din disc si le repara
+chkdsk /r           // cauta probleme ale sectoarelor fizice
+sfc /scannow        // verifica sistemele fisierelor (ex: verifica dll uri si le repara daca pot)
+DISM /Online /Cleanup-Image /CheckHealth        // verifica problemele imaginii sistemului de operare
+DISM /Online /Cleanup-Image /ScanHealth         // scaneaza cat de bine functioneaza imaginea sistemului de operare
+DISM /Online /Cleanup-Image /RestoreHealth      // daca sunt probleme, le rezolva
+tasklist | findstd script   // gaseste lista cu taskuri (opreste orice ruleaza pe fundal inclusiv virusi)
+taskkill /f /pid 20184      // opreste taskul, fortat, care are id ul 20184. (id ul se gaseste prin tasklist)
+netsh wlan show wlanreport  // ofera un feedback legat de conexiuni (ofera un site html care contine datele)
+netsh interface show interface      // arata interfetele
+netsh interface ip show address | findstd "IP Address"  // arata adresele ip
+netsh interface ip show dnsservers  // arata serverele dns
+netsh firewall set allprofiles state off    // opreste tot firewallul
+netsh firewall set allprofiles state on     // porneste tot firewallul
+ping paginaMeaWeb.ro                        // verifica daca site ul meu este pornit
+ping -t paginaMeaWeb.ro                     // verifica daca site ul meu este pornit in continuu
+tracert paginaMeaWeb.ro                     // vine de la trace route si verifica rutele siteului
+netstat             // spune la ce este conectat calculatorul
+netstat -af         // spune ce porturi ai libere
+netstat -o          // afiseaza toate procesele conexiunilor (poti sa faci rost de id ul taskurilor si le poti opri prin taskkill)
+route print         // afiseaza rutele necesare pentru a ajunge la anumite networkuri
+route add           // adaugi o ruta spre un gateway
+route delete        // 192.168.40.0
+shutdown            // inchide calculatorul
+shutdown /r /fw /f /t 0         // da restart si se deschide in bios
+copy /b imagine.jpg+folderInfo.zip imagineSecreta.jpg   // daca vrem sa ascundem informatii putem sa le dam compress intr un foldev zip si apoi ii dam aspectul unei imagini cu numele imagineSecreta
+ciper /E            // blocheaza accesul la toatele fisierele din folderul curent
+attrib +h +s +r numeFolder  // face folderul invizibil
+attrib -h -s -r numeFolder  // il face vizibil
+netstat wlan show profile   // arata toate retelele wifi pe care le am vizitat (inclusiv parolele)
+netstat wlan show profile "numeRetea" key=clear     // arata doar o retea
+systeminfo          // arata informatii despre pc
+daca sunt oriunde in file explorer si in bara de sus care are ruta scriu cmd se va deschide un command prompt care are routul spre folderul din care am facut asta in explorer
+explorer .          // opusul comenzii de sus, deschide un file explorer care se afla la dc ul command prompt
+prompt alteCuvinte$G    // textul liniei in cmd prompt (nu face nimic doar poti sa iti pui ce text vrei)
+prompt                  // dai reset la text
+title numeTitluCmd      // schimba titlul
+curl wttr.in/Iasi       // poti sa vezi vremea din Iasi
+curl qrenco.de/numeWebsite.com      // creeaza un cod qr pentru a accesa siteul specificat
+start numeSite.com          // se deschide un tab cu siteul respectiv
+telnet telehack.com         // dupa o sa arate o lista cu filme. dupa ce scrii numele filmului pe care vrei sa il vezi in consola va rula si se va opri cu ctrl c 

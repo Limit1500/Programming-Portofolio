@@ -1,0 +1,145 @@
+EXPLICATII
+    => calculatoarele au nevoie de informatii pentru a rula diferite taskuri. Aceste informatii nu pot fii stocate toate pe un singur calculator pt ca sunt mult prea multe si nu se pot
+adapta in timp util. pentru a stopa aceste probleme s au inventat conexiunile dintre calculatoare pentru a putea impartasii informatiile pe care le detin.
+    => cea mai de baza conexiune a calculatoarelor este LAN. aceasta se poate face prin conectarea calculatoarelor care sunt in aceeasi locatie (birou, locuinte etc). Dispozitivele se
+conecteaza intre ele prin Switch (un dispozitiv). prin conectarea mai multor Switchuri se leaga conexiunile LAN si se creeaza una singura.
+    => un rutere este un dispozitiv care creeaza conexiuni cu alte rutere. de obicei ruterele sunt conectate la Switchuri sau direct la calculatoare.
+    => internetul este conexiunea tuturor ruterelor din toata lumea. El transmite informatia astfel: un alt ruter succesor primeste request (cu destinatia si informatii) de la rutarul local.
+Dupa ce a primit acest request, il duce mai departe la un alt router succesor. Informatia se duce la la un router la altul pana cand ajunge la destinatie. Acest traseu este asemanator
+cu un graf in care fiecare nod este un ruter. Se folosesc algoritmi speciali care decid pe loc fara un traseu decis la inceput care este urmatoarea locatie in care se transmite informatia. 
+    => ruterele sunt grupate in ISP uri. Fiecare ISP este responsabil pentru un numar de rutere si pentru conexiunea intre ele (ele sunt de fapt niste companii care fac asta pentru bani)
+    => ISP urile sunt pe orase, judete, tari, continente. Adica sunt foarte bine structurate (sub forma de dictionar) (ca un arbore)
+    => la nivel mai mic adica orase, cartiere, routerele se conecteaza prin POP uri care la randul lor se conecteaza la ISP uri
+    => un alt tip de conexiune este prin WAN. Aceasta conexiune are scopul de a conecta una sau mai multe conexiuni LAN char daca sunt la distanta mare. Diferenta este ca prin WAN se 
+conecteaza doar rutere (internetul este cea mai ampla conexiune WAN). Acest tip de conexiune foloseste internetul, insa adauga un strat semnificativ de protectie a informatiilor. Prin dorinta informatiei de a gasi
+destinatia, pot aparea hackeri care vizualizeaza sau mai rau modifica datele.
+    => protectia WAN functioneaza astfel: pachetul cu datele poate fii mascat sub alta forma + acesta se incripteaza printrun procedeu stiut doar de ruterele destinatie si start.
+Daca un hacker gaseste informatia, nu stie ce sa faca cu ea. Este important de stiut ca orice sistem de protectie nu este 100% sigur.
+    => conexiunea LAN este cea mai sigura
+
+
+
+Ghid de bază pentru rețele și internet
+
+1. Adresa IP (Internet Protocol)
+Definiție: O adresă IP este o etichetă numerică atribuită fiecărui dispozitiv conectat la o rețea care utilizează protocolul de Internet.
+Versiuni:
+IPv4: Format din patru numere separate prin puncte (e.g., 192.168.1.1). Are 32 de biți și aproximativ 4,3 miliarde de adrese.
+IPv6: Format din opt grupuri de câte patru cifre hexazecimale (e.g., 2001:0db8:85a3:0000:0000:8a2e:0370:7334). Are 128 de biți și un număr aproape infinit de adrese.
+Tipuri de adrese:
+Publice: Accesibile pe internet, unice la nivel global.
+Private: Utilizate în rețele locale, nu sunt routabile pe internet (e.g., 192.168.0.0 - 192.168.255.255).
+
+2. Porturi
+Definiție: Calea logică care permite unui computer să distingă între diferite tipuri de trafic de rețea și să asocieze acest trafic cu aplicațiile corespunzătoare.
+Tipuri de porturi:
+Bine-cunoscute (0-1023): Rezervate pentru servicii standard (e.g., HTTP - port 80, HTTPS - port 443).
+Înregistrate (1024-49151): Atribuite pentru aplicații specifice.
+Dinamice/private (49152-65535): Utilizate pentru conexiuni temporare sau aplicații private.
+Utilizare în securitate: Firewall-urile folosesc porturile pentru a permite sau bloca traficul. Port scanning-ul detectează porturile deschise, identificând serviciile active și vulnerabilitățile.
+
+3. DNS (Domain Name System)
+Definiție: Sistemul care traduce numele de domenii ușor de înțeles de oameni (e.g., www.example.com) în adrese IP numerice (e.g., 192.0.2.1).
+Structură ierarhică: Include servere rădăcină, TLD (Top-Level Domain) servers, și servere autoritare.
+Servere DNS:
+Recursive: Acționează ca intermediari, realizând cereri DNS în numele clientului.
+Autoritare: Dețin informațiile DNS pentru domenii specifice.
+Cashing: Rezultatele DNS sunt stocate temporar pentru a reduce latența și încărcarea pe servere.
+
+4. Gateway
+Definiție: Un dispozitiv de rețea care permite traficul să treacă de la o rețea la alta. Este de obicei un router care conectează rețeaua locală la internet.
+Rol: Facilitează comunicarea între diferite rețele și gestionează traficul de rețea. În rețelele casnice, routerul este adesea gateway-ul implicit.
+
+5. Router
+Definiție: Un dispozitiv care dirijează pachetele de date între rețele diferite, determinând cel mai bun traseu pentru date.
+Funcții:
+Rutare: Direcționează pachetele de date pe baza adreselor IP.
+NAT (Network Address Translation): Permite dispozitivelor dintr-o rețea privată să acceseze internetul folosind o singură adresă IP publică.
+
+6. Subnet Mask
+Definiție: Utilizată pentru a diviza adresele IP într-o rețea și a determina ce porțiune a adresei IP reprezintă rețeaua și ce porțiune reprezintă dispozitivele din acea rețea.
+Format: Similar cu adresa IP, de exemplu, 255.255.255.0.
+
+7. DHCP (Dynamic Host Configuration Protocol)
+Definiție: Protocolul care atribuie dinamic adrese IP și alte informații de configurare dispozitivelor dintr-o rețea.
+Rol: Simplifică gestionarea adreselor IP, evitând conflictul de adrese și facilitând configurarea automată.
+
+8. NAT (Network Address Translation)
+Definiție: Procesul de modificare a adreselor IP în pachetele de date pe măsură ce acestea sunt transmise printr-un router sau gateway.
+Rol: Permite mai multor dispozitive dintr-o rețea privată să acceseze internetul folosind o singură adresă IP publică.
+
+9. Firewall
+Definiție: Un sistem de securitate care controlează traficul de rețea pe baza unui set de reguli de securitate.
+Tipuri:
+Hardware: Dispozitive fizice care filtrează traficul de rețea.
+Software: Aplicații care rulează pe un sistem de operare pentru a filtra traficul de rețea.
+Funcție: Protejează rețelele interne de acces neautorizat și atacuri.
+
+10. Protocol TCP/IP (Transmission Control Protocol/Internet Protocol)
+Definiție: Setul de protocoale care stau la baza funcționării internetului.
+Componente:
+TCP: Asigură transmiterea fiabilă a datelor, gestionând segmentarea și reasamblarea pachetelor.
+IP: Direcționează pachetele de date către destinația corectă pe baza adreselor IP.
+
+11. VPN (Virtual Private Network)
+Definiție: O conexiune securizată și criptată între două sau mai multe dispozitive pe internet.
+Rol: Asigură confidențialitatea și securitatea datelor transmise prin rețele publice, permițând accesul la resurse de rețea ca și cum dispozitivul ar fi direct conectat la rețeaua privată.
+
+
+
+
+Cum Funcționează Internetul și Conexiunile
+Internetul este un sistem global de rețele interconectate care permite comunicația și schimbul de informații între dispozitive la nivel mondial. Iată o explicație detaliată a modului în care funcționează internetul și conexiunile:
+
+1. Arhitectura Internetului
+Internetul este o rețea de rețele, adică un sistem complex de rețele interconectate care folosesc standarde și protocoale comune pentru a comunica.
+
+2. Protocolele de Bază
+TCP/IP (Transmission Control Protocol/Internet Protocol): Setul de protocoale fundamental pentru comunicarea pe internet.
+IP (Internet Protocol): Responsabil de adresarea și rutarea pachetelor de date între dispozitive.
+TCP (Transmission Control Protocol): Asigură transmiterea fiabilă a datelor prin segmentarea, trimiterea și reasamblarea pachetelor.
+3. Adrese IP
+Fiecare dispozitiv conectat la internet are o adresă IP unică, care poate fi din versiunea IPv4 sau IPv6. Adresele IP sunt esențiale pentru identificarea și localizarea dispozitivelor pe internet.
+
+4. DNS (Domain Name System)
+DNS este sistemul care traduce numele de domenii ușor de citit de oameni (e.g., www.example.com) în adrese IP numerice (e.g., 192.0.2.1). DNS funcționează printr-o structură ierarhică, de la serverele rădăcină până la serverele autoritare.
+
+5. Routere și Switch-uri
+Routere: Dispozitive care direcționează traficul de date între rețele diferite, utilizând adresele IP pentru a determina traseul optim.
+Switch-uri: Dispozitive care conectează multiple dispozitive într-o rețea locală (LAN) și le permit să comunice între ele.
+6. ISP (Internet Service Provider)
+ISP-urile sunt companii care oferă acces la internet utilizatorilor. Ele asigură conexiunea dintre rețeaua locală a utilizatorului și internetul global.
+
+7. Modemuri
+Modemurile sunt dispozitive care modulizează și demodulizează semnalele pentru a permite transmiterea datelor prin cabluri coaxiale, linii telefonice sau alte medii fizice.
+
+8. Conexiunea la Internet
+Conexiunea Fizică:
+
+DSL: Utilizează linii telefonice pentru a transmite date.
+Cablu: Folosește cabluri coaxiale, similare cu cele utilizate pentru televiziune.
+Fibra Optică: Utilizează fire de fibră optică pentru transmisii de date rapide și fiabile.
+Wireless: Conexiuni prin rețele celulare sau Wi-Fi.
+Procesul de Conectare:
+
+Utilizatorul se conectează la internet prin intermediul unui ISP.
+Modemul transformă semnalele de la ISP în semnale care pot fi utilizate de router și alte dispozitive din rețeaua locală.
+Routerul distribuie aceste semnale către dispozitivele din rețea, fie prin cablu, fie wireless.
+
+9. Transferul Datelor
+Când trimiți o cerere de accesare a unui site web:
+
+Browserul Web: Trimite o cerere DNS pentru a obține adresa IP a serverului web.
+Serverul DNS: Răspunde cu adresa IP corespunzătoare.
+Browserul: Trimite o cerere HTTP sau HTTPS către serverul web folosind adresa IP.
+Serverul Web: Trimite înapoi datele cerute (e.g., pagina web), care sunt apoi afișate în browserul utilizatorului.
+
+10. Securitatea Internetului
+Firewalls: Protejează rețelele interne de acces neautorizat.
+VPN (Virtual Private Network): Criptează conexiunile pentru a asigura confidențialitatea datelor.
+HTTPS: Asigură transmiterea sigură a datelor între browser și server prin criptare.
+
+11. Infrastructura Globală
+Servere: Găzduiesc date și aplicații accesibile prin internet.
+Data Centers: Facilități mari care adăpostesc servere și alte echipamente de rețea.
+Backbone: Rețele de mare capacitate care constituie coloana vertebrală a internetului, conectând diferite regiuni ale lumii.
