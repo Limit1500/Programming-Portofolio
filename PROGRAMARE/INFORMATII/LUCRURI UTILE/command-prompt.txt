@@ -1,4 +1,4 @@
-este un mod de a comunica cu stistemul de operare
+este un mod de a comunica cu stistemul de operare (fara interfata grafica a sistemului)
 este folosit pentru a l menegeria si pentru a l controla
 
 COMENZI:
@@ -57,3 +57,34 @@ curl wttr.in/Iasi       // poti sa vezi vremea din Iasi
 curl qrenco.de/numeWebsite.com      // creeaza un cod qr pentru a accesa siteul specificat
 start numeSite.com          // se deschide un tab cu siteul respectiv
 telnet telehack.com         // dupa o sa arate o lista cu filme. dupa ce scrii numele filmului pe care vrei sa il vezi in consola va rula si se va opri cu ctrl c 
+
+
+!daca scrii jumate de cuvat si apesi tab il completeaza
+cd desktop      // din folderul curent se duce intr un folder din ecesta
+cd desktop\videos       // fac 2 pasi in fata
+cd ..           // se da cu un folder inapoi
+cd ../..        // se da cu 2 foldere inapoi
+dir             // afiseaza toate fisierele din directory-ul curent
+dir desktop\videos      // afiseaza toate fisierele din directory-ul specificat
+dir /a                  // afiseaza toate fisierele inclusiv cele ascunse de sistem (sunt ascunse pt ca sunt importante si nu trebuie sa le modifici)
+dir *.png       // afiseaza doar fisierele care se termina in png
+daca apesi sageata sus o sa se dea scroll in comenzi 
+numePoza.png    // daca scrii numele unui fisier se va deschide
+ipconfig /?     // la orice comanda daca scrii /? dupa o sa afiseze toate lucrurile pe care le poate face acea comanda
+mkdir numeDirectoryNou      // creeaza un nou directory cu numele specificat in locatia curenta
+rmdir numeDirectoryNou      // stergen directory ul cu numele specificat doar daca este gol
+rmdir /s numeDirectoryNou   // stergen directory ul cu numele specificat cu tot cu ce are in el
+path                        // afiseaza o variabila care arata toate path-urile pe care command prompt le verifica in cazul in care ii spui sa dea run la un executabil si nu il gaseste dupa ce nu l a gasit in directory-ul curent
+D:          // se schimba driveul curent
+tree        // afiseaza toate datele pornind de la folderul curent sub forma de arbore (care arata fain)
+attrib /?   // afiseaza toate atributele pe care le poate avea un file
+attrib      // afiseaza atribuele directory ului curent
+attrib +h numeFisier        // atribuie atrubutul hidden la fisierul numeFisier care este un predecesor al dir curent
+type text.txt               // afiseaza ce se afla in acel .txt
+echo text > fisier.txt      // sterge ce se afla in fisier.txt si pune cuvantul text
+echo text >> fisier.txt     // adauga cuvantul text in fisier
+dir > fisier.txt            // salveaza ce afiseaza comanda dir in fisier.txt
+copy fisier1.txt folder     // copiaza fisier1.txt in folder
+xcopy folder1 folder2       // copiaza componentele folderului 1 in folderul 2
+move folder1 folder2        // muta folderului 1 in folderul 2
+rename folder1 folder2      // denumeste folderului 1 in folderul 2

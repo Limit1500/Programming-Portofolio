@@ -17,6 +17,9 @@ destinatia, pot aparea hackeri care vizualizeaza sau mai rau modifica datele.
 Daca un hacker gaseste informatia, nu stie ce sa faca cu ea. Este important de stiut ca orice sistem de protectie nu este 100% sigur.
     => conexiunea LAN este cea mai sigura
 
+    => este important de stiut ca, companiile mari isi fac servere in toata lumea pentru ca astfel un requestul unui utilizator din zona in care compania are servere va fii mult mai rapid
+si mult mai protejat deoarece requestul trece prin mult mai putine ISP uri sau POP uri. Aceasta metoda de eficientizare se numeste Peering
+
 
 
 Ghid de bază pentru rețele și internet
