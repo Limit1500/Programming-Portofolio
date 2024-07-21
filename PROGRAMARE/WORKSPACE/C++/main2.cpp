@@ -1,28 +1,53 @@
-#include <bits/stdc++.h>
-using namespace std;
-int main()
+struct nod
 {
-    int n;
-    cin >> n;
-    char s[16][300];
-    for (int e = 0; e <= n; ++e)
+    int info;
+    nod *urm;
+};
+
+void sterge(nod *&p)
+{
+    nod *curent = p;
+
+    while (curent != nullptr)
     {
-        cin.getline(s[e], 300);
-    }
-    for (int e = 0; e <= n; ++e)
-    {
-        int i = 0;
-        while (s[e][i] != '\0')
+        if (curent->info % 2 == 0)
         {
-            if ((s[e][i] == '!' || s[e][i] == '?' || s[e][i] == '.' || s[e][i] == ',') && s[e][i + 1] != '\0')
-            {
-            }
-            else
-                cout << s[e][i];
-            i++;
+            nod *temp = curent;
+            curent = curent->urm;
+            delete temp;
         }
-        if (e > 0)
-            cout << endl;
+        else
+        {
+            curent = curent->urm;
+        }
     }
-    return 0;
+}
+
+void sterge(nod *&p)
+{
+    // Verificăm și ștergem nodurile de la începutul listei dacă sunt pare
+    while (p != nullptr && p->info % 2 == 0)
+    {
+        nod *temp = p;
+        p = p->urm;
+        delete temp;
+    }
+
+    if (p == nullptr) // Dacă lista a devenit goală
+        return;
+
+    nod *curent = p;
+    while (curent != nullptr && curent->urm != nullptr)
+    {
+        if (curent->urm->info % 2 == 0)
+        {
+            nod *temp = curent->urm;
+            curent->urm = curent->urm->urm;
+            delete temp;
+        }
+        else
+        {
+            curent = curent->urm;
+        }
+    }
 }

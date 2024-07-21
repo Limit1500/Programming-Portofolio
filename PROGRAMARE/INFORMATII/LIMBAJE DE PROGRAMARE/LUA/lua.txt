@@ -1,15 +1,52 @@
+===========================================================================LUCRURI GENERALE==================================================================================
+
 => este foarte underrated
 => este mai simpla, rapida si portabila decat python
 => are doar 21 de cuvinte rezervate
 => are doar un tip de date (table)
 => nu sunt clase. totul se poate face doar cu functii
 
-variabila = "BUNA"              // asa se creeaza o variabila globala. pur si simplu punem un nume si o valoare
-
+============================================================================VARIABILE SI TIPURI DE DATE========================================================================
 local variabilaLocala = "hey"   // asa se creeaza o variabila locala
 
-print("hello")                  // output in consola
+variabila = "BUNA"              // asa se creeaza o variabila globala. pur si simplu punem un nume si o valoare
 
+string = [[
+    aici pui un text si se pastreaza toate caracterele
+        adica aici sunt pe a doua linie
+    2 + 2 = 4 se va afisa sub forma de text
+]]  // cand afisezi va arata fix ca sus
+ 
+ => o variabila poate avea valoarile:
+    nil = nu reprezinta nimic           // orice variabila este initializata la inceput cu nil
+    numere = 9, 23, 3.443, 4344 
+    stringuri = 'sdfa', "dfatt"         // nu este o diferenta intre ' si "
+    boolean = true sau false
+
+numeArray = {"cirese", 3, "mere"}       // indexarea se face de la 1! (asa se declara un vector)
+
+numeDictionar = {           // asa se declara un dictionar sau obiect
+    ["nume"] = "tamas"
+    ["prenume"] = "david"
+    ["varsta"] = 17
+}
+
+===========================================================================OUTPUT SI COMENTARII================================================================================
+
+print("hello")                  // output in consola (fiecare print are un '\n' la final)
+print("hello" .. "jack")        // cele 2 puncte concateneaza 2 stringuri (ca si cum ar fi un +)
+
+daca punem "-- " inainte de orice linie, linia va deveni comentariu
+
+ --[[
+     cod
+  ]]        // in felul asta tot codul dintre marcaje va fi comentariu
+
+=============================================================================FUNCTII============================================================================================
+
+FUNCTII GENERALE:
+    1. type(variabila)      // returneaza tipul de date care este stocat (daca variabila este un numar va afisa number)
+    2. tonumber(string)     // converteste un string format doar din cifre in numar (daca stringul are si litere atunci devine nil si da eroare)
 
 function numeFunctie(parametru1, parametru2)        // o functie se declara prin functin si se opreste la end. se returneaza prin return
     return n * 2
@@ -19,11 +56,27 @@ numeFunctie(1, 2)       // asta este un apel al unei functii
 
 altaFunctie(numeFunctie)    // poti sa pui ca parametru o alta functie
 
+============================================================================MATEMATICA IN LUA===================================================================================
 
-numeArray = {"cirese", 3, "mere"}       // indexarea se face de la 1! (asa se declara un vector)
+math.pi = 3.1415926
+math.random()       // returneaza un numar intre 0 si 1 (returneaza doar un numar adica nu este un numar nou random la fiecare apel)
+math.random(10)     // returneaza numere, diferite intre 1 si 10
+math.random(10, 50) // returneaza numere, intre 10 si 50
+math.randomseed()   // daca in randomseed punem mai multe numere diferite apelul math.random() va returna un numar nou pentru fiecare seed setat (un seed este un numar specific)
+os.time()           // returneaza timpul executieI
+math.randomseed(os.time())  // daca punem asta inainte de orice math.random() atunci face ca fiecare numar sa fie random
+math.min(10, 23, 4, 56, 4, 23)  // returneaza cel mai mic nr din lista
+math.max(10, 23, 4, 56, 4, 23)  // returneaza cel mai mare nr din lista
+math.floor(3.234522)            // returneaza partea intreaga
+math.ceil(3.123)                // returneaza partea intreaga rotunjita superior (in cazul de fata 4)
+math.sin(30)        // sin de 30 de grd
+math.cos(30)        // cos de 30 grd
+math.tan(30)        // tangenta de 30 grd
 
-numeDictionar = {           // asa se declara un dictionar sau obiect
-    ["nume"] = "tamas"
-    ["prenume"] = "david"
-    ["varsta"] = 17
-}
+SEMNE:
++
+-
+*
+/       // se face inaintea * si reprezinta impartirea normala (adica 10 / 3 = 3.333333)
+%       // este restul impartirii deimpartitului la impratitor
+^       // reprezinta la putere

@@ -43,7 +43,7 @@ int main(){
 	if(myFile.is_open()){
 		string line;					//declaram o variabila de tip string
 		while(getline(myFile, line)){			//functia getline( , ) are 2 parametrii. In primul se pune fisierul pe care il utilizam iar in al doilea se pune 
-			cout << line << endl;			  variabila care va stoca informatia de pe prima linie (prin: while(getline(myFile, line)) se parcurge fiecare linie
+			cout << line << endl;			  variabila care va stoca informatia de pe prima linie (prin: while(getline(myFile, line))) se parcurge fiecare linie
 		}							  din fisier si line o va stoca pe rand pe fiecare  
 	}	
 }
