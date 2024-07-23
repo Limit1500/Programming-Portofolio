@@ -1,0 +1,5 @@
+    => in roblox studio poti sa creezi orice de la 0 (poti pune motoare, poti sa sudezi parti, poti da adaugi efecte, poti sa modifici proprietatile obiectelor, poti sa adaugi
+structuri precum locuri in care te poti aseza, spawnpoints)
+    => fiecare model trebuie luat cu atentie deoarece unele pot duce la ban in cazul in care creatorul nu este de acord
+    => pentru a crea modele trebuie sa grupezi part-uri in forme. de obicei designerii au modele pe care le au salvat in roblox care contin copaci cladiri obiecte etc cu care 
+creeaza lumi noi

@@ -1,0 +1,48 @@
+ALEGEREA JOCULUI
+    => cele mai productive jocuri sunt cele mai ciudate si fun. La incput trebuie sa fac jocuri simple pe care sa le pot finaliza
+    => dupa ce am facut cateva jocuri mici si diferite care produc robuxi, ma pot muta la idei de proiecte mai mari
+    => este important sa gasesc o idee de joc in care cred si care ma motveaza
+    => trebuie sa am o viziune stabila si realista a jocului de dinainte
+
+GAME CONCEPT
+    => este folositor sa aiba o poveste, si sa fie engaging si beginner friendly si sa aiba un raspuns la intrebarea "de ce sa petreaca oamenii tipmul in jocul tau"
+
+    UNIQUE SELLING POINTS (ce face jocul special si diferit de altele)
+        EXEMPLE:
+        -pet simulator are peturile ca USP
+        -deadline are graficile speciale
+        -erlc are graficile si harta si sistemele de robbery ca USP
+        -airsoft FE are ca USP armele arisoft
+        -jailbreak are complexitatea jocului foarte mare
+        -fishing simulator are pescuitul ca ESP
+
+    => este important sa cunosti publicul tinta si sa te pui in pielea lui si sa selectezi ceea ce iti place si ceea ce nu iti place si sa implementezi in jocul tau
+
+MINIMUM VIABLE PROODUCT (prima varianta a produsului)
+    => este prima versiune jucabila a proiectului tau. Aceasta versiune trebuie lansata si testata pentru a nu pierde timp pe dezvoltarea inutila a jocului in cazul in care nu este jucat
+
+PIVOTAREA SI DEZVOLTAREA JOCULUI
+    => in unele situatii trebuie sa modifici planul initial in functie de ce cere comunitatea si in functie de alte aspecte
+    => la inceput sa nu pun accent pe a face designing pentru o varianta finala a jocului. Jocul trebuie dezvoltat astfel incat sa nu aiba buguri.
+
+ADVERTYSING
+    => dupa finalizarea unui joc este important sa ii fac reclama. Un mod eficient de a face reclama este prin postarea videoclipurilor pe insta tik tok etc. un alt mod este prin
+roblox. daca dai niste robux poti sa iti faci reclama la joc (https://docs.google.com/document/d/1z_TwUMp-Xu8WSJsfCyhQZO4iEp47yiePaEWVMtTkkWk/edit?pli=1) pentru tutoral despre ads
+    => sa ascult comunitatea si sa rezolv problemele cu care se confrunta
+    => algoritmul roblox de promovare se bazeaza pe cat robux produce jocul tau si pe cat de jucat este
+    => este important sa folosec cuvinte cheie precum tycoon sau simulator
+    => thumbnail-ul este important
+
+IDEILE DE JOCURI
+    => pentru a gasi idei de jocuri putem sa ne ajutam creierul prin a pune pe o hartie un concept care a functionat, si sa facem alte concepte pornind de la el
+    => un alt mod de a gasi idei este prin a juca jocuri facute de altii
+    => pot sa ma inspir din alte platforme precum steam
+
+CORE LOOP
+    => toate jocurile mari au acest lucru, un set de rewarduri din ce in ce mai mari cate te fac sa te joci mult. Exemplu ar fii rebirthurile. Dupa ce ai ajuns la un nivel inalt, 
+dai rebirth si te da la inceput doar ca ai avantaje mai mari. Acest lucru se intampla pana cand jucatorul se plictiseste.
+    
+    CUM SA CREEZ UN CORE LOOP
+        1. identific actiunea pe care playerii o fac cel mai des
+        2. identific rewordurile 
+        3. creeaza un motiv pentru care ei sa faca asta in continuu

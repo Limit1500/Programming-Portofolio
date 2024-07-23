@@ -1,0 +1,50 @@
+    => in roblox studio sunt diverse elemente. toate aceste elemente sunt vizibile in explorer grupate pe categorii (workspace, lightning, teams, sound services etc...).
+    => pentru a face referita la un element al jocului (elementul poate fi de orice tip) trebuie sa accesam obiectul game. Acest obiect contine toate elementele.
+Spre exemplu, daca vrem sa accesam un nou part creat in workspace trebuie sa folosim: game.workspace.part (trebuie sa navigam in explorer). fiecare element al jocului are diverse
+caracteristici pe care le putem accesa prin obiectul elementului.
+    => in cazul in care vrem sa modificam o caracteristica putem face 2 lucruri: 
+        1. game.workspace.part.material = "Wood"        // acest lucru facem daca stim denumirea precisa a modificarii
+        2. game.workspace.part.material = Enum.material.Wood    // aceasta varianta este mai buna deoarece putem vedea toate posibilitatile de caracteristici
+
+        => culorile:
+            1. Color3.frinRGB(255, 0, 0)
+            2. BrickColor.new("Really red")
+        
+        => caracteristici bool:
+            1. game.workspace.part.anchored = false;
+
+    => Enum este un obiect care contine toate caracteristicile posibile. Trebuie sa navigam la sectiunea care contine caracteristicile care se pot aplica in cazul nostru
+
+    => daca workspace are o caracteristica care are aceeasi denumire cu un ascendent al lui (un copil) prin game.workspace.denumire se va accesa prima oara caracteristica lui 
+workspace ci nu ascendentul cu acelasi nume. pentru a accesa ascendentul folosim game.workspace:FindFirstChild("denumirea")
+
+COMENZI
+
+wait(1)     // secunde
+Instance.new("Part")    // adauga un nou part in joc
+
+game.Players.PlayerAdded:Connect(function(player))
+game.Players.PlayerRemoving:Connect(function(player))
+
+part.Size = Vector3.new(part.Size.X + 10, part.Size.Y, part.Size.Z)
+part.Position = Vector3.new(20, 10, 5) -- Setăm coordonatele (X, Y, Z)
+
+EVENIMENTE
+
+part.Touched:Connect(function(hit)
+    print("Part was touched by: " .. hit.Parent.Name)
+end)
+
+local clickDetector = game.Workspace:WaitForChild("ClickDetector")
+
+clickDetector.MouseClick:Connect(function(player)
+    print(player.Name .. " clicked the part!")
+end)
+
+game.Players.PlayerAdded:Connect(function(player)
+    print(player.Name .. " has joined the game!")
+end)
+
+game.Players.PlayerRemoving:Connect(function(player)
+    print(player.Name .. " has left the game!")
+end)
