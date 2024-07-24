@@ -31,20 +31,29 @@ part.Position = Vector3.new(20, 10, 5) -- Setăm coordonatele (X, Y, Z)
 
 EVENIMENTE
 
-part.Touched:Connect(function(hit)
-    print("Part was touched by: " .. hit.Parent.Name)
-end)
-
 local clickDetector = game.Workspace:WaitForChild("ClickDetector")
 
-clickDetector.MouseClick:Connect(function(player)
-    print(player.Name .. " clicked the part!")
-end)
+clickDetector.MouseClick:Connect(function(player)       // acest :Connect conecteaza o functie la acel event. Pentru a afla ce fel de parametrii se transmit trebuie deschidem
+    print(player.Name .. " clicked the part!")              object browser si sa verificam pentru tipul de element pentru care vrem sa folosim si pentru eveniment ce parametrii
+end)                                                        are functia (de obicei va trebui pur si simplu sa denumim parametrii cum vrem noi in cazul in care sunt)
 
-game.Players.PlayerAdded:Connect(function(player)
-    print(player.Name .. " has joined the game!")
-end)
+OBJECT BROWSER
+    => object browser este un tool care poate fi activat in tabul view. In partea stanga contine fiecare element posibil. Dupa ce ai apasat pe unul dintre ele, in dreapata, va arata
+toate lucrurile pe care le poti face cu el. Fiecare tip de element este ca un obiect care are diverse componente afisate in dreapta. (acolo se pot afisa si atributele si eventurile
+si multe altele)
 
-game.Players.PlayerRemoving:Connect(function(player)
-    print(player.Name .. " has left the game!")
-end)
+cum sa folosesc tooluri
+cum sa folosesc masini
+cum sa fac tycoon
+cum sa pun baza de date
+cum sa folosec sounduri
+cum sa manipulez playerii
+
+MENIURI 
+    => in starterGui creem un screenGui adica un meniu. in acest meniu putem adauga frameuri. in frameuri putem adauga tot felul de elemente precum obiecte si text si imagini.
+    => pentru a da functionalitate unui obiect trebuie sa ii atasam un script (un script diferit la fiecare buton). pentru a functiona trebuie sa pornim de la script Pentru
+a ajunge la frameurile pe care vrem sa le modificam deoarece scriptul este unic pentru fiecare jucator si de la script putem ajunge la interfata fiecarui jucator (ex: 
+script.parent = butonul care contine scriptul, script.parent.parent = frameul care contine butonul). Daca folosim game.starterGui.etc.. modificam gui ul tuturor playerilor (
+asa am inteles)
+
+BAZE DE DATE
