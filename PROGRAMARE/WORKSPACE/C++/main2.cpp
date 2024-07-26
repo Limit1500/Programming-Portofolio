@@ -1,53 +1,95 @@
-struct nod
+#include <iostream>
+using namespace std;
+
+struct Nod
 {
     int info;
-    nod *urm;
+    Nod *leg;
 };
 
-void sterge(nod *&p)
+// Function to create a linked list from an array
+Nod *createLinkedList(int arr[], int n)
 {
-    nod *curent = p;
+    if (n == 0)
+        return nullptr;
 
-    while (curent != nullptr)
+    Nod *head = new Nod;
+    head->info = arr[0];
+    head->leg = nullptr;
+
+    Nod *current = head;
+    for (int i = 1; i < n; i++)
     {
-        if (curent->info % 2 == 0)
+        Nod *newNod = new Nod;
+        newNod->info = arr[i];
+        newNod->leg = nullptr;
+        current->leg = newNod;
+        current = newNod;
+    }
+    return head;
+}
+
+// Function to print the linked list
+void printLinkedList(Nod *head)
+{
+    Nod *current = head;
+    while (current != nullptr)
+    {
+        cout << current->info << " ";
+        current = current->leg;
+    }
+    cout << endl;
+}
+
+// Function to generate descending list
+void FLsiDesc(Nod *head)
+{
+    if (!head)
+        return;
+
+    int n = head->info;
+    Nod *current = head;
+
+    while (n > 0)
+    {
+        n -= 1;
+
+        if (current->leg == nullptr)
         {
-            nod *temp = curent;
-            curent = curent->urm;
-            delete temp;
+            Nod *newNod = new Nod;
+            newNod->info = n;
+            newNod->leg = nullptr;
+            current->leg = newNod;
+            current = newNod;
+        }
+        else if (current->leg->info != n)
+        {
+            Nod *newNod = new Nod;
+            newNod->info = n;
+            newNod->leg = current->leg;
+            current->leg = newNod;
+            current = newNod;
         }
         else
         {
-            curent = curent->urm;
+            current = current->leg;
         }
     }
 }
 
-void sterge(nod *&p)
+// Main function to test FLsiDesc
+int main()
 {
-    // Verificăm și ștergem nodurile de la începutul listei dacă sunt pare
-    while (p != nullptr && p->info % 2 == 0)
-    {
-        nod *temp = p;
-        p = p->urm;
-        delete temp;
-    }
+    int arr[] = {5}; // Example array
+    int n = sizeof(arr) / sizeof(arr[0]);
 
-    if (p == nullptr) // Dacă lista a devenit goală
-        return;
+    Nod *head = createLinkedList(arr, n);
+    cout << "Original List: ";
+    printLinkedList(head);
 
-    nod *curent = p;
-    while (curent != nullptr && curent->urm != nullptr)
-    {
-        if (curent->urm->info % 2 == 0)
-        {
-            nod *temp = curent->urm;
-            curent->urm = curent->urm->urm;
-            delete temp;
-        }
-        else
-        {
-            curent = curent->urm;
-        }
-    }
+    FLsiDesc(head);
+    cout << "Modified List: ";
+    printLinkedList(head);
+
+    return 0;
 }
