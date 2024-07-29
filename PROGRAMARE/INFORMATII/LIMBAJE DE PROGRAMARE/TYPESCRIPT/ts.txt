@@ -104,10 +104,10 @@ SETARILE STANDARD
     // "noImplicitThis": true,                           /* Enable error reporting when 'this' is given the type 'any'. */
     // "useUnknownInCatchVariables": true,               /* Default catch clause variables as 'unknown' instead of 'any'. */
     // "alwaysStrict": true,                             /* Ensure 'use strict' is always emitted. */
-    // "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
-    // "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. */
+    "noUnusedLocals": true,                           /* Enable error reporting when local variables aren't read. */
+    "noUnusedParameters": true,                       /* Raise an error when a function parameter isn't read. */
     // "exactOptionalPropertyTypes": true,               /* Interpret optional property types as written, rather than adding 'undefined'. */
-    // "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
     // "noFallthroughCasesInSwitch": true,               /* Enable error reporting for fallthrough cases in switch statements. */
     // "noUncheckedIndexedAccess": true,                 /* Add 'undefined' to a type when accessed using an index. */
     // "noImplicitOverride": true,                       /* Ensure overriding members in derived classes are marked with an override modifier. */
@@ -122,3 +122,44 @@ SETARILE STANDARD
 }
 
 3. creem foldere src in care pun fisierele ts care trebuie rulate si dist in care se vor afla fisierele js
+
+TYPES 
+  => in js sunt urmatoarele tipuri de date: number string boolean null undefined object
+  => ts adauga si tipurile: any unknown never enum tuple
+
+VARIABILE
+!anotarea este: let numar: number = 14 SAU let string: string = "BUNA"   
+  => scopul lui tsc este de a folosi variabile de un tipuri diferite. acest lucru se poate face doar la declararea variabilei
+  1. selectarea unui tip specific variabilei:
+    let denumire: tipData = data;   // asa anotam o variabile la tipData
+      SAU
+    let denumire = data;            // asa se auto anoteaza la tipul de date al datei cu care initializam
+
+  2. folosirea any                  // any este tipul care da voie variabilei sa stocheze toate tipurile de date
+    let denumire;                   // daca nu am pus nici anotare si nici nu am initializat var cu o valoare, atunci tipul devine any chiar daca ulterior am initializat
+    denumire = 5;
+
+ARRAYURI
+!anotarea se face 
+let numbers: number[] = [];       // aici anotam orice element al arrayului cu number
+  SAU
+let numbers: [number, string, boolean] = [];  // aici anotam fiecare index al arrayului cu cate tip de date
+
+ENUM
+  => mi se pare useless
+
+FUNCTII   
+function calcul(nr1: number, denumire: string): number {    // daca vrem sa folosim tsc corect anotam fiecare parametru si functia. In cazul nostru functia returneaza neaparat un
+  if (denumire == "approved")                                 numar. in cazul in care vrem sa nu returnam nimic folosim :void . Un alt lucru important este legat de setari. In cazul
+    return number * 10;                                       setarilor de mai sus, sunt obligat sa nu folosesc variabile nefolosite sau parametrii nefolositi sau sa folosesc o logica
+  else                                                        care permite in unele cazuri sa returneza tipuri ce nu corespund cu tipul functiei. In cazul in care unul dintre aceste 
+    return number;                                            lucruri se intampla atunci se va genera o eroare
+}
+
+! daca vrem sa punem un parametru ca fiind optional atunci punem un '?' adica:  denumire?: string
+
+OBIECTE
+let obiect = {
+  nume: "masina",
+  numar: 15
+} = {"BMW", 10}         https://www.youtube.com/watch?v=d56mG7DezGs         min 44
