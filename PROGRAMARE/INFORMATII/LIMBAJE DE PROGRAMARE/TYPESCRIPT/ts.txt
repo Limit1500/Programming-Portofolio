@@ -6,7 +6,11 @@
     comentariile nu se vor pastra in codul js
     nu se va crea codul js daca apar erori
 
-dupa de am dat run la comanda: tsc --init o sa ne apara un nou fisier cu setartile (tsconfig.json)
+CUM SE CREEAZA UN FISIER TS:
+1. fac un directory nou in care dau cd la aced directory
+
+2. dupa dam run la comanda: tsc --init o sa ne apara un nou fisier cu setartile (tsconfig.json)
+
 SETARILE STANDARD
 {
   "compilerOptions": {
@@ -116,3 +120,5 @@ SETARILE STANDARD
     "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
   }
 }
+
+3. creem foldere src in care pun fisierele ts care trebuie rulate si dist in care se vor afla fisierele js
