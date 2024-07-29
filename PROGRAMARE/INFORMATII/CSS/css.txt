@@ -18,9 +18,9 @@
 
 1. FOLOSESTE ELEMENTE CARE SA AIBA DIMENSIUNI DIFERITE: daca in siteul tau ai 6 elemente poti sa faci 1 din ele sa fie mare , 2 elemente sa aima marime medie iar ultimele 3 elemente sa fie mici
 
-2. SA IMBIN FOCAL POINT (PARTEA DIN LAYOUT CARE ATRAGE CHIUL PRIMA OARA) SI SPATIUL ALB (NU TREBUIE SA FIE NEAPARAT ALB CI TREBUIE SA FIE CALM SI RELAXANTIOKBGHJV) INTR-UN MOD IN CARE NU EXAGEREZ CU NICIUNUL DIN CELE DOUA SI SA CONDUC OCHIUL 
+2. SA IMBIN FOCAL POINT (PARTEA DIN LAYOUT CARE ATRAGE CHIUL PRIMA OARA) SI SPATIUL ALB (NU TREBUIE SA FIE NEAPARAT ALB CI TREBUIE SA FIE CALM SI RELAXANT) INTR-UN MOD IN CARE NU EXAGEREZ CU NICIUNUL DIN CELE DOUA SI SA CONDUC OCHIUL 
 
-3. ALAGEREA CORECTA A CULORILOR (TREBUIE ALESE 3 CULORI: UNA ESTE DOMINANTA IAR CELELALTE DOUA NU SUNT DOMINANTE) ELE TREBUIE APLICATE IN PROCENT DE 60% 30% SI 10%
+3. ALAGEREA CORECTA A CULORILOR
 	=> trebuie alese 3 culori, una dominanta iar 2 non dominante
 	=> trebuie aplicate in procent de 60% 30% si 10%
 	=> trebuie sa inteleg mesajul culorilor
@@ -39,6 +39,7 @@
 4. INAINTE DE A INCEPE UN DESIGN TREBUIE SA IMI STABILESC UN MESAJ PE CARE VREAU SA IL TRANSMIT
 
 5. TOATE ELEMENTELE DIN DESIGN TREBUIE SA TRANSMITA ACELASI MESAJ (IMAGINILE TREBUIE SA FIE IN CORCONDANTA CU TEXTUL)
+
 ------------------------------------------------------------------------------------------------------------TAGURI GENERALE-----------------------------------------------------------------------------------------------------------------
 
 1. border: (grosimea, tipul, culoarea)
@@ -60,8 +61,6 @@ background-position: (care parte a imaginii de pe fundal sa se vada) top right, 
 backgroud-image: linear-gradient (culoare1 / to right, culoare2, culoare3)	(tranzitie frumoasa de la o culoare la alta transformadu-se usor)	!to right inseamna de la stanga la dreapta tranzitia
     width:100%;
     height: 100vh;		=> MARIMEA MAXIMA
-
-
 
 ------------------------------------------------------------------------------------------------------------------UNITATI-------------------------------------------------------------------------------------------------------------------
 
@@ -162,7 +161,7 @@ pentru mai multe fonturi: google fonts	(import @ punem in css la inceput)
 var(--bg-color)			// apelul unei variabile
 
 :root {
-	--bg-color: #405580;	// in root declaram variabilele ( roor reprezinta tagul html )
+	--bg-color: #405580;	// in root declaram variabilele ( root reprezinta tagul html )
 }
 
 --------------------------------------------------------------------------------------------------------------------BUTOANE--------------------------------------------------------------------------------------------------------------
