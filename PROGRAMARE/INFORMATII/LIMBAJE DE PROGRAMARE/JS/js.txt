@@ -256,7 +256,7 @@ PENTRU A ACCESA / MODIFICA UN ATRIBUT (ex: title, id, class);
 
 	h1.classList.add("numele clasei");			// asa adaugam o clasa (se va stiliza automat daca acea clasa este stilizata)
 
-	h2.getAtribute("id") 					// preia atributul scris in paranteze
+	h1.getAtribute("id") 					// preia atributul scris in paranteze
 
 PENTRU A CREA UN ELEMENT:
 	let unorderList = document.querySelector("ul");		// creem o variabila care sa reprezinte o lista
@@ -297,11 +297,11 @@ PENTRU A SCHIMBA UN RULE DIN CSS PUTEM FOLOSI:
 	h1.style.color = "red";			// numele variabilei care reprezinta elementul / .style / cu ce vrem sa stilizam
 
 DOM TREE:
-	elementDinHTML.chldNodes		// reprezinta toate elementele care sunt implementate in tag-ul superior (este un vector care contine fiecare element pe cate o pozitie)
-	elementDinHTML.firstChild		// reprezinta primul element care este implementat in tag-ul superior
-	elementDinHTML.lastChild		// reprezinta ultimul element care este implementat in tag-ul superior
-	elementDinHTML.previousSibling		// reprezinta elementul dinaintea celui curent care face parte din acelasi tag superior
-	elementDinHTML.nextSibling		// reprezinta elementul de dupa cel curent care face parte din acelasi tag superior
+	elementDinHTML.chldNodes		// reprezinta toate elementele care sunt implementate in tag-ul succesor (este un vector care contine fiecare element pe cate o pozitie)
+	elementDinHTML.firstChild		// reprezinta primul element care este implementat in tag-ul succesor
+	elementDinHTML.lastChild		// reprezinta ultimul element care este implementat in tag-ul succesor
+	elementDinHTML.previousSibling	// reprezinta elementul dinaintea celui curent care face parte din acelasi tag
+	elementDinHTML.nextSibling		// reprezinta elementul de dupa cel curent care face parte din acelasi tag
 
 	1.MERSUL INAPOI IN STRUCTURA
 	elementDinHTML.parentNode		// parintele
@@ -338,9 +338,9 @@ button.addEventListener("click", alerta);
 
 EVENT DELEGATION (FOLOSIREA UNUI SINGUR EVENT LISTENER PENTRU MAI MULTE ELEMENTE):
 
-functia .addEventListener("click", numeFunctie(parametru1));   //are ca prim parametrul declansatorul eventului si o functie de callback care are si ea un parametru. Acesta contine toate informatiile care tin de eveniment. Spre exemplu, 							         elementul, pozitia, etc..   pentru a pune pe un set de elemente care sunt "frati" un singur event listener trebuie sa punem listener-ul pe "parintele" elementului
+functia.addEventListener("click", numeFunctie(parametru1));   //are ca prim parametrul declansatorul eventului si o functie de callback care are si ea un parametru. Acesta contine toate informatiile care tin de eveniment. Spre exemplu, 							         elementul, pozitia, etc..   pentru a pune pe un set de elemente care sunt "frati" un singur event listener trebuie sa punem listener-ul pe "parintele" elementului
 spre exemplu:
-  unorderList.addEventListener("click", (event) => {		// doar sub forma aste se poate transmite parametrul event care detine toate informatiile legate de eveniment
+  unorderList.addEventListener("click", (event) => {		// doar sub forma asta se poate transmite parametrul event care detine toate informatiile legate de eveniment
     target = event.target;					// event.target inseamna elementul care a declasat evenimentul
     if (target.className == "delete_img") {			// algoritm
       target.parentNode.remove();
@@ -350,7 +350,7 @@ spre exemplu:
 EVENT DELEGATION 2:	(METODA MAI INEFICIENTA)
 	let buttons = document.querySelectorAll("button");
 	
-	buttons.foreEach(button funtion(){
+	buttons.forEach(funtion(button){				// for each este doar o functie care itereaza fiecare element al vectorului si care ia ca parametru o alta functie
 		button.addEventListener("click", numeFunctie);
 })
 	sau
@@ -484,7 +484,7 @@ ex:
 3.SETAREA DE BACKGROUND TRANSPARENT
 https://www.youtube.com/watch?v=h8IfRewcYns
 
-==================================================INTERACTION==================================================
+============================================================================================================INTERACTION==================================================
 
 PENTRU A CREA UN EVENT LISTENER CARE SA DETECTEZE MISCAREA MAUSE-ULUI:
 
@@ -512,7 +512,7 @@ const data = localStorage.getItem('data');
 
 
 
-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------------------------------COD EXEMPLU--------------------------------------------------------------------------------------------------------------
 
 
 
