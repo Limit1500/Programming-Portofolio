@@ -160,6 +160,86 @@ function calcul(nr1: number, denumire: string): number {    // daca vrem sa folo
 
 OBIECTE
 let obiect = {
-  nume: "masina",
+  nume: "masina",   <=>   nume: string   (aceasta este cea mai favorabila definitie)
   numar: 15
-} = {"BMW", 10}         https://www.youtube.com/watch?v=d56mG7DezGs         min 44
+} = {"BMW", 10}     // daca il initializam trebuie sa ii specificam fiecare caracteristica 
+
+daca vrem sa facem o caracteristica optionala folosim: numar?: 15,
+
+daca vrem sa facem o caracteristica constanta, nemodificabila punem un readonly inainte de denumire: readonly nume: string,
+
+TYPE (este echivalentul lui struct din c++)
+
+type dataStr = {
+  readonly an: 2024,
+  nume: string
+}
+
+UNION TYPES
+let nrSauStr: number | string;      // ex union type
+
+function numeFunctie(variabila: number | string): number {      // am adaugat o variabila care poate fii numar sau string
+  // narrowing                    // aici o sa putem folosi doar functiile care pot fi apelate cu un numar sau cu un string
+  if (variabila === 'number'){    // in acest if putem folosi toate functiile care pot fi apelate doar cu numere deoarece am folosit o logica care sa ne permita asta
+    return 1;
+  }
+  else {                          // in else putem avea doar string asa ca ts ne permite sa folosim doar functii care pot fii apelate cu stringuri
+    return 0;
+  }
+}
+
+INTERSECTION TYPES
+let nrSauStr: number & string;      // ex intersection type
+
+un exemplu mai bun:
+
+type mutabil = {
+  muta = () => void
+}
+
+type scalabil = {
+  scaleaza = () => void
+}
+
+type modificabil = mutabil & scalabil;      // noul tip contine toate caracteristicile din cele 2 tipuri secundare
+
+let obiect: modificabil = {                 // aici trebuie sa respecte tipul modificabil asa ca punem toate carac din cele 2 tipuri secundare
+  scaleaza = () => void
+  muta = () => void
+}
+
+LITERAL TYPES
+let numar: 50 = 80;         // acest tip ne da voie sa avem doar acel numar asociat cu variabila asa ca linia aceasta va furniza o eroare
+
+let numar: 50 | 100;        // putem pune si | pentru a putea asocia acestei variabile 50 sau 100
+  SAU
+type cantitate = 50 | 100;
+let numar: cantitate;       // poate fii 50 sau 100
+
+alte ex:
+type metric = 'cm' | 'm';
+
+NULLABLE TYPES
+null sau undefined nu sunt permise by default de catre ts.
+
+ex:
+
+function numeFunctie(number: number) {}   // nu putem pune ca parametru null sau undefined
+
+pentru a puteam folosi null sau undefined
+
+function numeFunctie(number: number | null | undefined) {}
+
+OPTIONAL CHAINING
+
+!! return id === 0 ? null : {console.log("else")};        // daca id === = atunci null altfel console.log("else");
+
+daca am o functie care creeaza un obiect doar daca respecta niste cerinte, va returna null daca nu a respectat acele cerinte
+pentru a nu da o eroare in cazul in care obiectul este null folosim
+
+obiect?.check?.valoare    // daca obiectul nu este null sau undefined, daca check nu este null sau undefined, ia valoarea  <=> !== null && !== undefined
+      // practic adauga un if care verifica daca obiectul este disponibil (atentie! trebuie sa fie construit astfel incat sa poata returna null sau undefined in cazurile nefavorabile)
+
+ex:
+let a: any = null;
+log?.(a);   // nu va returna pt ca a = null

@@ -1,0 +1,292 @@
+		!!!CARACTERUL NULL ESTE '\0'
+					
+					'/t' ==> tab 
+
+					 !!daca nu afiseaza nimic e probabil sa nu ai destul spatiu de stocare (scade marimea inutila a vectorilor sau a matricielor)
+
+		!!!FISIERE
+
+cum sa folosim fisiere pentru in si out (in loc de consola):
+	//fiecare fisier trebuia
+	1.OUT
+
+ex:
+#include <iostream>
+#include <fstream>						//precizam libraria
+using namespace std;
+int main(){
+	fstream myFile;						//declaram numele fisierului
+	myFile.open("info.txt", ios::out);			//functia .open("parametru1", parametru2)	are 2 parametrii si are ca scop deschiderea fisierului si descrierea scopului
+	if(myFile.is_open()){					  utilizarii fisierului		Ex: deschidem fisierul info.txt   (daca nu exista acest fisier il va crea) iar out se
+		myFile << "Hello";				  foloseste pentru scrierea datelor in fisier					
+		myFile.close();					//prin functia .close() inchidem fisierul
+	}
+}
+fstream myFile;					.
+	myFile.open("info.txt", ios::app);			//daca vrem sa adaugam o noua informatie redeschizand fisierul folosim app (append = adauga).Daca folosim iarasi out 
+	if(myFile.is_open()){					  fisierul va fi golit si se va scrie doar partea de informatii adaugate ulterior
+		myFile << "Hello";					
+		myFile.close();			
+	}
+
+
+	2.IN
+
+ex:
+#include <iostream>
+#include <fstream>
+#include <string>							//daca vrem sa lucram cu liniile fisierului sau cu mai multe functii string introducem libraria string
+using namespace std;
+int main(){
+	fstream myFile;
+	myFile.open("info.txt", ios::in);			// prin ios::in citim informatii din fisier
+	if(myFile.is_open()){
+		string line;					//declaram o variabila de tip string
+		while(getline(myFile, line)){			//functia getline( , ) are 2 parametrii. In primul se pune fisierul pe care il utilizam iar in al doilea se pune 
+			cout << line << endl;			  variabila care va stoca informatia de pe prima linie (prin: while(getline(myFile, line))) se parcurge fiecare linie
+		}							  din fisier si line o va stoca pe rand pe fiecare  
+	}	
+}
+
+	!!!pentru functia setw(); avem nevoie de o noua librarie #include <iomanip>
+	aceata functie este folosita pentru a alinia o variabila
+	ex:
+
+int n = 123;
+	cout << setfill("*") << right << setw(4) << n;				//se va afisa 		*123
+												//variabila n va fi scrisa in 4 spatii aliniata din dreapta iar spatiile goale vor fii umplute cu *
+
+
+CUM SA EXTRAGI INFORMATIILE DE PE UN FILE
+
+int main(){
+	fstream file;
+	file.open("info.txt", ios::in);
+	int id;
+	string name;
+	double score;
+	while (file >> id >> name >> score){					//prin file << incepe sa citeasca de la inceput fisierul
+		cout << id << ", " << name << ", " << scor;			//pointerele sunt spatii dintre caractere 
+	}											//prin while (file >> id >> name >> score) se trece prin text si introduce in variabile bucatile de 
+	return 0;										informatii (c++ intelege ca informatiile sunt separate de " " ex:34 david 12     sunt 3 informatii)
+}												//dupa ce s-a citit tot file-ul file >> id >> name >> score devine null si iese din while
+
+
+	!!!info.txt contine
+1 iulian 54
+2 matei 30
+3 alex 38
+
+
+	!!!se va afisa in consola
+1, iulian, 54
+2, matei, 30
+3, alex, 38
+
+
+
+
+
+
+
+	===>	!!!FUNCTII
+
+la rularea unui cod de apeleaza functia main()	(functia main este principala)
+
+forma generala a unei functii:
+
+	tip nume(listaParametriFormali)
+	{
+		declaratiiVariabileLocale
+		instructiuni
+	}
+
+unde :	tip = tipul rezultatului returnat de functie (daca functi returneaza un nume se va folosii string daca returneaza un nr se va folosi int...)
+	nume = numele functiei
+	listaParametriFormali = cel putin un parametru separat prin virgula	(pentru a declara un parametru se poate folosii  int nume  in interiorul listei de parametrii)
+		-trebuie sa introduci parametrii necesari ai functiei (ex: functia swap(int a, int b) trebuie sa fie apelata cu neaparat 2 parametrii actuali)
+
+parametrii : sunt modul prin care o functie comunica cu exteriorul acesteia. Prelucrarile din functie depind de parametrii.
+in cazul in care funtia nu are parametrii sau nu returneaza o valoare este de recomandat sa o declaram folosind void 		ex: void nume(void){ cout << "Aceasta functie nu returneaza nimic." }
+
+daca NU punem 	return expresie;   intr o functie aceasta nu va returna nimic	(in cazul in care return este identificat, functia se opreste)
+functiile de forma double   sqrt(double);   sunt functii care sunt prestabilite
+inainte de apelul unei functii, aceasta trebuie definita
+functiile uzuale sunt grupate pe biblioteci. Fiecare biblioteca este un file care contine definitia functiilor din acea biblioteca nefiind necesara rescrierea definitiilor functiilor 	forma: #include <biblioteca>
+daca biblioteca nu este una standard ci este creata de noi se foloseste   #include "biblioteca"
+
+apelarea functiilor : numeFunctie(listaParametrii);	(ex: vrem sa folosim functia max(int, int); care a fost deja definita => folosim max(a, b) daca vrem sa aflam maximul dintrea a si b)
+
+sunt 2 moduri de a apela o functie	-numeFunctie(listaParametrii);		//in acest caz functia nu returneaza nici-o valoare ci doar prelucreaza datele
+					-numeFunctie(listaParametrii)		// in acest caz finctia returneaza o valoare
+
+regula: parametrii formali trebuie sa coincida in valoare si tip cu cei actuali (cei formali reprezinta parametrii care ar trebui sa fie precizati pentru a functia functia iar cei actuali sunt datele care trebuie sa fie prelucrate de f)
+
+	ex: int x = 4, y = 5, m;
+	    m = max(x, y)
+
+functiile care nu au ';' la final, nu pot modifica valoarea parametrilor actuali deoarece nu cunosc adresa acestora
+pentru a folosi valorile parametrilor actuali putem crea alte variabile locale care au aceleasi valori
+
+sunt doua cazuri	-swap(a, b);	//transmite adresele parametrilor si pot fi modificati
+			-swap(a, b) 	//nu sunt transmise adresele si parametrii nu pot fii schimbati
+
+cand un parametru al unei functii este de tip tablou trebuie precizat doar numele, fara numarul de elemente
+
+ex de functie :
+
+	void citireVector(int nrDeElemente, int vector)
+	{
+		for (int i = 0; i < nrDeElemente; i++)
+			cin >> vector[i];
+	}
+
+	int main()
+	{
+		int nrElemente, Vectorul;
+		citireVector(nrElemente, Vectorul);
+	}
+
+varibilele sunt de 2 tipuri:	-globale: sunt declarate in exteriorul oricarei functii si sunt vizibile peste tot in cod dupa declararea lor
+				-locale: sunt declarate in blocul de cod al unei functii si sunt vizibile doar in interiorul acesteia
+
+in cazul in care declaram o variabila locala care are acelasi nume cu o variabila globala, in interiorul functiei care contine variabila locala, varibila globala este inlocuita de cea locala (adica e ca si cum nu ar exista)   OMONIMIE
+	
+in caz de OMONIMIE variabila 	x local = variabila locala cu acelasi nume
+				x global = variabila globala cu acelasi nume
+
+exista si functiile inline: inline max(){}	acestea, la apel, inlocuiesc apelul cu codul sau
+
+parametrii impliciti:
+	void f(int a, int b = 1, int c = 2){ cout << a << b << c; };
+		-daca apelul este f(9) functia va arata 912
+		-daca apelul este f(9, 8) functia va arata 982			// adica in cazul in care parametrul nu este precizat si este initializat cu o valoare, va lua valoarea initializata
+
+	ex: functia getline(signed char*, int, char = '/n');
+
+supraincarcarea functiilor: se pot crea functii cu acelasi nume dar care au parametri diferiti 		ex: get(signed char)	si 	get(unsigned char)
+functiile template sunt folosite in cazul in care tipul parametrilor poate sa fie oarecare (ex o functie care face suma:  suma(float ., int .) si suma(int ., int .)  in acest caz trebuie sa folosim template pt a nu defini aceeasi 	functie de doua ori)
+
+definirea functilor template:
+	template <class T>	// orice T este inlocuit cu tipul parametrului formal
+	T suma (t a, int n)
+	{
+	T s = 0;
+	for (int i = 0; i < n; i++) s += a[i];
+	}
+	
+pentru a adauga un fisier secundar care contine cod trebuie sa folosim   #include "numeFisier.cpp"
+
+de obicei orice alta functie inafara de main se creaza folosind void
+
+este mai usor sa folosim variabile globale
+
+pentru a modifica parametrii actuali trebuie sa folosim:
+	void citire(int multime1[100], int &lungimeMultime1, int multime2[100], int &lungimeMultime2)
+	"int &lungime
+
+
+		!!!FOLOSIREA CODULUI ASCII
+
+char character = '.';
+int c = static_cast<int>(character);		// in acest mod putem folosii codul ascii al unui caracter
+
+ int asciiValue = 65;
+    char character = static_cast<char>(asciiValue);	// invers
+
+pentru a converti char '5' in int 5 trebuie sa scadem codurile ascii a caracterelor '0' si '5' (care sunt 48 si 53) si o sa dea 5  :)
+
+		
+		!!!CUM POTI SA CREEZI UN VECTOR CU MAI MULTE ELEMENTE
+
+#include <iostream>
+#include <fstream>
+#include <vector>
+#include <variant>		// ne trebuie libraria variant
+#include <string>
+using namespace std;
+
+int main() {
+	variant<string, int, char> variabila;	// am declarat o variabila de tip variant (intre <> trebuie sa precizam tipurile de variabile acceptate)
+	variabila = 10;
+	variabila = "da";
+	variabila = 't';
+   	}
+cout << get<int>(a);		// asa putem afisa o variabila variant de tip int
+
+ if (std::holds_alternative<int>(myVariant)) {							// un mod prin care putem vedea tipul unei variabile pentru a o putea afisa
+        std::cout << "Valoarea int: " << std::get<int>(myVariant) << std::endl;
+    } else if (std::holds_alternative<double>(myVariant)) {
+        std::cout << "Valoarea double: " << std::get<double>(myVariant) << std::endl;
+    } else if (std::holds_alternative<std::string>(myVariant)) {
+        std::cout << "Valoarea string: " << std::get<std::string>(myVariant) << std::endl;
+    } else {
+        std::cout << "Tipul variant nu este valid." << std::endl;
+    }
+
+		!!!VECTORII + MATRICE + SIR DE CARACTERE
+
+int a[100] = un vector cu 100 de elemente (de la 0 pana la n - 1)
+int a[100][100] = o matrice cu 10000 de elemente (fiecare element are 100 de alte sub elemente sau sunt ca liniile si coloanele)
+
+char a[100] = un sir de caractere 
+daca folosim 	cin >> a;      se va introduce pana la spatiu adica (int : adnajds adiuas, se va introduce doar adnajds)
+putem folosii si 	file.getline(s, 100, '.')	se va citi sirul s, max 100 caractere dupa ce apare .  (daca al 3 lea parametru nu este introdus se subintelege ca este "/n")
+
+la scriere daca in vectorul a se regaseste "/n" == endl
+iar "/0" == vectorul null si se opreste
+
+!!!PENTRU A PUTEA CITI MAI SIMPLU UN SIR DE CARACTERE PUTEM FOLOSI 	cin.getline(numeSir, 200);
+
+
+		!!!POINTERS
+
+un pointer este o variabila care are ca valoare o adresa a altei variabile 
+daca o variabila are val adresei altei variabile atunci se creeaza un pointer;
+ex:
+adrese    valori
+ax4389	5
+ax123		ax4389	==> pointer care indica valoarea 5
+ax4054
+
+cum declaram un pointer:
+int *pointer = &a;		//introducem o variabila. daca variabila are * inaintea numelui se specifica faptul ca acea variabila este un pointer
+					prin *pointer = &a se intelege ca pointerul cu numele pointer este egal cu adresa variabilei a (&a = adresa variabilei a)
+int y = *pointer;			//introducem o variabila care are valoarea variabilei cu adresa indicata de pointer
+
+daca pointerul == adresa unui el de tip char atunci si el se va declara folosind char...
+
+		!!!FUNCTII DIN LIBRARIA string.h
+
+	strlen(sir)		returneaza lungimea sirului
+	strcpy(destinatie, sursa)	copiaza sirul sursa de caractere in sirul destinatie 
+	strncpy(destinatie, sursa, n)		copiaza primele n caractere din sirul sursa in sirul destinatie
+	strcat(destinatie, sursa)		copiaza la finalul sirului destinatie sirul sursa	
+	strncat(destinatie, sursa, n)		copiaza la finalul sirului destinatie primele n caractere din sirul sursa
+	strcmp(s1, s2)	compara cele 2 siruri si returneaza o valoare 0/1
+	stricmp(s1, s2)	este la fel ca strcmp() doar ca nu este case sensitive (majuscule)
+	strchr(s1, c)	cauta prima aparitie a caracterului c in sirul s1 si returneaza un pointer care are adresa in care apare prima oara c
+	strchr(s1, s2)	cauta prima aparitie a sirului s2 in sirul s1 si returneaza un pointer care are adresa s2
+	strlwr(s1)		transforma toate caracterele mari in caractere mici
+	strupr(s1)		transforma toate caracterele mici in caractere mari
+	strtok(s1, separatori)	extrage la fiecare apel secventele din sirul s1 care sunt delimitate de oricare caracter din sirul separatori, iar caracterul separator este 						inlocuit cu val null iar functia determina secventele ramase scotand de la caracterul null pana la un separator
+
+		!!!FUNCTII DE CONVERSIE?
+
+		!!!TIPUL DE DATE STRUCT
+
+		def: este un vector care are elemente de mai multe tipuri 
+		declaratia:
+		
+	struct informatii[20];
+	struct data{int zi, an; char luna; double ora} informatii[30]; 		//am declarat structura numita data si campurile zi an luna ora si un vector declarat prin 														struct 
+													
+		referire la un camp al unei structuri:
+	structura.camp
+		SAU
+	informatii[1].an
+
+	structurile se pot atribui str1 = str2;
+
+	
+ 

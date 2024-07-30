@@ -1,0 +1,218 @@
+============================================SETUP PROIECT============================================
+
+1.CREAREA UNUI FOLDER CARE SA CONTINA PROIECTUL + ATRIBUIREA IN TERMINAL A FOLDERULUI: cd pathDirectory
+
+2.INITIALIZAREA FISIERULUI package.json: 
+	-npm init -y
+	-in package.json sa punem atributul "type": "module",
+	-sa creem scripturi: "start": "node server.js"
+			     "dev": "nodemon server.js"
+
+3.INITIALIZAREA NPM-ULUI + MODULELE:
+	MODULE:
+		npm i express
+		npm i nodemon
+	
+4.CREAREA FISIERELOR:	// pentru a folosi module in js adaugam la script atrubutul type="module"
+	FORMA:
+	-backend
+	  -node_modules
+	  -package-lock.json
+	  -package.json
+	  -server.js
+	-frontend
+	  -index.html
+	  -script.js
+	  -style.css
+
+
+5.CREAREA SERVERULUI: (creerea fisierului server.js in root)
+
+	import express from "express";
+	import fs from "fs";
+	
+	const app = express();
+	
+	app.get("/", (req, res) => {
+	  const html = fs.readFileSync("../frontend/index.html", "utf8");
+	  res.send(html);
+	});
+
+	app.use(json());	
+	app.use(express.static("../frontend"));
+	app.listen(3000, () => console.log("Server is on http://localhost:3000"););
+
+6.SITEURI:
+	https://kenney.nl/assets
+	https://wall.alphacoders.com
+============================================SETUP PROIECT============================================
+
+STRUCTURAREA UNUI PROIECT + EXPLICATII:
+	1.EXPLICATII: PROIECTUL ESTE IMPARTIT IN 2 MARI COMPONENTE:
+		==> FRONTEND: 
+			-in frontend se pun fisierele statice precum html css si js
+			-frontendul de multe ori este setat ca fiind folder static
+			-toate aceste fisiere sunt rulate in browser (nu pot avea nici-o interactiune de nici-un fel cu backendul)
+			-nu pot folosi nici-un feature din node sau alte extensii / frameworks / module ...
+
+		==> BACKEND:
+			-in backend se pun componentele dinamice: .json files, server.js
+			-in backend fisierele pot fii rulate de node (server.js este singurul care este rulat prin comanda node numeFisier insa in cazul in care importez dintr-un fisier in server.js automat acel fisier se va rula in node pe principiul inlantuirii);
+			-in backend se pot modifica datele detinute de server
+
+		==> CUM PUTEM OFERII FISIERE DIN SERVER CATRE CLIENT:
+			-serverul nu poate hosta toate fisierele care apar in directory-ul proiectului
+			-fisierele care pot fii accesate de catre client se se afla doar in folderele statice setate sau prin setarea unei rute
+				ex: daca clientul acceseaza url-ul: '/' atunci ofera-i fisierul index.html (daca html nu se afla deja in fol static)
+
+		==> CUM PUTEM COMUNICA INTRE FRONTEND SI BACKEND:
+			-din frontend clientul trimite un request catre server pentru a accesa / modifica / posta o informatie
+
+
+
+
+
+MODULUL FS:
+	-declararea:
+	import fs from "fs";
+
+	-citirea:
+	fs.readFile('myfile.txt', 'utf8', (err, data) => {
+  		if (err) throw err;
+  		console.log(data);
+	});
+	
+	-scrierea:
+	fs.writeFile('myfile.txt', 'Hello, World!', (err) => {
+  		if (err) throw err;
+  		console.log('File written successfully');
+	});
+
+	-append:
+	fs.appendFile('myfile.txt', dataToAppend, (err) => {
+  		if (err) throw err;
+ 		console.log('Data was appended to the file!');
+	});
+
+STATIC VS DYNAMIC WEBSITES:	
+	1.STATIC: paginile statice pot fii modificate doar daca developerul modifica codul in fisierele respective. Ele nu se modifica in functie de utilizator sau in functie de timp sau etc.. (apare la fel pentru orice client). Nu necesita o baza de date. 
+	-Beneficii: este usor de setat; nu au la fel de multe vurnelabilitati; performanta este mai buna; mai eficient; mai putine erori; mai usor de mentinut;
+	-Dezavantaje: este plictisitor pt utilizatori; este greu sa detii foarte multe date; nu se adapteaza in diferite situatii (window / android);
+
+	2.DINAMIC: se poate modifica in diferite situatii (poti oferi informatii in functie de utilizator) ex: daca este in android i se va oferi o anumita interfata. Putem utiliza baze de date. (exemple de site-uri dinamice: weather, clock, to do-websites si altele care au informatie modificata). Se pot scrie in mai multe limbaje de programare.
+	-Beneficii: sunt mai profesionale; updated content; more content; designuri flexibile; mobile responsive; cu ajutorul cookieurilor contentul va fii mai potrivit userului care accesseaza pagina;
+	-Dezavantaje: costuri mai mari de intretinere si de developare; nu este asa de sigur. Prin fiecare plugin introdus, se creeaza un nou mod de virusare a siteului; cu fiecare lucru adaugat devine din ce in ce mai greu de incarcat; au mai multe errori; este mai greu sa ai un mod de a da recover la informatii;
+	
+	3.LUCRURI GENERALE:
+	
+		=> termenul de cookie: cookie sunt fisiere care se dowloadeaza pe calculatorul clientului care stockeaza date dinamice care tin de fiecare utilizator in parte (ex: data logarii, numele, deviceul de pe care se face conexiunea, ce ai apasat, cat ai stat pe pagina si alte informatii care pot fii accesate doar pe serverele dinamice)
+
+		=> Ce este CMS: (content management system) este software. Este un mod prin care dam voie utilizatorilor sa publice, editeze content de pe site (ex: YouTube);
+
+		=> ce este un plugin pentru un site dinamic: pre-created cod files, care adauga functionaltate unui site dinamic
+
+HTTP:
+	1. UN MOD DE A UTILIZA DE INCEPUT (nu este folosit in general pt ca deschide sv-ul doar daca intra un utilizator / primeste un request)
+import http from "http";			// importam modulul
+
+const server = http.createServer(); 		// creem un server caruia ii atribuim un obiect
+
+server.on("connection", (socket) => {		// adaugam un event listener (serverul este on / server.on daca se conecteaza un user / 'connection')
+  console.log("New connection...");		// se va da console log si se va deschide serverul doar daca portul este accesat
+});
+
+server.listen(3000); 				// serverul va asculta portul precizat tot timpul
+
+	2. MODUL CEL MAI FOLOSIT (trebuie stiut ca calculatorul utilizatorului trimite o cerere catre server iar serverul trimite inapoi un raspuns. Obiectele req si res reprezinta aceste 2 componente)
+
+import http from "http";	
+
+const server = http.createServer((req, res) => {	// de data asta ne folosim de alte obiecte ale serverului pentru a porni serverul
+  if (req.url === "/") { 				// daca utilizatorul in requesti cere sa ia datele din path-ul '/' (req.url === "/") 
+    res.write("Hello world!");				// atunci scrie in raspunsul pe care calculatorul utilizatorului il cere inapoi "Hello world!"
+    res.end();
+  } else {						// daca nu cere sa acceseze folderul proiectului  
+    res.write("error 404");				// scrie in raspuns "error 404"
+    res.end();						// trimite raspuns
+  }
+});													
+server.listen(3000);
+
+!!! pentru a accesa orice lucu din server trebuie sa il precizezi in obiectul res (raspuns)
+de aia trebuie pus in raspuns elemente (precum folderul public sau doar sa scrie un mesaj (.write))
+la final raspunsul trebuie trimis
+
+NODEMON:
+	-dupa instalare in loc de deschiderea: node numeFisier vom folosi nodemon numeFisier sau daca folosim comenzi: npm run start
+
+
+EXPRESS:
+	1.MOD DE UTILIZARE MINIM PENTRU A CREA UN SERVER:
+
+import express from "express";		// importam modulul express
+const app = express();			// creem un obiect app care sa reprezinte serverul
+
+app.listen(3000);			// serverul ascultand portul 3000 automat se deschide
+
+	2.MODIFICAREA REQUESTULUI SI A RASPUNSULUI CREAND ASTFEL UN SERVER CARE ARE O UTILITATE: (forma default)
+
+app.get('./', (req, res, next) => {})	// parametrii: request, response, next (next nu este folosit mai deloc asa ca putem pune doar primii 2 par)
+
+	3.MODIFICAREA INFORMATIILOR PE CARE SERVERUL LE TRIMITE CLIENTULUI / RESPONSE:
+res.sendStatus(500);			// in raspunsul trimis inapoi clientului, se va trimite un cod care reprezinta un status
+res.download("server.js")		// cand raspunsul ajunge la client va aparea un tab care duce la downloadarea fileului
+res.render("index")
+	
+	A: pentru a randa cod html va trebui sa adaugam un nou engine / modul: npm i ejs  + va trebui sa scriem o setare (am adaugat o extensie ejs!!)
+app.set("view engine", "ejs");		// !!! toate fisierele noastrea .html vor avea .ejs pentru a functiona 
+
+app.get('/', (req, res) => {
+  res.render("index");			// pentru a functiona in loc de public trebuie sa denumes fisierul views (pt ca asa ese path-un default si
+});					   nu stiu cum sa il schimb fara sa foloses alt modul (path))jkutfm
+	
+	B:
+import express from "express";
+const app = express();
+
+app.use(express.static("public")); 	// aici specificam folderul cu fisierele statice
+
+app.listen(3000);
+
+	
+
+
+	4.CODURI
+
+1xx - Informational
+
+100 Continue: The server acknowledges that it received the request headers and that the client should proceed to send the request body.
+
+
+2xx - Success
+
+200 OK: The request was successful.
+201 Created: The request resulted in a new resource being successfully created.
+
+
+3xx - Redirection
+
+300 Multiple Choices: The requested resource has multiple possible representations.
+301 Moved Permanently: The requested resource has been assigned a new permanent URL.
+302 Found (Moved Temporarily): The requested resource has been temporarily moved to a different URL.
+304 Not Modified: The client's cached copy is still valid, so the server doesn't need to send a new copy.
+
+
+4xx - Client Errors
+
+400 Bad Request: The server couldn't understand the request due to client error (e.g., malformed request syntax).
+401 Unauthorized: Authentication is required and has failed or not been provided.
+403 Forbidden: The client does not have the necessary permission for the requested resource.
+404 Not Found: The server could not find the requested resource.
+
+
+5xx - Server Errors
+
+500 Internal Server Error: A generic error message indicating an unexpected condition.
+501 Not Implemented: The server does not have the functionality required to fulfill the request.
+502 Bad Gateway: The server, while acting as a gateway or proxy, received an invalid response from the upstream server.
+503 Service Unavailable: The server is currently unable to handle the request due to temporary overloading or maintenance of the server.

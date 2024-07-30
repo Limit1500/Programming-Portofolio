@@ -1,0 +1,199 @@
+<!-- create the html for a tik tak toe game -->
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Game</title>
+    <link rel="icon" href="favicon.ico" type="image/x-icon" />
+    <style>
+      #game {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+      }
+      #board {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        border: 1px solid black;
+        padding: 10px;
+      }
+      .row {
+        display: flex;
+        flex-direction: row;
+      }
+      .square {
+        border: 1px solid black;
+        width: 50px;
+        height: 50px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-size: 30px;
+      }
+      #status {
+        margin: 10px;
+      }
+
+      #reset {
+        margin: 10px;
+      }
+
+      h1 {
+        text-align: center;
+      }
+    </style>
+  </head>
+  <body>
+    <h1>Tic-Tac-Toe</h1>
+    <div id="game">
+      <div id="board">
+        <div class="row">
+          <div class="square" id="0"></div>
+          <div class="square" id="1"></div>
+          <div class="square" id="2"></div>
+        </div>
+        <div class="row">
+          <div class="square" id="3"></div>
+          <div class="square" id="4"></div>
+          <div class="square" id="5"></div>
+        </div>
+        <div class="row">
+          <div class="square" id="6"></div>
+          <div class="square" id="7"></div>
+          <div class="square" id="8"></div>
+        </div>
+      </div>
+      <div id="status"></div>
+      <button id="reset">Reset</button>
+    </div>
+  </body>
+</html>
+
+<script>
+  // create a variable to store the current player
+  let currentPlayer = "X";
+  // create a variable to store the game status
+  let gameStatus = "";
+  // create a variable to store the number of turns
+  let numTurns = 0;
+  // create a variable to store the game board
+  let gameBoard = ["", "", "", "", "", "", "", "", ""];
+  // create a constant to store the winning combinations
+  const winningCombos = [
+    [0, 1, 2], // top row
+    [3, 4, 5], // middle row
+    [6, 7, 8], // bottom row
+    [0, 3, 6], // left column
+    [1, 4, 7], // middle column
+    [2, 5, 8], // right column
+    [0, 4, 8], // diagonal top left to bottom right
+    [2, 4, 6], // diagonal top right to bottom left
+  ];
+  // create a function to handle a player clicking on a square
+  const squareClick = (e) => {
+    // create a variable to store the square the user clicked on
+    const square = e.target;
+    // create a variable to store the id of the square the user clicked on
+    const squareNum = Number.parseInt(square.id);
+    // check if the square is empty
+    if (!square.innerHTML) {
+      // set the square to the current player
+      square.innerHTML = currentPlayer;
+      // increment the number of turns by 1
+      numTurns++;
+      // set the square on the game board to the current player
+      gameBoard[squareNum] = currentPlayer;
+      // check if the current player has won
+      if (checkWin()) {
+        // set the game status to the current player won
+        gameStatus = `${currentPlayer} wins!`;
+        // display the game status
+        document.getElementById("status").innerHTML = gameStatus;
+        // return to exit the function
+        return;
+      }
+      // check if the game is a tie
+      if (checkTie()) {
+        // set the game status to tie game
+        gameStatus = "Tie Game!";
+        // display the game status
+        document.getElementById("status").innerHTML = gameStatus;
+        // return to exit the function
+        return;
+      }
+      // check if the current player is X
+      if (currentPlayer === "X") {
+        // set the current player to O
+        currentPlayer = "O";
+      } else {
+        // set the current player to X
+        currentPlayer = "X";
+      }
+      // display the current player
+      document.getElementById("currentPlayer").innerHTML = currentPlayer;
+    }
+  };
+  // create a function to check if the current player has won
+  const checkWin = () => {
+    // loop through the winning combinations
+    for (let i = 0; i < winningCombos.length; i++) {
+      // create a variable to store the number of squares the current player has in the current winning combination
+      let squareCount = 0;
+      // loop through the current winning combination
+      for (let j = 0; j < winningCombos[i].length; j++) {
+        // create a variable to store the current square in the winning combination
+        const square = winningCombos[i][j];
+        // check if the current player has the current square
+        if (gameBoard[square] === currentPlayer) {
+          // increment the square count by 1
+          squareCount++;
+        }
+      }
+      // check if the square count is 3
+      if (squareCount === 3) {
+        // return true to exit the function
+        return true;
+      }
+    }
+    // return false to exit the function
+    return false;
+  };
+  // create a function to check if the game is a tie
+  const checkTie = () => {
+    // check if the number of turns is 9
+    if (numTurns === 9) {
+      // return true to exit the function
+      return true;
+    }
+    // return false to exit the function
+    return false;
+  };
+  // create a function to reset the game
+  const reset = () => {
+    // reset the current player
+    currentPlayer = "X";
+    // reset the game status
+    gameStatus = "";
+    // reset the number of turns
+    numTurns = 0;
+    // reset the game board
+    gameBoard = ["", "", "", "", "", "", "", "", ""];
+    // reset the squares
+    const squares = document.getElementsByClassName("square");
+    // loop through the squares
+    for (let i = 0; i < squares.length; i++) {
+      // reset the square
+      squares[i].innerHTML = "";
+    }
+    // reset the current player
+    document.getElementById("currentPlayer").innerHTML = currentPlayer;
+    // reset the game status
+    document.getElementById("status").innerHTML = gameStatus;
+  };
+  // add event listener for square clicks
+  document
+    .getElementById("board")
+    .addEventListener("click", (e) => squareClick(e));
+  // add event listener for reset button
+  document.getElementById("reset").addEventListener("click", reset);
+</script>

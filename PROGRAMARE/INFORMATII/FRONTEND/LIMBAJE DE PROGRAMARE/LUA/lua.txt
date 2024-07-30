@@ -1,0 +1,330 @@
+===========================================================================LUCRURI GENERALE==================================================================================
+
+=> este foarte underrated
+=> este mai simpla, rapida si portabila decat python
+=> are doar 21 de cuvinte rezervate
+=> are doar un tip de date (table)
+=> nu sunt clase. totul se poate face doar cu functii
+
+============================================================================VARIABILE SI TIPURI DE DATE========================================================================
+
+local variabilaLocala = "hey"   // asa se creeaza o variabila locala
+
+variabila = "BUNA"              // asa se creeaza o variabila globala. pur si simplu punem un nume si o valoare
+
+local var1, var2, var3 = 1, 2, 3        // variabilele sunt initializate 1, 2, si 3
+
+=> o variabila poate avea valoarile:
+    nil = nu reprezinta nimic           // orice variabila este initializata la inceput cu nil
+    numere = 9, 23, 3.443, 4344 
+    stringuri = 'sdfa', "dfatt"         // nu este o diferenta intre ' si "
+    boolean = true sau false
+
+
+STRINGURI:
+
+string = [[
+    aici pui un text si se pastreaza toate caracterele
+        adica aici sunt pe a doua linie
+    2 + 2 = 4 se va afisa sub forma de text
+]]  // cand afisezi va arata fix ca sus
+
+#varString = lungimea stringului varString
+    sau
+string = #"lungimeString"   // string va fi o variabila care contine lungimea textului scris intre "
+
+y = tostring(number)            // y va fi numarul number convertit in string
+string.lower(string)            // este egal cu stringul in lowercase    
+string.upper(string)            // este egal cu stringul in uppercase
+string.len(string)              // este egal cu lungimea stringului
+string.sub(string, 1, 5)        // substringul de la 1 la 5 din stringul mare
+string.char(codAscii)           // este egal cu litera care are codul ascii respectiv
+string.byte(litera)             // este egal cu codul ascii al literei
+string.byte(string, 1, 10)      // converteste substringul de la inexul 1 la indexul 10 a stringului in coduri ascii
+string.repeat("Hello", 10, " ") // este egal cu stringul Hello scris de 10 ori cu " " ca delimitare intre cuvinte
+string.find(string, "subst")    // gaseste secventa "subst" din string (returneaza indexul primei litere a secventei gasite)
+string.match(string, "subst")   // daga caseste secventa in string va returna secventa iar daca nu o gaseste va returna nil
+string.gsub(str, "o", "i")      // in stringul str inlocuieste tote secventele "o" cu secvente "i"
+
+
+TABLES:
+
+numeArray = {"cirese", 3, false}       // indexarea se face de la 1! (asa se declara un vector + pot fi mai multe tipuri de date)
+
+numeArray = {                          // asa se creeaza o matrice (este ca in c++)
+    {1, 2, 3, 10, 11}                  // ex: numeArray[3][1] este egal cu a treia paranteza, primul element
+    {4, 5, 6, 99}                             numeArray[1][1] este egal cu a prima paranteza, primul element
+    {7, 8, 9}
+}
+
+cand vrem sa folosim o variabila din array: numeArray[index] sau numeArray[index][index2] pentru matrici
+
+pentru a accesa ultimul element al arrayului folosim: array[#array]         // #array este egal cu lugimea arrayului
+
+pentru a accesa numarul de paranteze (linii) dintr o matrice folosim: #numeArray
+pentru a accesa numarul de elemente a unei paranteze (linii) dintr o matrice folosim: #numeArray[indexParanteza] 
+
+table.sort(arr)             // modifica si sorteaza arrayul arr
+table.insert(arr, 2, var)   // insereaza in arr pe pozitia 2 variabila var
+table.remove(arr, 4)        // sterge variabila de la indexul 4 din array
+table.concat(arr, " ")      // concateneaza elementele arrayului arr intr un string separate prin " "
+
+===========================================================================OUTPUT SI COMENTARII================================================================================
+
+print("hello")                  // output in consola (fiecare print are un '\n' la final)
+print("hello" .. "jack")        // cele 2 puncte concateneaza 2 stringuri (ca si cum ar fi un +)
+print("Hello\nWorld")           // caracterul \n se converteste in new line
+print("Hello\TWorld")           //  caracterul \n se converteste in tab
+
+daca punem "-- " inainte de orice linie, linia va deveni comentariu
+
+ --[[
+     cod
+  ]]        // in felul asta tot codul dintre marcaje va fi comentariu
+
+=============================================================================FUNCTII============================================================================================
+
+FUNCTII GENERALE:
+    1. type(variabila)      // returneaza tipul de date care este stocat (daca variabila este un numar va afisa number)
+    2. tonumber(string)     // converteste un string format doar din cifre in numar (daca stringul are si litere atunci devine nil si da eroare)
+
+function numeFunctie(parametru1, parametru2)        // o functie se declara prin functin si se opreste la end. se returneaza prin return
+    return n * 2
+end
+
+numeFunctie(1, 2)       // asta este un apel al unei functii
+
+altaFunctie(numeFunctie)    // poti sa pui ca parametru o alta functie
+
+============================================================================MATEMATICA IN LUA===================================================================================
+
+math.pi = 3.1415926
+math.random()       // returneaza un numar intre 0 si 1 (returneaza doar un numar adica nu este un numar nou random la fiecare apel)
+math.random(10)     // returneaza numere, diferite intre 1 si 10
+math.random(10, 50) // returneaza numere, intre 10 si 50
+math.randomseed()   // daca in randomseed punem mai multe numere diferite apelul math.random() va returna un numar nou pentru fiecare seed setat (un seed este un numar specific)
+os.time()           // returneaza timpul executieI
+math.randomseed(os.time())  // daca punem asta inainte de orice math.random() atunci face ca fiecare numar sa fie random
+math.min(10, 23, 4, 56, 4, 23)  // returneaza cel mai mic nr din lista
+math.max(10, 23, 4, 56, 4, 23)  // returneaza cel mai mare nr din lista
+math.floor(3.234522)            // returneaza partea intreaga
+math.ceil(3.123)                // returneaza partea intreaga rotunjita superior (in cazul de fata 4)
+math.sin(30)        // sin de 30 de grd
+math.cos(30)        // cos de 30 grd
+math.tan(30)        // tangenta de 30 grd
+
+SEMNE:
++
+-
+*
+/       // se face inaintea * si reprezinta impartirea normala (adica 10 / 3 = 3.333333)
+%       // este restul impartirii deimpartitului la impratitor
+^       // reprezinta la putere
+
+==================================================================================IF STATEMENTS===================================================================================
+
+if conditie then
+    cod
+end
+
+
+if conditie then
+    cod
+else 
+    cod
+end
+
+
+if conditie then
+    cod
+elseif conditie then
+    cod
+else 
+    cod 
+end
+
+
+comparari:
+>
+<
+<=
+>=
+==
+~=      // asta este echivalentul lui !=  (~ se face apasand fn + shift + esc)
+
+conditia poate fii sub forma asta:
+    conditie1 and conditie2         // si cond 1 si cond 2
+    conditie1 or conditie2          // una sau alta (ex: (age > 17) or (age < 10) !atentie la paranteze)
+    not conditie1                   // echivalentul !conditie adica opusul conditiei
+
+! variabilele pot fi boolean prin:
+    variabilaBool = ((age > 17) and esteOm) or esteCopil        // se va crea o variabila bool care contine adevarul conditiei
+
+
+=========================================================================================LOOPS====================================================================================
+
+for i = 1, 10, 1 do             // poti sa nu mai scrii pasul pentru ca el este oricum 1
+    cod
+end
+
+
+while conditie do
+    cod
+end
+
+
+repeat
+    cod
+until conditie
+
+
+======================================================================================USER INPUT================================================================================
+
+var = id.read();        // variabila este egala cu inputul userului
+io.write("text")        // echivalentul lui cout sau print
+
+
+=====================================================================================FUNCTII===================================================================================
+
+
+local function numeFunctie(parametrii)      // functia globala se declara fara local
+    cod
+    return raspuns                          // dupa return nu poti sa scrii nimic pt ca iti da eroare
+end
+
+sau
+
+local numeFunctie = function(parametrii)
+    cod
+end
+
+numeFunctie(Parametru);
+
+
+======================================================================================CO RUTINES===============================================================================
+
+
+local rutina1 = coroutine.create(               // asa se creeaza o rutina (o functie care poate fii oprita din executie la un moment dat si poate fii continuata in alt moment)
+    function ()                                 // coroutine.create ia ca parametru o functie (acesta este un mod de a scrie functia)
+        for i = 1, 10
+            print("process " .. i)
+
+            if i == 5 
+                coroutine.yield()               // opreste rutina
+            end
+        end
+    end
+)
+
+local rutina1 = coroutine.create(functiaCreataDeja)     // acesta este un alt mod de a crea o rutina folosind o functie scrisa deja
+
+coroutine.resume(rutina1)               // da resume la rutina sau daca nu a inceput inca ii da start (este apelul rutinei)
+
+coroutine.status(rutina1)               // acest status poate fi: running (daca functia ruleaza), suspended (daca functia a fost oprita dar nu s a termina), dead (daca functia s a 
+                                        terminat)
+                                    
+
+====================================================================================FILES=====================================================================================
+
+OUTPUT
+io.output("info.txt")           // deschide fisierul sau il selectam pentru a scrie
+
+io.write("hello world")         // scrie in fisierul selectat
+
+io.close()                      // inchide fisierul
+
+INPUT
+io.input("info.txt")            // deschidem fisierul sau il selectam pentru a citi
+
+local info = io.read(5)         // va citi 5 caractere
+local info = io.read("*number") // va citi un numar chiar daca este urmat de litere
+local info = io.read("*line")   // va citi o linie
+local info = io.read("*all")    // va citi tot fisierul
+
+ALT MOD DE A DESCHIDE FISIERE
+local file = io.open("info.txt", "w")       // scriere
+
+file:write("hello world")
+
+file:close
+
+
+local file = io.open("info.txt", "r")       // citire + a = append
+
+local reads = file:read("*all")
+
+file:close
+
+
+local file = io.open("info.txt", "A")
+
+file:write("hello world")
+
+file:close
+
+
+================================================================================OS MODULE===================================================================================
+
+
+UN MODUL ESTE UN TABLE
+
+ESTE MODULUL CE TINE DE STISTEMUL DE OPERARE. NE PERMITE SA ACCESAM DATE DIN SISTEM PRECUM DATA ORA NE PERMITE SA MODIFICAM FISIERE ETC...
+
+local os = require("os")       // salvam modulul os intr un table deoarece modulul in sine este un table
+
+daca scriem: os.    ar trebui sa ne apara toate functiile si elmentele pe care modulul le are
+
+os.time()       // reprezinta varsta sistemului de operare (adica din 1970 pana in prezent) exprimat in secunde
+os.time({
+    year = 2000
+    month = 10
+    day = 1
+    hour = 14
+    min = 20
+    sec = 10        
+})              // reprezinta varsta sistemului de operare de cand s a infiintat pana la data specificata mai sus
+os.date()       // afiseaza data curenta pe care o afiseaza sistemul de operare
+os.reaname("info.txt", "numenou.txt")       // redenumeste fisierul info.txt
+os.remove("info.txt")       // sterge fisierul info.txt
+os.execute("comanda")       // comanda va fi rulata in terminal
+os.execute("clear")         // da clear la terminal
+os.clock()                  // ex: timpInitial = os.clock()    codCareIaTimp    timpFinal = os.clock()    print(timpFinal-timpInitial)              // afiseaza durata codului
+os.exit()                   // opreste programul din rulare
+
+
+====================================================================================OOP=====================================================================================
+
+
+PROGRAMAREA ORIENTATA PE OBIECTE FACE CA CAT MAI MULTE ELEMENTE SA FIE TRATATE CA OBIECTE CU PROPRIETATI CARE SE POT MODIFICA
+
+local obiect = {            // asa declaram un obiect
+    nume = tamas,
+    prenume = david,
+    varsta = 17,
+}
+
+obiect.caracteristica       // asa folosim o caracteristica a unui obiect
+
+local function creareObiect(nume1, prenume1, varsta1){      // de obicei se folosesc functii care creeaza obiecte
+    return {
+        nume = nume1,
+        prenume = prenume1,
+        varsta = varsta1,
+    }
+}
+
+pentru a adauga o insusire unui obiect: obiect.insusireNoua = insusirea         // atentie, aceasta adaugare se face doar la acel obiect nu la toata definitia obiectelor de acel tip
+
+local obiectNou = creareObiect(tamas, victor, 17)       // se creeaza un nou obiect
+
+OBIECTE CARE CONTIN FUNCTII
+
+local obiect = {            // asa declaram un obiect
+    x = 10,
+    y = 15,
+    adunare = function (self)           // self este obiectul curenta
+        return self.x + self.y
+    end
+}
+
+pentru a apela aceste functii din interiorul unui obiect: obiect:functia()
