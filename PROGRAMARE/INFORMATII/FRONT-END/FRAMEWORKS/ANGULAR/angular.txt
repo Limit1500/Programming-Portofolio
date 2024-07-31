@@ -1,0 +1,28 @@
+CREAREA UNUI PROIECT
+    => navigam cu cd pana in folderul in care vrem sa creem proiectul, apoi dam run da comanda: ng new numeProiect
+    => se va crea un folder cu numele proiectului in care avem tot initializat si creat
+
+CREAREA UNUI SERVER ONLINE
+    => navigam cu cd pana ajungem in folderul creat anterior (cel care are denumirea proiectului) si scriem: ng serve   (acest lucru va crea niste fisiere noi si un server online pe portul
+4200)
+
+EXPLICAREA FISIERELOR STANDARD ALE UNUI PROIECT
+
+proiect1
+    .angular                                        // contine memorie cache pentru a optimiza rularea ng a codului
+    .vscode                                         // setari si configuratii pe care le foloseste vscode
+    node_modules                                    // toate pachetele npm si dependentele necesare rularii proiectului
+    public                                          // aici punem toate fisierele statice( imagini iconuri videouri audiouri etc...)
+        favicon.ico                                 // de asemenea public contine acest favicon care este iconul afisat sus in web
+    src                                             // principala sursa a proiectului
+        app                                         
+            *componente css / html / ts             
+        alte componente css / html / ts
+    angular.json                                    // tot ce se afla de aici in jos sunt setari ce tin de testare si pachete si configuratii
+    package-lock.json
+    package.json
+    README.md                                       // contine niste indicatii si niste comenzi utile legate de ng
+    server.ts                                       // aici se afla codul pentru serverul aplicatiei
+    tsconfig.app.json
+    tsconfig.json
+    tsconfig.spec.json

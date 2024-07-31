@@ -1,0 +1,84 @@
+2. PROGRAMAREA ORIENTATA PE OBIECTE IN C++
+    CLASE SI OBIECTE
+        => declararea unei clase:
+            class NumeClasa 
+            {
+                lista_declaratii_membrii;
+            }
+        => datele membre corespund atributelor
+        => functiile corespund comportamentelor si se numesc metode
+
+        ex:
+        class caine
+        {
+            int lungimePar;             // data membru
+            void latra(){               // metoda
+                cout << "ham";
+            }
+        }
+
+        => clasele definitia unei structuri de date adica putem sa declaram variabile de tipul clasei
+        ex:
+        caine grivei, azorel;           // acestea se numesc instante a clasei caine sau obiecte
+
+        => se opereaza cu clasele la fel cum se opereaza cu structurile
+
+    CONTROLUL ACCESULUI LA MEMBRII UNEI CLASE
+        => sunt 3 specificatori de control al accesului: 
+            1. public: poate fii accesat din orice functie din domeniul de declaretie al clasei 
+            2. privat: membrul poate fii accesat doar din functiile membre ale clasei precum si din functiile prietene ale clasei 
+            3. protected: poate fii accesat si din clasele derivate din clasa mare
+
+        => in C++ specificatorul implicit este private
+        => el se seteaza prin:  specificator: (ex: public: sau privat:) si ramane valabil pana la aparitia altui specificator 
+        => in principiul incapsularii toate datele membre ar trebui sa fie private iar metodele ar trebui sa fie publice
+        => metodele care returneaza sau modifica datele clasei se numesc accesorii
+        
+        => Get si Set:
+        ex:
+        class caine{
+            int age;
+            public:
+            get int varsta(){           // daca dam call la varsta initializand o alta variabila atunci se va apela aceasta functie varsta
+                return this.age;
+            }
+            set void varsta(){          // daca dam call la varsta neinitializand sau folosind valoarea se va apela functia asta
+                this.age += 1;
+            }
+        }
+        => in general trebuie sa avem cat mai putini membrii publici
+        !! in general get se foloseste la orice functie care returneaza o data incapsulat iar set in cazul in care functia modifica o valoare incapsulata
+
+        ARHITECTURA UNEI CLASE POO
+            => orice clasa va avea 2 fisiere:
+                1. un fisier care va contine definitia clasei si se va numi: NumeClasa.h 
+                2. un alt fisier care va contine implementarea clasei folosind definitia din primul fisier: #include "NumeClasa.h"
+            => o aplicatie va consta in mai multe fisiere insa doar unul va contine functia main
+
+        DEFINIREA FUNCTIILOR MEMBRE IN EXTERIORUL CLASEI
+            => sintaxa:
+            void numeClasa::numeFunctie() {}        // doar adaugam numele clasei + operatorul "::" dupa void
+            => se comporta si se apeleaza functia ca si cum ar fii declarata in interiorul clasei
+
+        FUNCTIILE INLINE 
+            => este mai eficienta in comparatie cu o functie normala (toate functiile definite in clase sunt functii inline)
+
+            => observatii:
+                1. trebuie sa fie foarte scurte
+                2. nu pot fi recursive
+                3. nu isi pierd din particularitatile funtiilor
+
+            => sintaxa:
+            inline void numeFunctie() {}    // doar se adauga un inline
+
+        FUNCTII CU PARAMETRII IMPLICITI
+            => o functie poate sa aiba parametii impliciti care nu trebuie specificati neaparat. acestia se pun ultimii in lista de parametrii pentru a se putea ignora
+
+            => sintaxa:
+
+            void f(int a, int b = 1, int c = 2) {}
+            
+            f(1);       // este un apel corect deoarece ceilalti parametrii sunt impliciti
+
+        SUPRAINCARCAREA FUNCTIILOR
+            

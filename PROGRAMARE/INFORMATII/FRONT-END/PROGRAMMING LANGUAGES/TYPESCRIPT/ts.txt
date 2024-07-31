@@ -243,3 +243,70 @@ obiect?.check?.valoare    // daca obiectul nu este null sau undefined, daca chec
 ex:
 let a: any = null;
 log?.(a);   // nu va returna pt ca a = null
+
+INTERFACE
+
+interface este un fel de type dar care are niste modificari
+
+  =>sintaxa type
+
+type MyType = {
+  property: string;
+};
+
+
+  =>sintaxa interface
+
+interface MyInterface {
+  property: string;
+}
+
+  => extinderea typeurilor
+
+type ExtendedType = MyType & { newProperty: number };
+
+  => extinderea interfaceurilor
+
+interface ExtendedInterface extends MyInterface {         // extends este un fel de &
+  newProperty: number;
+}
+
+class MyClass implements ExtendedInterface {
+  property: string;
+  newProperty: number;
+}
+
+  => la interface putem face si declarare multipla care adauga mai multe proprietati interfaceului principal
+
+interface MyInterface {
+  property: string;
+}
+
+interface MyInterface {
+  newProperty: number;
+}
+
+// MyInterface are acum ambele proprietăți: property și newProperty
+
+
+CLASE SI TIPURI 
+Diferențe principale
+Structură vs. Comportament:
+
+Clase: Definirea atât a structurii (proprietăți) cât și a comportamentului (metode).
+Tipuri: Definirea doar a structurii datelor (proprietăți).
+Moștenire și Polimorfism:
+
+Clase: Suportă moștenirea și polimorfismul, permițând reutilizarea și extinderea codului.
+Tipuri: Pot fi extinse prin intersecții, dar nu suportă moștenirea comportamentală.
+Instanțiere:
+
+Clase: Pot fi instanțiate pentru a crea obiecte reale.
+Tipuri: Nu pot fi instanțiate direct; sunt utilizate doar pentru verificarea tipurilor.
+Verificare la compilare:
+
+Ambele sunt folosite pentru a asigura corectitudinea tipurilor la compilare în TypeScript.
+Constructor și Inițializare:
+
+Clase: Au constructori pentru a inițializa proprietăți și pot avea logică în constructori.
+Tipuri: Nu au constructori; doar definesc structura.
