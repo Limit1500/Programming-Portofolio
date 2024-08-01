@@ -22,6 +22,7 @@
         caine grivei, azorel;           // acestea se numesc instante a clasei caine sau obiecte
 
         => se opereaza cu clasele la fel cum se opereaza cu structurile
+        => in c++ pentru a accesa datele din interiorul unei clase doar folosim denumrirea lor fara alte cuvinte reservat precum this 
 
     CONTROLUL ACCESULUI LA MEMBRII UNEI CLASE
         => sunt 3 specificatori de control al accesului: 
@@ -49,36 +50,254 @@
         => in general trebuie sa avem cat mai putini membrii publici
         !! in general get se foloseste la orice functie care returneaza o data incapsulat iar set in cazul in care functia modifica o valoare incapsulata
 
-        ARHITECTURA UNEI CLASE POO
-            => orice clasa va avea 2 fisiere:
-                1. un fisier care va contine definitia clasei si se va numi: NumeClasa.h 
-                2. un alt fisier care va contine implementarea clasei folosind definitia din primul fisier: #include "NumeClasa.h"
-            => o aplicatie va consta in mai multe fisiere insa doar unul va contine functia main
+    ARHITECTURA UNEI CLASE POO
+        => orice clasa va avea 2 fisiere:
+            1. un fisier care va contine definitia clasei si se va numi: NumeClasa.h 
+            2. un alt fisier care va contine implementarea clasei folosind definitia din primul fisier: #include "NumeClasa.h"
+        => o aplicatie va consta in mai multe fisiere insa doar unul va contine functia main
 
-        DEFINIREA FUNCTIILOR MEMBRE IN EXTERIORUL CLASEI
-            => sintaxa:
-            void numeClasa::numeFunctie() {}        // doar adaugam numele clasei + operatorul "::" dupa void
-            => se comporta si se apeleaza functia ca si cum ar fii declarata in interiorul clasei
+    DEFINIREA FUNCTIILOR MEMBRE IN EXTERIORUL CLASEI
+        => sintaxa:
+        void numeClasa::numeFunctie() {}        // doar adaugam numele clasei + operatorul "::" dupa void
+        => se comporta si se apeleaza functia ca si cum ar fii declarata in interiorul clasei
 
-        FUNCTIILE INLINE 
-            => este mai eficienta in comparatie cu o functie normala (toate functiile definite in clase sunt functii inline)
+    FUNCTIILE INLINE 
+        => este mai eficienta in comparatie cu o functie normala (toate functiile definite in clase sunt functii inline)
 
-            => observatii:
-                1. trebuie sa fie foarte scurte
-                2. nu pot fi recursive
-                3. nu isi pierd din particularitatile funtiilor
+        => observatii:
+            1. trebuie sa fie foarte scurte
+            2. nu pot fi recursive
+            3. nu isi pierd din particularitatile funtiilor
 
-            => sintaxa:
-            inline void numeFunctie() {}    // doar se adauga un inline
+        => sintaxa:
+        inline void numeFunctie() {}    // doar se adauga un inline
 
-        FUNCTII CU PARAMETRII IMPLICITI
-            => o functie poate sa aiba parametii impliciti care nu trebuie specificati neaparat. acestia se pun ultimii in lista de parametrii pentru a se putea ignora
+    FUNCTII CU PARAMETRII IMPLICITI
+        => o functie poate sa aiba parametii impliciti care nu trebuie specificati neaparat. acestia se pun ultimii in lista de parametrii pentru a se putea ignora
 
-            => sintaxa:
+        => sintaxa:
 
-            void f(int a, int b = 1, int c = 2) {}
+        void f(int a, int b = 1, int c = 2) {}
             
-            f(1);       // este un apel corect deoarece ceilalti parametrii sunt impliciti
+        f(1);       // este un apel corect deoarece ceilalti parametrii sunt impliciti
 
-        SUPRAINCARCAREA FUNCTIILOR
+    SUPRAINCARCAREA FUNCTIILOR
+        => este procedeul care ofera mai multe definitii unei functii si, la apel, se decide care este definitia care va fi utilizata in functei de parametrii introdusi
+
+    CONSTRUCTORII
+        => sunt functii membre ale clasei care au caracteristici speciale
+        => se apeleaza automat la crearea fiecarui obiect
+        => numele constructorilor coincide cu numele claselor
+        => constructorii nu sunt declarati fara specificarea tipului rezultatului
+        => o clasa poate avea mai multi constructori folosind supraincarea functiei 
+        => daca nu am creat nici un constructor, clasa va crea automat un constructor implicit fara parametrii
+        => pentru a putea crea obiecte ale clasei constructorii trebuie sa fie publici
+
+        ex:
+
+        class fractie
+        {
+            private:
+                int a;
+                int b;
+            public:
+                int getNumarator() { return a; }
+                int getNumitor() { return b; }
+                void setNumarator(int x) { a = x; }
+                void setNumitor(int x) { b = x; }
+                void simplifica();
+                fractie(int x = 1; int y = 2)       // constructor
+        } 
+
+        fractie::fractie(int x, int y){             // constructorul inafara clasei
+            a = x;
+            b = y;
+        }
+
+    DECONSTRUCTORUL
+        => este tot o functie membra care se apeleaza automat la eliminarea unui obiect al clasei ( atuncti cand se foloseste operatorul delete )
+        => se genereaza un desctructor implicit daca el nu este precizat
+        => nu poate fii supraincarcat (este unic)
+        => are acelasi nume ca si clasa precedat de caracterul ~ (fn + shift + esc)
+        => nu are argumente si nici tip rezultat
+
+        sintaxa:
             
+        class mesaj 
+        {
+            ~mesaj();
+        }
+        sau
+
+        mesaj::~mesaj();
+
+    MODELUL LOGIC AL VIETII UNUI OBIECT
+        1. se creeaza un obiect
+        2. constructorul este apelat
+        3. obiectul traieste
+        4. deconstructorul este apelat
+
+    CONSTRUCTORUL DE COPIERE
+        => este tot o functie speciala care daca nu este definita se defineste automat in mod standard
+        => aceasta functie se apeleaza atunci cand initializam un obiect cu un altul
+        => egaleaza toate datele primului vector cu cel initializat
+        => numele coincide cu numele clasei, nu are tip rezultat
+        => ca referinta primeste un pointer catre un un obiect al clasei
+            
+        sintaxa:
+        numeClasa(numeClasa & obiect);
+
+        => el trebuie definit in cazurile in care membrii unei clase sunt pointeri catre zone de memorie ce urmeaza a fi alocate deoarece, creeaza erori
+
+    POINTERUL THIS
+        => this are ca valoarea adresa obiectului curent (se creeaza automat acest pointer)
+
+    MEMBRII STATICI AI UNEI CLASE
+        DATELE MEMBRE STATICE
+            => sunt comune in orice obiect al clasei si au o valoare unica si comuna (sunt supranumite variabilele clasei pt ca se comporta ca variabile globale)
+            => membrii statici sunt utili deoarece:
+                1. se reduce numarul de variabile globale 
+                2. se asociaza explicit datele statice cu o anumita clasa
+                3. spre deosebire de var globale, se pot controla cele statice
+            ! se aloca o singura adresa comuna a obiectelor in care se afla variabilele statice
+
+            definirea datei statice inafara clasei:
+            tip numeClasa::numeMembruStatic;
+
+            !compilatorul va initializa cu 0 datele statice
+
+            sintaxa:
+            static int n;           // doar se adauga static inainte de componenta clasei
+
+            => referintele se fac astfel:
+                numeClasa::numeMembruStatic     // fiind variabile comparabile cu cele globale, le putem accesa prin clasa
+                numeObiect.numeMembruStatic     // se pot accesa si prin instantele clasei
+
+        FUNCTIILE MEMBRE STATICE
+            => functiile statice fac operatii care nu sunt asociate instantelor clasei ci intregii clase
+            => fiind statice nu se pot referi la this deoarece this este definit doar in cadrul obiectelor
+            => functiile statice pot utiliza doar datele statice iar cele normale pot utiliza toate datele
+            => o functie membra nestatica se poate apela doar prin intermediul unui obiect iar una statica se poate apela doar prin clasa
+
+    SPECIFICATORUL CONST
+        => la variabile: nu se pot modifica dupa initializare
+        => la parametrii unei functii: utilizam pentru a ne asigura ca nu se modifica variabila nici in functie nici inafara
+        => la obiecte: odata initializati,  valorile datelor nu pot fi modificate       // obiectele declarate const nu pot fii transmise ca referinta daca nu sunt declarate const
+
+        SPECIFICATORUL CONST APLICAT FUNCTIILOR MEMBRE ALE CLASELOR
+            => el asigura ca functia nu va modifica datele membre ale clasei
+            => cu obiectele declarate const se pot utiliza doar functii declarate const
+    
+    FUNCTIILE FRIEND
+        => daca vrem sa utilizam membrii privati ai unei clase printr o functie din exterior putem sa o declaram ca fiind prietena
+        => putem defini o functie in exteriorul clasei. pentru a putea deveni prietena, in interiorul clasei trebuie sa o declaram ca fiind prietena. acest lucru
+    il putem face daca scriem: friend void NumeFunctie(parametrii); adica friend + antet. dupa aceasta linie, functia va putea acceasa toate datele
+        => functiile friend daca se definesc in interiorul clasei sunt identice cu oricare functie din interiorul clasei
+
+    CLASELE FRIEND
+        => este asemanator cu functiile friend. pentru ca o clasa A sa aiba acces la o clasa B, in clasa B trebuie sa scriem: friend class A;
+        => ca urmare clasa A va avea accesa la toti membrii clasei B
+
+    SUPRAINCARCAREA OPERATORILOR
+        => carte pag 36
+
+    TRATAREA ERORILOR
+        => in practica sunt mult situatii particulare care pot genera erori. acestea trebuie tratate intr un fel 
+        => putem accesa urmatoarele blocuri:
+            1. throw( variabila/tablou/orice );         // acest lucru semnaleaza o problema in rulare 
+            2. 
+            try {}              // cand dam call la o functie care are multe cazuri exceptionale care trebuie tratate, apelul functiei o punem in blocul try
+            catch() {}          // dupa try punem una sau mai multe blocuri catch care iau ca parametru valoarea alertei transmise de throw
+            catch(...) {}       // mai multe chatch uri se comporta precum else if urile. la final, in cazul in care nici un alt precedent catch nu a fost respectat
+                                    putem pune in paranteze rotunde ... pentru a trata o eroare care nu a fost introdusa pana acum (un fel de else)
+
+        => functiile trebuie scrise astfel incat sa semnaleze prin throw cazurile exceptionale. pentru a fi semnalate si tratate, apelul functiilor trebuie pus in 
+        blocuri try si ulterior, in cazul in care sunt probleme, mesajul problemei sa isi gaseasca cazul catch cu care sa se potriveasca. in cazul in care nu se potriveste
+        cu nici un catch si avem ultimul catch(...), va intra aici 
+
+        ex:
+
+        int intputNumber()                  // declaram o functie care sa semnaleze cazurile particulare care nu se potrivesc
+        {
+            int n;
+            cin >> n;
+            if (n < 0)
+            {
+                throw("Este sub 0.");       // cand se gaseste o exceptie, executia programului se opreste
+            }
+            else if (n > 100)
+            {
+                throw("Este peste 100.");   // cand se gaseste o exceptie, executia programului se opreste
+            }
+            return n;
+        }
+
+        
+        try                                 // incercam sa rulam functia ascultand semnalele trimise
+        {
+            intputNumber();
+        }
+        catch ("Este sub 0.")               // daca apar semnale de tipul specificat, le tratam afisand o eroare
+        {
+            cout << "ERROR: numar sub 0";
+        }
+        catch ("Este peste 100.")           // altfel daca apar semnale de tipul specificat, le tratam afisand o eroare
+        {
+            cout << "ERROR: numar peste 100";
+        }        
+
+    DERIVAREA CLASELOR
+        => dintr o clasa de baza pot sa reiasa mai multe clase derivate. prin derivarea unei clase, intelegem ca clasa de baza ofera date si metode unei alte clase care 
+        se numescte clasa derivata.
+
+        sintaxa declararii unei clase derivate (denumita ClasaB) dintr o clasa de baza denimta ClasaA este:
+        class ClasaD: specificator_acces ClasaB         // specificatorul de acces poate fii public privat sau protected
+        {
+            // declaratii de date membre in plus fata de cele din ClassB
+            // declaratii de functii membre in plus fata de cele din ClassB
+        }
+
+        efectul specificatorul de acces:
+            1. daca este public:            // in general se foloseste public
+                - clasa secundara poate accesa la fel datele publice si protected insa nu poate accesa privatul functiei de baza
+            2. daca este privat:
+                - datele publice si protected devin private pentru clasa secundara iar cele private sunt inaccesibile
+            3. daca este protected:
+                - datele publice si protected devin protected pentru clasa secundara iar cele private sunt inaccesibile
+
+        ex:
+        sa zicem ca avem o clasa persoana care are 2 atribute: nume si varsta
+        sa zicem ca mai avem inca o clasa angajat care are atributele persoanei + inca un atribut care este salar
+        pentru a putea fii mai eficienti putem declara clasa angajat prin derivare / mostenire
+
+        class angajat: public persoana 
+        {
+            privat:
+            int salar;                          // pe langa datele din clasa persoana am adaugat salar
+            public:
+            void upSalar() salar += 100;        // in public am adauga functiile care ne ajuta sa modificam salarul
+            void downSalar() salar -= 100;
+        }
+
+        CONSTRUCTORII DESTRUCTORII CLASELOR DERIVATE ? mai multe pe chatGPT
+            => cand se creeaza un nou obiect al clasei derivate se apeleaza mai intai constructorul clasei principale si apoi se apeleaza automat si constructorul clasei secundare
+            => analog la deconstructor doar ca mai intai se apeleaza cel al clasei derivate si apoi al clasei de baza
+            => daca cei doi constructori au parametrii fiecare, prima oara se pun in apel parametrii constructorului de baza iar ulterior se pun cei ai constructorului derivat
+            exL: ClasaB :: ClasaB(parametii) : ClasaA(parametii);
+            => definirea constructorului derivat este neparata doar daca constructorul de baza are parametrii
+            => cand definim constructorul clasei derivate scriem si parametrii constructorului clasei principale
+
+        MOSTENIREA MULTIPLA
+            => poti sa creezi o clasa derivata din mai multe clase de baza
+            => regulile se respecta doar ca la declarare se specifica fiecare clasa cu virgula intre si cu propriul specificator de acces
+
+    POLIMORFISMUL
+        
+
+
+
+
+
+
+
+
