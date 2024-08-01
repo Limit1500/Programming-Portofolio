@@ -292,7 +292,28 @@
             => regulile se respecta doar ca la declarare se specifica fiecare clasa cu virgula intre si cu propriul specificator de acces
 
     POLIMORFISMUL
-        
+        Cand functiile derivate dau call la functia de baza a lor se numeste static resolution
+        Daca functiile derivate dau call la o alta versiune a functiei de baza, ca urmare a unei rescrieri, se numeste dynamic resolution 
+
+        => daca creem o clasa derivata din alta clasa, si dam call la o functie imprumutata din clasa de baza, se va apela functia din clasa de baza
+        => de multe ori este nevoie sa rescriem functia in clasa derivata pentru a putea rula corect programul. acest lucru se poate face prin 
+        functiile virtuale. functiile virtuale sunt doar in clasa de baza (se declara punand un virtual inainte). Daca am pus o functie
+        virtual si am rescris functia folosind acelasi antet in alta clasa derivata, se va apela functia rescrisa ci nu cea din clasa principala.
+        => practic daca declaram o functie ca fiind virtuala, ne permite sa nu o mai bagam in seama in cazul in care o alta versiune a ei este declarata
+
+        FUNCTIE DERIVATA PURA
+            => atunci cand in clasa de baza avem o functie care va fi definita doar in alte clase derivate, se numeste functie virtuala pura. Cu alte cuvinte, functia pura 
+            nu are o varianta initiala, pur si simplu se bazeaza pe o potentiala rescriere a sa.
+
+            ea se declara astfel (in clasa de baza):
+                virtual tip numeFunctie( ListaParametrii ) = 0;     // = 0 inseamna ca ea va trebuie sa fie scrisa in alta clasa derivata
+
+
+    TRATAREA ERORILOR UTILIZAND CLASA EXCEPTION 
+        => clasa exeption are mai multe clase derivate. Aceste clase au rolul de a pune mai multe catch uri ce tin de memorie si de tipuri si de domeniu overflow range etc...
+        => practic prin aceste clase punem o selectie mare de alerte pentru a verifica mai multe aspecte complicate ale aplicatiei
+        // mai multe detalii despre exeption pe net si in carte
+     
 
 
 
