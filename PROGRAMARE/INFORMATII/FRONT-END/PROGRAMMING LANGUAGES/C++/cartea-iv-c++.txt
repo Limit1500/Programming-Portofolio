@@ -21,7 +21,7 @@
         ex:
         caine grivei, azorel;           // acestea se numesc instante a clasei caine sau obiecte
 
-        => se opereaza cu clasele la fel cum se opereaza cu structurile
+        => se opereaza cu clasele la fel cum se opereaza cu struct-urile
         => in c++ pentru a accesa datele din interiorul unei clase doar folosim denumrirea lor fara alte cuvinte reservat precum this 
 
     CONTROLUL ACCESULUI LA MEMBRII UNEI CLASE
@@ -48,7 +48,7 @@
             }
         }
         => in general trebuie sa avem cat mai putini membrii publici
-        !! in general get se foloseste la orice functie care returneaza o data incapsulat iar set in cazul in care functia modifica o valoare incapsulata
+        !! in general get se foloseste la orice functie care returneaza o data incapsulata iar set in cazul in care functia modifica o valoare incapsulata
 
     ARHITECTURA UNEI CLASE POO
         => orice clasa va avea 2 fisiere:
@@ -171,7 +171,7 @@
 
             => referintele se fac astfel:
                 numeClasa::numeMembruStatic     // fiind variabile comparabile cu cele globale, le putem accesa prin clasa
-                numeObiect.numeMembruStatic     // se pot accesa si prin instantele clasei
+                numeObiect.numeMembruStatic     // se pot accesa prin instantele clasei
 
         FUNCTIILE MEMBRE STATICE
             => functiile statice fac operatii care nu sunt asociate instantelor clasei ci intregii clase
@@ -199,7 +199,52 @@
         => ca urmare clasa A va avea accesa la toti membrii clasei B
 
     SUPRAINCARCAREA OPERATORILOR
-        => carte pag 36
+        => sintaxa: operator simbol         // operator este un cuvant cheie iar simbol este simbolul pe care vrem sa il supraincarcam
+        => operatorii care nu pot fii supraincarcati: . * :: ?: sizeof
+        => daca = nu este supraincarcat de catre noi, compilatorul copiaza datele obiectului din dreapta in obiectul din stanga in cazul in care este folosit
+        => operatorii unari sunt supraincarcati ca functii membre
+        => operatorii binari care nu modifica niciunul dintre operanzi sunt supraincarcati ca functii prietene
+        => un operator binar care modifica unul dintre operanzi e preferabil sa fie functie membra
+
+        ex:
+
+        class numar 
+        {
+        private:
+            int n;                                  // creem o data a clasei
+
+        public:
+            numar(int a)
+            {                           // creem un constructor care initializeaza data
+                n = a;
+            }
+
+            numar operator+(const numar &obiect)
+            {       // supraincarcam operatorul + | am pus numar inainte deoarece functia returneaza un numar iar ca parametrii este un alt obiect de tip numar
+                return numar(this.n + obiect.n);        // returneaza un numar care are data obiectului n + data acestui n
+            }
+
+            bool operator==(const numar &obiect)
+            {
+                if (this.n == obiect.n)
+                {
+                    return true;
+                }
+                else 
+                {
+                    return false;
+                }
+            }
+        }
+
+        numar a(5);
+        numar b(10);
+        
+        cout << a + b;          // va afisa 15  deoarece a este obiectul care apeleaza functia iar b este parametrul
+
+        if (a == b) cout << "true";      // va afisa false deoarece functia returneaza false  
+
+        mai multe in carte
 
     TRATAREA ERORILOR
         => in practica sunt mult situatii particulare care pot genera erori. acestea trebuie tratate intr un fel 
@@ -314,7 +359,42 @@
         => practic prin aceste clase punem o selectie mare de alerte pentru a verifica mai multe aspecte complicate ale aplicatiei
         // mai multe detalii despre exeption pe net si in carte
      
+    INLANTUIREA
+        => inlanutirea ne permite sa apelam aceleasi functii pe o singura linie
+        ex: 
+        class masina
+        {
+        private:
+            string culoare;
+            int lungime;
+            int latime;
 
+        public:
+            masina(string cul, int lung, int lati)
+            {
+                culoare = cul;
+                lungime = lung;
+                latime = lati;
+            }
+
+            masina& schimbaCuloare(string culoareNoua)      // functia asta returneaza un pointer la obiectul de baza (ne da un pas inapoi)
+            {
+                culoare = culoareNoua;
+                return *this;
+            }
+
+            masina schimbaLungime(int lungimeNoua)          // functia asta returneaza obiectul de baza
+            {
+                lungime = lungimeNoua;
+                return this;
+            }
+        }
+
+        masina audi("albastra", 1.70, 3.30);
+
+        audi.schimbaCuloare("portocaliu").schimbaLungime(2.30);             // putem apela 2 functii deoarece audi.schimbaCuloare("portocaliu") returneaza o referinta pentru
+                                                                            obiectul de baza ceea ce ne permite sa apelam o alta functie a lui. de asemenea a doua functie ne permite
+                                                                            acelasi lucru doar ca diferenta este ca returneaza obiectul in sine nu o referinta a lui
 
 
 

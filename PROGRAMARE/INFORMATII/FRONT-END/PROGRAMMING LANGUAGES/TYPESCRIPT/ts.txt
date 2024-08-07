@@ -7,7 +7,7 @@
     nu se va crea codul js daca apar erori
 
 CUM SE CREEAZA UN FISIER TS:
-1. fac un directory nou in care dau cd la aced directory
+1. fac un directory nou in care dau cd la acel directory
 
 2. dupa dam run la comanda: tsc --init o sa ne apara un nou fisier cu setartile (tsconfig.json)
 
@@ -310,3 +310,69 @@ Constructor și Inițializare:
 
 Clase: Au constructori pentru a inițializa proprietăți și pot avea logică în constructori.
 Tipuri: Nu au constructori; doar definesc structura.
+
+
+CLASE
+
+class coder
+{
+  variabila!: string;         // ! ne permite sa nu initializam neaparat variabila asta, daca nu folosim acest semn, va trbui sa initializam neaparat in constructor
+
+  constructor (private nume: string, private varsta: number, private lang: string = "TypeScript"){         // daca atribuim un visibility modifier la un parametru al constructorului se creeaza automat acea data in clasa
+    this.nume = nume;               // asa initializam datele fara a le declara neaparat
+    this.varsta = varsta;
+  }       
+}
+
+const david = new coder("david", 17)    // al treilea parametru este implicit
+
+class webDev extends coder
+{
+  constructor (public computer: string, nume: string, varsta: number)   // trebuie sa punem in parametrii si parametrii constructorului initial
+  {
+    super(nume, varsta);                // am preluat datele aste de la constructorul din clasa de baza
+    this.computer = computer;           // am initializat o noua valoare
+  }
+}
+
+class iduri
+{
+  static nrId: number;      // facem o variabila globala a clasei (var statica)
+
+  public id: number;
+
+  constructor() 
+  {
+    this.id = ++iduri.nrId;   // pentru a accesa nrId trebuie sa ne adresam clasei (this este pentru a se adresa obiectului numeClasa este pentru a se adresa clasei)
+  }
+}
+
+console.log(iduri.nrId);      // putem accesa variabilele statice si inafara clasei folosind numele clasei
+
+
+clasa persoana 
+{
+  private nume: string;
+  private varsta: number;
+
+  constructor(nume: string, varsta: number)
+  {
+    this.nume = nume;
+    this.varsta = varsta;
+  }
+
+  public get Nume(nume: string)
+  {
+    this.nume = nume;
+  }
+  public set Nume()
+  {
+    return this.nume;
+  }
+}
+
+let David = new persoana("david", 17);
+
+console.log(David.nume);    // se va apela functia get
+
+David.nume = "Victor";      // se va apela functia set deoarece contine acel = 
