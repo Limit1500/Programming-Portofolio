@@ -15,14 +15,119 @@ proiect1
     public                                          // aici punem toate fisierele statice( imagini iconuri videouri audiouri etc...)
         favicon.ico                                 // de asemenea public contine acest favicon care este iconul afisat sus in web
     src                                             // principala sursa a proiectului
-        app                                         
-            *componente css / html / ts             
+        app                                         // aici vor fi toate componentele, serviciile                     
+            *componente css / html / ts
+        index.html                                  // in angular se randeaza doar o singura pagina html care este prezenta aici si care se modifica cu rularea aplicatiei
+        main.tx                                     // aici se afla entrypointul angular    
+        style.css                                   // aici punem un tip de stilizare global          
         alte componente css / html / ts
     angular.json                                    // tot ce se afla de aici in jos sunt setari ce tin de testare si pachete si configuratii
     package-lock.json
     package.json
     README.md                                       // contine niste indicatii si niste comenzi utile legate de ng
     server.ts                                       // aici se afla codul pentru serverul aplicatiei
-    tsconfig.app.json
-    tsconfig.json
+    tsconfig.app.json                               // acestea sunt fisierele ce se ocupa de typeScript in care sunt specificate diverse setari pentru ts precum folderul dist 
+    tsconfig.json                                   sau src sau felul in care se transpune codul ts in js etc.. ( am explicat acest fisier in ts.txt )
     tsconfig.spec.json
+
+MODULELE 
+    => angular este un frameork care ne permite sa creem aplicatii care sunt bazate su structurate pe module
+    => un modul este o unitate logica care contine: componente servicii functii
+
+COMPONENTELE
+    => sunt blocurile cu care se construieste ui-ul aplicatiei
+
+    STRUCTURA COMPONENTELOR
+    => orice componenta este reprezentata de un folder cu 4 clase: 
+        - numeComponenta.component.css          // aici punem stilizarea componentei
+        - numeComponenta.component.ts           // clasa principala + componenta
+        - numeComponenta.component.html         // templateul care este html
+        - numeComponenta.component.spec.ts      // pentru testare
+    => sunt formate din 3 lucruri:
+        1. template: defineste aspectul si structura componentei. foloseste html si sintaxa angular pentru a gestiona evenimtente si pentru a afisa date dinamice
+        2. clasa: contine logica si datele componentei si lifeCycleHooks. este scrisa in typeScript
+        3. metadata: este folosita pentru a defini in limbaj angular informatii legate de componenta precum selectorul templateul stilul si dependentele
+
+    PENTRU A CREA O COMPONENTA FOLSIM ANGULAR CLI: 
+        ng generate component component-name
+        ng generate component components/header          // creeaza o componenta cu numele header care sa fie in folderul components (in cazul in care nu gaseste foloderul creeaza automat unul)
+
+    COMPONENT LIFECYCLEHOOKS 
+        1. constructor
+        2. onChange
+        3. onInit
+        4. onChange
+        5. onDestroy
+    
+    INITIALIZAREA STANDARD A FISIERELOR UNEI NOI COMPONENTE 
+        => numeComponenta.component.ts                      // aici se pune metadata si clasa
+
+import { Component } from '@angular/core';                  // importam angular/core care ne permite sa declaram componente 
+
+@Component({                                                // declaram o componenta
+  selector: 'app-first-component',                          // componenta va fi selectata prin tagul scris in selector. by default acesta are o denumire care poate fi schimbata din angular.json cred
+  standalone: true,                                         // dupa angular 17 poti crea componente care nu fac parte neaparat dintr un modul adica sunt standalone.
+  imports: [],                                              
+  templateUrl: './first-component.component.html',          // aici punem fisierul html al componentei. daca vrem sa punem direct aici html trebuie sa schimbam templateUrl cu template si sa scriem codul aici
+  styleUrl: './first-component.component.css'               // aici punem stilizarea specifica componentei
+})
+export class FirstComponentComponent {                      // acesta este clasa care da functionalitate componentei
+
+}
+
+        => celelalte fisiere sunt goale (html si css)
+
+SERVICIILE
+    => sunt clase reutilizabile care produc functionalitate si date componentelor dintr o aplicatie
+    => ele sunt responsabile pentru manipularea datelor, comunicarea dintre componente si performarea logicii componentelor
+    => pe scurt sunt clase care au definite niste metode si niste date care pot fi importate in clasa unei componente
+
+    CREAREA SERVICIILOR
+        => ele pot fi create prin comanda: ng generate service service-name
+
+    DEPENDENCY INJECTION
+
+ROUTES
+    => pentru a genera routing trebuie sa punem in numeComponenta.component.ts la declararea componentei in arrayul 
+    imports: RouterLink      // acest lucru ne permite sa folosim linkuri care pot trimite catre alte componente
+    !! atentie, se pune acest import la componenta care contine linkuri catre alte pathuri, nu neaparat la app.component.ts
+
+    SETAREA UNUI LINK CARE SA SE NE DUCA LA O ALTA COMPONENTA
+        <a routerLink="/componenta-1">Componenta nr 1.</a>
+            => in router link punem URL ul de sus in care am setat componenta
+            => daca schimb tagul in buton merge la fel 
+    ATRIBUIREA COMPONENTE UNUI URL (Uniform Resource Locator)
+        => in fisierul app.routes.ts avem un arrayul de tip Routes numit routes. by default acesta este gol
+        => pentru a adauga un url trebuie sa unmplem arrayul routes cu cate un obiect pentru fiecare url folosit
+
+    ex:
+    import { Routes } from '@angular/router';
+
+    export const routes: Routes = [
+        {                   // adaugam un nou obiect
+            path: 'first-component',            // pe URL ul asta va afisa componenta firstComponent
+            component: FirstComponent           // pentru a afisa ce ne dorim trebuie sa atribuim numele clasei componentei
+        },
+        {
+            path: 'secound-component',
+            component: FecoundComponent         // numele clasei se face marind prima litera a denumirii si adaugand Component
+        }
+    ];
+
+    FOLOSIREA COMPONENTEI DUPA CE AM ATRIBUIO UNUI URL 
+        => componenta app este una diferita de o componenta normala. Ea se randeaza indiferent de url deoarece este rootul
+        aplicatiei. De aceea trebuie sa o pastram goala.
+        pentru a randa totusi aceste url uri, punem in app doar tagul
+        <router-outlet> care reprezinta componenta provenita rin URL sau din router
+
+    MOD DE UTILIZARE A COMPONENTEI APP
+        => componenta app contine datele si elementele care sunt afisate mereu in aplicatie indiferent de pagina sau de url
+        => practic aici se pun doar elementele constante ale aplicatiei care raman pe ecran tot timpul iar de obicei aceasta 
+        componenta are un tag <router-outlet> care actioneaza ca spatiu rezervat pentru a afisa diferitele componente bazate 
+        pe rutele definite
+        => de asemenea aici se afla stilizarea globala a aplicatiei
+        
+        ex: elemente care stau constant pe ecran: bara de navigare, logoul, numele aplicatiei, footerul
+
+    ex: daca vrem sa facem un link catre rootul aplicatiei punem doar:
+    <a routerLink="/">home</a>    // fara a mai adauga inca un path, pur si simplu punem un link d-asta
