@@ -16,6 +16,8 @@
 
 ---------------------------------------------------------------------------------------------------CUM SA CREEZI LAYOUTURI CARE SA ARATE BINE----------------------------------------------------------------------------------------------
 
+elements.envoto.com
+
 1. FOLOSESTE ELEMENTE CARE SA AIBA DIMENSIUNI DIFERITE: daca in siteul tau ai 6 elemente poti sa faci 1 din ele sa fie mare , 2 elemente sa aima marime medie iar ultimele 3 elemente sa fie mici
 
 2. SA IMBIN FOCAL POINT (PARTEA DIN LAYOUT CARE ATRAGE CHIUL PRIMA OARA) SI SPATIUL ALB (NU TREBUIE SA FIE NEAPARAT ALB CI TREBUIE SA FIE CALM SI RELAXANT) INTR-UN MOD IN CARE NU EXAGEREZ CU NICIUNUL DIN CELE DOUA SI SA CONDUC OCHIUL 
