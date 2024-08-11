@@ -99,3 +99,30 @@
 	SHORTCUTS:
 		ctrl d 		// selecteaza toate cuvintele asemenea cu cuvantul selectat
 
+
+
+CUM SA FOLOSESC GIT HUB PENTRU A LUCRA IMPREUNA CU ALTCINEVA LA UN PROIECT
+
+SETAREA SI INITIALIZAREA PROIECTULUI
+1. prima oara liderul proiectului creeaza un nou repozitory
+2. acest repozitory trebuie setat adica se pun anumite reguli de functionare: nu se poate lucra pe brenchul main, fiecare pull request(PR / merge brench) trebuie confirmat de owner, etc...
+3. ownerul da o cerere pe email catre alti colaboratori prin github
+4. colaboratorul accepta invitatia.
+
+MODIFICAREA PROIECTULUI
+1. va fi un brench principal main si unul secundar
+2. se lucreaza doar in brenchul secundar iar ulterior se poate da merge la cel principal
+3. ulterior, la PR se va incepe o conversatie in care ownerul poate adauga comentarii legate de modificari ce trebuie facute pentru a da merge la brenchuri. dupa acest reqest PR, orice 
+commit pe brenchul secundar va aparea in conversatia deschisa pe brench simuland un alt request de pr care trebuie sa fie verificat de owner (bine, asta in functie de regulile setate la rep) 
+
+CUM MODIFIC PROIECTUL 
+! mare parte din lucurile specificate se pot face atat din web cat si din git desktop.
+
+1. se deschide repositoriul si se da clone
+2. se creeaza un nou brench (cu nume fara litere mari) si se da publish (pentru a salva in git hub faptul ca am creat un brench nou)
+3. la fiecare modificare mica se va da commit in brenchul secundar.
+4. dupa ce am terminat tot brenchul de codat, facem o cerere de tip pr care va initia o conversatie pe gitHub
+5. daca ownerul vrea sa faci niste modificari iti va spune explicit in acea conversatie. Orice commit nou pe acel brench va aparea in conversatie cu un nou approval request
+5. la final dupa ce s a dat merge la brenchul main, brenchul secundar inca exista. De aceea mergem in gitHub sau in git desktop si stergem brenchul si dam publish la modifiacre
+
+! daca vreau pot sa restaurez fisierele modificate de la fostul commit apasand click dreapta si selectand discard changes + alte moduri usefull de a gestiona modificarile
