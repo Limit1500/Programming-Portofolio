@@ -131,3 +131,12 @@ ROUTES
 
     ex: daca vrem sa facem un link catre rootul aplicatiei punem doar:
     <a routerLink="/">home</a>    // fara a mai adauga inca un path, pur si simplu punem un link d-asta
+
+
+
+DACA VREAU SA SCHIMB NUMELE UNEI COMPONENTE TREBUIE SA FAC:
+    Restart the TypeScript Server:
+        Open the command palette (Ctrl + Shift + P or Cmd + Shift + P on macOS).
+        Type "TypeScript: Restart TS Server" and select it.
+
+PT CA TYPESCRIPT UL VA CONTINUARE FOSTUL NUME AL COMPONENTEI (asta fac dupa ce am modificat numele)
