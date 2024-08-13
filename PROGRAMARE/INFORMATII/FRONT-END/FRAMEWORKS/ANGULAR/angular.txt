@@ -141,6 +141,10 @@ DACA VREAU SA SCHIMB NUMELE UNEI COMPONENTE TREBUIE SA FAC:
 
 PT CA TYPESCRIPT UL VA CONTINUARE FOSTUL NUME AL COMPONENTEI (asta fac dupa ce am modificat numele)
 
-
-
 CLASA SE PUNE IN FUNCTIE DE O VARIABILA ASA: [ngClass]="imgClass"   unde imgClass este variabila care contine clasa
+
+DACA VREAU SA MODIFIC DIMENSIUNILE UNEI COMPONENTE (ROOTUL COMPONENTEI) DIN CSS UL EI TREBUIE SA INCLUD:
+:host {                     // host se refera la rootul componentei
+    display: block;         // pentru a se putea modifica trebuie sa fie block (by deafult este inline)
+    width: 50%;
+}
