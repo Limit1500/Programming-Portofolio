@@ -157,3 +157,11 @@ DACA VREAU SA MODIFIC DIMENSIUNILE UNEI COMPONENTE (ROOTUL COMPONENTEI) DIN CSS 
               background-color: lightblue;
               color: darkblue;
             }
+
+    MEDODA 2 CARE NE PERMITE SA MODIFICAM DINAMIC CLASA
+        1. partea de apel contine un parametru declarat cu Input()
+
+        2. partea de ts din componenta:
+            @Input() type: TextBoxType = TextBoxType.Type1;                                             // parametrul care contine tipul 
+
+            @HostBinding('class') hostClass: string = 'componentStyleType' + TextBoxType;               // asociem clasei componentei variabila hostClass
