@@ -148,3 +148,12 @@ DACA VREAU SA MODIFIC DIMENSIUNILE UNEI COMPONENTE (ROOTUL COMPONENTEI) DIN CSS 
     display: block;         // pentru a se putea modifica trebuie sa fie block (by deafult este inline)
     width: 50%;
 }
+
+    ADAUGAREA UNEI CLASE PENTRU MAI MULTE METODE DE STILIZARE
+        1. partea de apel: <app-textbox class="primary"></app-textbox>      // pur si simplu adaugam clasa ca la orice alt obiect
+
+        2. partea de css:
+            :host(.primary) {
+              background-color: lightblue;
+              color: darkblue;
+            }
