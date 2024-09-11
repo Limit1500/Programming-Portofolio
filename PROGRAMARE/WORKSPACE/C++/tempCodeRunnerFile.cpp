@@ -1,31 +1,42 @@
-void FAdaugaInainte(Nod *&head)
+#include <iostream>
+using namespace std;
+
+int main()
 {
-    Nod *curent = head;
-    if (head->info % 2 == 1)
+    int stiva[1000], lungimeStiva = 0;
+    int nrOperatii;
+
+    cin >> nrOperatii;
+
+    string operatie;
+    int numar;
+
+    int elAfisate[200], lungimeElAfisate = 0;
+
+    for (int i = 0; i < nrOperatii; i++)
     {
-        Nod *newNod = new Nod;
+        cin >> operatie;
 
-        newNod->leg = head;
-        newNod->info = head->info * 2;
+        if (operatie == "push")
+        {
+            cin >> numar;
 
-        head = newNod;
+            stiva[lungimeStiva++] = numar;
+        }
+        else if (operatie == "pop")
+        {
+            if (lungimeStiva > 0)
+                lungimeStiva--;
+        }
+        else if (operatie == "tops")
+        {
+            if (lungimeStiva > 0)
+                elAfisate[lungimeElAfisate++] = stiva[lungimeStiva - 1];
+        }
     }
 
-    while (curent->leg != nullptr)
+    for (int i = 0; i < lungimeElAfisate; i++)
     {
-        if (curent->leg->info % 2 == 1)
-        {
-            Nod *newNod = new Nod;
-
-            newNod->info = curent->leg->info * 2;
-            newNod->leg = curent->leg;
-
-            curent->leg = newNod;
-            curent = newNod->leg;
-        }
-        else
-        {
-            curent = curent->leg;
-        }
+        cout << elAfisate[i] << '\n';
     }
 }
