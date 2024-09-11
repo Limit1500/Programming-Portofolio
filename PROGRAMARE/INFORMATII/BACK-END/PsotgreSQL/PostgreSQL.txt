@@ -1,0 +1,7 @@
+    => ce este postgresql: este un api care ne ofera posibilitatea de a ne crea o baza de date relationala. Acesta este cel
+mai cunoscut si bun api de acest tip care foloseste limbaj SQL. el vine la pachet cu o aplicatie care ne ofera un GUI 
+(grafical user interface) prin care putem administra si vizualiza baza de date creata de noi. de asemenea, aceasta baza de
+date poate fi developata in visual studio code.
+
+    => toate bazele de date stocheaza informatii in tabele care un linii (row) si coloane (column). De obicei pe linie se
+afla id ul liniei iar pe coloane se afla datele specifice fiecarei linii.
