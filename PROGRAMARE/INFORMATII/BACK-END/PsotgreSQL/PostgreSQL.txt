@@ -7,7 +7,7 @@ date poate fi developata in visual studio code.
 afla id ul liniei iar pe coloane se afla datele specifice fiecarei linii.
 
 PROGRAMAREA IN VISUAL STUDIO CODE:
-
+        https://www.youtube.com/watch?v=zw4s3Ey8ayo
 
 1. crearea de tabele
 CREATE TABLE numeTabel(
@@ -48,3 +48,35 @@ UPDATE numeTabel SET age = 30 WHERE id = 1;     // updateaza date in tabelul num
 5. stergerea tabelelor / din tabele
 DELETE FROM numeTabel;                          // asa stergem tot tabelul 
 DELETE FROM numeTabel where age < 18;           // sterge din tabel toate coloanele care au varsta mai mica decat 18
+
+
+
+RELATIONAREA TABELELOR
+=> sunt 3 tipuri de relationare: 
+    1. o coloana relationeaza cu o alta coloana (o data cu o alta data): prin relationare ne referim la crearea unei variabile in cadrul unei date adica in cadrul unei coloane
+care are ca scop indicarea catre o alta data (de obicei se creeaza o coloana intr un tabel care are o varibile tabel2_id-ulDinTabel care indica faptul ca in tabelul 2, coloana
+cu idul specificat are relevanta pentru coloana curenta)
+    => cand este o relationare de tip one to one, aceasta legatura intre cele 2 date se poate face prin crearea unei variabile in coloana initiala dar si in coloana secundara 
+prin care coloanele se indica una pe cealalta.
+    2. o coloana relationeaza cu mai multe coloane (acest tip de relationare este cel mai des intalnit)
+    => acest lucru se poate face prin crearea a 2 tabele: primul cu artisti iar al doilea cu toate piesele lor. Pentru a relationa artistul cu toate piesele lui,
+se creeaza doar o variabila pentru fiecare piesa, care contie tabelul artistilor si id ul artistului careia ii apartine.
+    3. mai multe coloane cu mai multe coloane: este ca si cum am folosi 2 relationari de tip oen to many. un exemplu bun este un comentariu. acesta apartine
+celui care l a scris si altuia care l a revizuit. Acest comentariu are 2 'parinti' si 2 variabile care indica din ce tabel fac parte parintii si id ul lor
+    ! este important de retinut ca cele 2 date 'parinti' nu au legaturi in mod direct intre ele
+
+
+
+SELECTAREA INFORMATIILOR ALATURI DE DATELE CU CARE AU RELATII
+    SELECT * FROM 'user' JOIN post ON post.user_id = user.id;   // selecteaza tot din tabelul user combinat cu tabelul post cand in tabelul post id ul userului care l a creat este egal cu userul pe care il selectam
+    => join inseamna ca afisam la comum din cele 2 tabele cand se respecta conditia de mai sus
+    => sau aceast linie inseamna ca asociem si selectam impreuna datele cand conditia se respecta
+
+!!! OUTPUTUL PENTRU ACEST TIP DE COMENZI ESTE UNUL STANDARD INSA POATE FII SCHIMBAT FOLOSIND AS KEYWORD. PENTRU MAI MULTE INFORMATIILOR
+SA FOLOSESC CHAT GPT. (POT SA AFISEZ NISTE DATE SUB ALT NUME SAU POAT SA AFISEZ O PARTE DIN VARIABILELE CARE SUNT ATRIBUITE CELEI
+DE A DOUA DATA ETC...)
+
+
+
+
+https://www.youtube.com/watch?v=l3rgdShkkfE
