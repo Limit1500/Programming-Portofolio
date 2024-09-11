@@ -6,6 +6,15 @@ date poate fi developata in visual studio code.
     => toate bazele de date stocheaza informatii in tabele care un linii (row) si coloane (column). De obicei pe linie se
 afla id ul liniei iar pe coloane se afla datele specifice fiecarei linii.
 
+    => cum ar trebui sa functioneze un proiect folosingd postgresql: prima oara se creeaza o baza de date folosind pg cli sau pg admin (recomand pg admin deoarece ai si un gui la dispozitie)
+apoi se pot crea anumite tabele standard. revenim la node si creem un server folosind express. instalam pg si initializam obiectul pool oferit de pg (prin initializare, ne logam cu datele
+noastre + selectam una dintre bazele de date). prin acest obiect putem da call la metoda query pentru a face modificari in baza de date folosind limbaj SQL
+
+    => explicarea fisierelor din pgadmin: se foloseste un singur server, pentru fiecare proiect nou doar creez o nou baza de date. serverul are un port specific selectat. in folderul mare
+server avem alte 3 foldere mari: databases group-roles si tablespaces. in principal majoritatea developmentului va fi in databases. ulterior o sa ma interesez si de group roles in cazul
+in care vreau sa creez roluri pentru utilizatorii bazei mele de date. Tablespaces este ceva ce se ocupa de adresa in memorie la care se introduc aceste date. nu va trebui sa invat. 
+
+
 PROGRAMAREA IN VISUAL STUDIO CODE:
         https://www.youtube.com/watch?v=zw4s3Ey8ayo
 
