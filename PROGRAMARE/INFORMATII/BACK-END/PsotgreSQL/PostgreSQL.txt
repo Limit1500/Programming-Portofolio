@@ -5,3 +5,46 @@ date poate fi developata in visual studio code.
 
     => toate bazele de date stocheaza informatii in tabele care un linii (row) si coloane (column). De obicei pe linie se
 afla id ul liniei iar pe coloane se afla datele specifice fiecarei linii.
+
+PROGRAMAREA IN VISUAL STUDIO CODE:
+
+
+
+CREATE TABLE numeTabel(
+    id SERIAL PRIMARY KEY,   // SERIAL = un int care se incrementeaza in functie de numarul liniei pe care se afla informatia, aceasta valoare este gestionata de postgresql; PRIMARY KEY = este principalul identificator pentru fiecare linie. De asemenea acesta este unic
+    name VARCHAR(255),       // orice coloana se declara folosind numele si tipul de date. acest tip de date a fost creat pentru a nu fi introduse date random in tabel ci niste date care respecta niste cerinte    
+    email VARCHAR(255),      // VARCHAR(nrCaractere) este un TEXT care are limita de lungime
+    password TEXT,           // un text care nu are limite de lungime 
+    age INT                  // un numar
+);
+
+!pt ca postgresql nu este case sensitive, nu poti pune denumiri care sunt keywords( ex: user table ...) asa ca denumirile care sunt si keywords sunt puse intre ghilimele "table"
+
+
+
+INSERT INTO numeTabel(email, name, password, age) VALUES ('david.tamsa999@gmail.com', 'David', 'myPassword', '17');  
+
+structura: puem keyword urile INSERT INTO + nume tabel + ordinea in care initializam parametrii + VALUES + valoarea parametrilor
+
+!single quotes nu sunt la fel ca double quotes: primele sunt pentru a introduce valori de tip string iar double sunt pentru denumiri
+!daca numele era un keyword trebuia sa punem ghilimele "numeTabel"; nu am pus si id ul in lista de date pe care le introducem intr o linie deoarece este de tip SERIAL si valoarea este gestionata de postgresql
+
+
+
+SELECT * FROM numeTabel;                        // selecteaza toate liniile din tabel
+SELECT name FROM numeTabel;                     // selecteaza toate numele din tabel
+SELECT name, id FROM numeTabel;                 // selecteaza toate numele si id urile din tabel
+SELECT * FROM numeTabel WHERE name = 'David';   // selecteaza toate liniile care au numele = 'David'
+SELECT name FROM numeTabel WHERE age >= 18;     // selecteaza toate numele de pe liniile in care varsta este mai mare sau egala cu 18
+
+! prin select se afiseaza in console postgresql ca un cout
+! de asemenea dupa where putem crea conditii mai complexe folosind AND si OR + mai multe conditii
+
+
+
+UPDATE numeTabel SET age = 30 WHERE id = 1;     // updateaza date in tabelul numeTabel: seteaza data age = 30 in coloanele in care id ul = 1
+
+
+
+DELETE FROM numeTabel;                          // asa stergem tot tabelul 
+DELETE FROM numeTabel where age < 18;           // sterge din tabel toate coloanele care au varsta mai mica decat 18
