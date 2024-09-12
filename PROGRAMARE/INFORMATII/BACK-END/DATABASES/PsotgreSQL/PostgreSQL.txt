@@ -89,4 +89,68 @@ DE A DOUA DATA ETC...)
 
 
 
+EXEMPLU CONCRET DE BAZA DE DATE (datele nu sunt relevante):
+
+CREATE TABLE "user"                         // creez o tabela pentru useri
+(
+	id SERIAL PRIMARY KEY,
+	username VARCHAR(100),
+	password VARCHAR(100)
+);
+
+CREATE TABLE post                           // creez o tabela pentru toate posturile userilor
+(
+	id SERIAL PRIMARY KEY,
+	title VARCHAR(255),
+	text TEXT,
+	author_id INT,                          // salvam autorii posturilor
+	video_id INT                            // salvam videoclipurile la care sunt postate 
+)
+
+CREATE TABLE video                          // creez o tabela pentru toate videoclipurile
+(
+	id SERIAL PRIMARY KEY,
+	title VARCHAR(255),
+	description TEXT,
+	likes_number INT,
+	dislikes_number INT,
+	views_number INT,
+    author_id INT                           // salvez id ul autorului
+)
+
+            // aici am creat un mod de a afisa odata cu un videoclip sau o postare sau un user toate legaturile pe care le au acestia cu celelalte tabele
+
+SELECT                                      // am vrut sa afisez odata cu un user, toate comentariile sale si toate videoclipurile sale
+    "user".id,                              // aici afisez lucrurile esentiale despre el
+    "user".username,
+    "user".password,
+    post.title AS posted,                   // aici afisez doar titlul posturilor lui dar care sunt in coloana cu numele posted (schimb numele coloanei in care se pun titlurile)
+    video.title AS created                  // analog videouri
+FROM "user"                                 // selected din tabelul "user"
+JOIN post ON post.author_id = "user".id     // la care da join si tabelul post cand post.author_id = "user".id
+JOIN video ON video.author_id = "user".id   // la care da join si tabelul video cand video.author_id = "user".id
+WHERE "user".id = 2;                        // selecteaza din tabelul user cand "user".id = 2;        
+
+SELECT                                      // am vrut sa afisez odata cu videoclipurile si posturile si autorul sau
+    video.id,                               // aici afisez lucrurile esentiale despre el
+    video.title,
+    video.description,
+    "user".username AS author_username,     // afisez usernameul autorului la coloana author_username
+    post.title AS post_title                // analog post
+FROM video                                  // selected din tabelul video
+JOIN post ON post.video_id = video.id       // la care da join si tabelul post cand post.video_id = video.id 
+JOIN "user" ON video.author_id = "user".id
+WHERE video.id = 1;
+
+SELECT                                      // am vrut sa afisez odata cu postul, videoclipul la care este facut postul si autorul
+    post.id,
+    post.title,                             // in rest e ca sus
+    post.text,
+    "user".username AS author_username,
+    video.title AS video_title
+FROM post
+JOIN "user" ON post.author_id = "user".id
+JOIN video ON post.video_id = video.id
+WHERE post.id = 1;
+
 https://www.youtube.com/watch?v=l3rgdShkkfE
