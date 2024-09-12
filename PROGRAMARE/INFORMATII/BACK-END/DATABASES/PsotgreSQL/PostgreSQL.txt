@@ -55,8 +55,9 @@ UPDATE numeTabel SET age = 30 WHERE id = 1;     // updateaza date in tabelul num
 
 
 5. stergerea tabelelor / din tabele
-DELETE FROM numeTabel;                          // asa stergem tot tabelul 
+DELETE FROM numeTabel;                          // asa stergem toate datele din tabel dar nu tabelul efectiv 
 DELETE FROM numeTabel where age < 18;           // sterge din tabel toate coloanele care au varsta mai mica decat 18
+DROP TABLE numeTabel;                           // asa se sterge tabelul
 
 
 
