@@ -1,29 +1,66 @@
-1.CE ESTE API: 
-	API = aplication programming interface este un mod de interactiune cu serverul. Sunt ca un fel de conectori care expun functionalitatile deja pregatite ale serverului atat timp cat se supun contitiilor (parametrii)
-	ex: 	-un API este ca un port usb pe care il bagi in calculator. Cu ajutorul lui, vei putea indeplinii diverse sarcini cu ajutorul functionalitatii calculatorului (sa incarci telefonul, sa transferi date, sa dai share la conexiunea telefonului etc...)
-		-telecomanda. Telecomanda este unealta pe care televizorul o ofera pentru a interactiona cu el
+Ce este un API?
+API (Application Programming Interface) este un set de reguli și specificații care permit unui software să comunice cu alt software. Practic, un API este ca un intermediar care permite diferitelor aplicații să „vorbească” între ele.
 
-2.CE ESTE REST API:
-	REST = representational state transfer este set de principii pe care aplicatia trebuie sa le respecte (se comporta restfull daca le respecta)
-Unul dintre aceste pricipii este ca datele trasferate printr-un server http sa fie format json
+Cum funcționează?
+Gândește-te la un API ca la un meniu într-un restaurant. Meniul îți oferă o listă de preparate pe care le poți comanda. Când faci o comandă, chelnerul (care este API-ul) ia comanda ta și o transmite bucătarului (care este serverul). Bucătarul pregătește preparatul și chelnerul ți-l aduce înapoi.
 
-3.STRUCTURA UNUI URL:
-      ex:
-	https://myapp/employees/1			( https://domeniul/resursa/id-ul)
-	https://myapp/products?category=food		( https://domeniul/resursa/queryString)
-	
-	      componente:
-		-domeniu aka numele siteului care poate fii cumparat
-		-resursa reprezinda de multe ori o tabela din baza de date
-		-id-ul resursei asupra caruia vrem sa actionam
-		-prin query stringul: ?category=food se intelege ca vrem sa extragem din lista doar acele produse care sunt in categoria food
+În mod similar, API-ul primește cereri (comenzi) de la aplicația client, le trimite către server pentru a fi procesate, și apoi returnează rezultatul aplicației client.
 
-4.FOLOSIREA LUI REST API:
-	app.post("/users/:id", (req, res) => {
-	  let id = req.params;
-	  let logo = req.body;
-		
-	})
+Exemplu Sugestiv
+Imagină-ți că ai o aplicație care afișează vremea. Pentru a obține informații despre vreme, aplicația ta trebuie să comunice cu un serviciu de prognoză meteo. Aici intervine API-ul.
+
+Cererea: Aplicația ta trimite o cerere către API-ul unui serviciu meteo, de exemplu, „Vreau să știu temperatura în București”.
+
+Procesare: API-ul serviciului meteo primește cererea, obține datele relevante de la baza de date și le pregătește.
+
+Răspuns: API-ul trimite aceste date înapoi către aplicația ta, care apoi le afișează utilizatorului, de exemplu, „Temperatura în București este de 20°C”.
 
 
-STRUCTURARE: PRIMA OARA CREEM UN INPUT PRIN CARE SA INTRODUCEM ID-UL USERULUI PE CARE VREM SA IL AFLAM, APOI INPUTUL SALVEAZA VALOAREA INTR-O VARIABILA, VARIABILA ESTE FOLOSITA IN CREAREA REQUESTULUI CARE ARE CA URL https://app/users/${id-ul}, APOI LUAM ID-UL DIN REQUEST CA MAI SUS SI DAM IMPORT DINTR UN ALT FISIER CARE CONTINE BAZA DE DATE CU ID-UL, DUPA CE AM LUAT DATELE IN FUNCTIE DE ID LE TRANSMITEM IN RASPUNS
+
+
+
+CUM SA CREEZI UN API CU TYPESCRIPT
+
+1. prima oara iti pregatesti un directory in care poti sa iti creezi proiectul si navighezi cu cd acolo
+2. initializezi npm init -y
+3. creezi 2 foldere: dist si src (in dist sunt puse js urile care s au creat in urma rularii fisierelor ts iar in src punem fisierele ts inclusiv server.ts + alte resurse)
+4. instalam modulele necesare:
+	npm install express
+	npm install typescript --save-dev
+	npm install pg
+5. instalam alte module importa tipuri pentru fiecare modul in parte pentru a nu genera erori de la ts: 
+	npm install --save-dev @types/pg
+	npm install --save-dev @types/express
+6. adaugam alte setari pentru package.json
+	"scripts": {
+    	"test": "echo \"Error: no test specified\" && exit 1",
+    	"build": "tsc",												// adaugam comanda build care da run la tsc conform fisierului tsconfig.json si adapteaza fisierele js din dist 
+      "start": "node dist/server.js"        // da run la server prin fisierul din dist server.js care este copia lui server.ts
+  	},
+
+	+
+
+	"type": "module",												// adaugam asta inafara oricarul obiectul fisierului package.json
+
+7. initializezi rularea typescriptului prin comanda tsc --init si setezi fisierul tsconfig.json
+{
+  "compilerOptions": {
+    "target": "ESNext",                                  /* Set the JavaScript language version for emitted JavaScript and include compatible library declarations. */
+    "module": "NodeNext",                                /* Specify what module code is generated. */
+    "rootDir": "./src",                                  /* Specify the root folder within your source files. */
+    "moduleResolution": "NodeNext",                     /* Specify how TypeScript looks up a file from a given module specifier. */
+    "outDir": "./dist",                                   /* Specify an output folder for all emitted files. */
+    "removeComments": true,                           /* Disable emitting comments. */
+    "noEmitOnError": true,                            /* Disable emitting files if any type checking errors are reported. */
+    "esModuleInterop": true,                             /* Emit additional JavaScript to ease support for importing CommonJS modules. This enables 'allowSyntheticDefaultImports' for type compatibility. */
+    "forceConsistentCasingInFileNames": true,            /* Ensure that casing is correct in imports. */
+    "strict": true,                                      /* Enable all strict type-checking options. */
+    "noImplicitReturns": true,                        /* Enable error reporting for codepaths that do not explicitly return in a function. */
+    "skipLibCheck": true                                 /* Skip type checking all .d.ts files. */
+  },
+  "include": ["src/**/*.ts"]
+}
+
+
+PENTRU A DA RUN TREBUIE SA CONSTRUIM MAI INTAI FISIERELE JavaScript PRIN RULAREA COMENZII npm run build CARE DA RUN LA TOT TypeScript UL DIN PROIECT.
+DUPA CE S AU FORMAT FISIERELE JavaScript, DAM RUN LA SERVER PRIN npm run start CARE RULEAZA FISIERUL DIN DIST server.js

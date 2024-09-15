@@ -5,8 +5,6 @@
 2.INITIALIZAREA FISIERULUI package.json: 
 	-npm init -y
 	-in package.json sa punem atributul "type": "module",
-	-sa creem scripturi: "start": "node server.js"
-			     "dev": "nodemon server.js"
 
 3.INITIALIZAREA NPM-ULUI + MODULELE:
 	MODULE:
