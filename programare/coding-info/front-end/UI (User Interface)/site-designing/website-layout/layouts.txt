@@ -1,0 +1,12 @@
+    => un layout se refera la structurarea unui website ci nu la ce fel de culori sau ce fel de tranzitii sa folosesti.
+    => pentru a crea un layout ai nevoie de niste informatii (ca un fel de document word full de titluri, subtitluri si
+texte)
+    => orice layout al unui site este format din pagini. fiecare pagina este formata din mai multe linii care reprezinta cate o idee (sau
+cate un bloc al siteului, a se vedea imaginile salvate). in aceste blocuri putem pune elementele pe care le putem
+vedea in imaginile salvate
+    => de multe ori in practica, informatiile care ni se ofera nu sunt de ajuns. in aceste cazuri trebuie sa mai adaugam
+elemente de la noi.
+    => de asemenea, aceste blocuri ale siteului trebuie sa aiba o distanta de 50-80 padding intre ele si sa aiba contraste
+pentru a se diferentia inceputul si sfarsitul unei linii
+    => fiecare pagina creata poate avea acelasi header si acelasi footer
+    => in homepage putem pune informatii din celelalte pagini in cazul in care nu ni se ofera prea multe date de pus
