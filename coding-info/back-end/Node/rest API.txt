@@ -28,9 +28,11 @@ CUM SA CREEZI UN API CU TYPESCRIPT
 	npm install express
 	npm install typescript --save-dev
 	npm install pg
+  npm install cors
 5. instalam alte module importa tipuri pentru fiecare modul in parte pentru a nu genera erori de la ts: 
 	npm install --save-dev @types/pg
 	npm install --save-dev @types/express
+  npm install --save-dev @types/cors
 6. adaugam alte setari pentru package.json
 	"scripts": {
     	"test": "echo \"Error: no test specified\" && exit 1",
