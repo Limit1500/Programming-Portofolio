@@ -396,9 +396,12 @@
                                                                             obiectul de baza ceea ce ne permite sa apelam o alta functie a lui. de asemenea a doua functie ne permite
                                                                             acelasi lucru doar ca diferenta este ca returneaza obiectul in sine nu o referinta a lui
 
+3. ELEMENTE DE PROGRAMARE GENERICA
+    => prin programare generica (abstracta) ne referim la abstractizarea unor structuri pentru a putea fi folosite in cat mai multe contexte
 
+    FUNCTIILE SABLON
+        => de multe ori in practica folosim aceeasi functie pentru a face aceleasi operatii doar ca cu tipuri de date diferite. De aceea putem scrie tipul de date sub forma de parametru
+        => o functie sablon este o functie care are cel putin un parametru care reprezinta tipul datelor parametrilor functiei
 
-
-
-
-
+    CLASELE SABLON
+        => sunt la fel ca functiile sablon (folosesc cel putin un parametru pentru un tip de date)
