@@ -67,3 +67,95 @@ CUM SA CREEZI UN API CU TYPESCRIPT
 
 PENTRU A DA RUN TREBUIE SA CONSTRUIM MAI INTAI FISIERELE JavaScript PRIN RULAREA COMENZII npm run build CARE DA RUN LA TOT TypeScript UL DIN PROIECT.
 DUPA CE S AU FORMAT FISIERELE JavaScript, DAM RUN LA SERVER PRIN npm run start CARE RULEAZA FISIERUL DIN DIST server.js
+
+
+## Structura
+
+/api-project
+│
+├── /src
+│   ├── /controllers
+│   ├── /middlewares
+│   ├── /models
+│   ├── /routes
+│   ├── /services
+│   ├── app.js
+│   └── server.js
+├── /config
+│   └── database.js
+├── /tests
+├── /utils
+│   └── helperFunctions.js
+├── .env
+├── .gitignore
+├── package.json
+└── [README.md](http://readme.md/)
+
+### Explicații suplimentare:
+
+- **Controller** gestionează cererile și apelurile către servicii. practic apeleaza serviciile si verifica daca datele primite sunt corespunzatoare + aici nu este aceeasi menegeriere a erorilor deoarece aici primim erorile din tot parcursul requestului si trebuie sa le trimitem in res
+- **Middleware** este folosit pentru funcții de pre-procesare, cum ar fi autentificarea.
+- **Model** aici se pun queries urile + un try standardizat doar pt problemele de server
+- **Routes** conectează endpointurile la controllere.
+- **Service** conține logica de acces la date. + un try standardizat doar pt problemele de server
+- **Config** gestionează conexiunile la baza de date și alte setări globale.
+- **Testele** validează corectitudinea funcțiilor tale.
+- **Utils** conține funcții auxiliare, generale pentru reutilizare.
+- **app.ts** configureaza serverul cu elementele de care are nevoie ( app.use json / rutere / cors etc..)
+- **server.ts** configureaza serverul care doar asculta portul si foloseste app ul configurat in app.ts
+- **.env** contine toate variabilele de sistem ( port pg username password etc.. )
+
+### Cursul complet al unui endpoint:
+
+1. **Cererea este trimisă de client** la endpoint-ul `/users` (de exemplu, cu un `GET /users`).
+2. **Serverul (`server.js`) ascultă cererea** și o direcționează către aplicația Express.
+3. **Aplicația Express (`app.js`)** găsește ruta `/users` și o trimite către controller-ul definit în `userRoutes.js`.
+4. **Controller-ul (`userController.js`)** primește cererea și apelează serviciul (`userService.js`) pentru a obține utilizatorii.
+5. **Serviciul (`userService.js`)** apelează modelul (`userModel.js`) pentru a executa interogarea (query-ul) în baza de date.
+6. **Modelul (`userModel.js`)** execută query-ul și obține utilizatorii din baza de date PostgreSQL.
+7. **Rezultatul query-ului** este trimis înapoi prin lanț (de la model la service, apoi la controller).
+8. **Controller-ul returnează răspunsul** către client, utilizând formatul din `helperFunctions.js`.
+
+## Testare
+
+### Cum funcționează testarea într-un API Express?
+
+1. **Configurarea testelor:**
+    - Poți folosi framework-uri de testare populare, cum ar fi **Mocha**, **Jest**, sau **Supertest** (pentru a testa cererile HTTP). Acestea îți oferă un mediu pentru a rula teste și pentru a verifica rezultatele.
+2. **Simularea cererilor HTTP:**
+    - Testele trimit cereri către rutele API-ului tău (GET, POST, PUT, DELETE) și verifică dacă răspunsul este corect în funcție de codul de status HTTP, structura JSON, sau alte aspecte.
+3. **Mocking și Spies:**
+    - În testarea unitară, se folosesc **mock-uri** pentru a simula funcționalitatea unor module externe (ex. baza de date sau API-uri externe), astfel încât să poți testa izolat funcționalitatea specifică.
+
+## Securitate
+
+## Ce cuprinde securitatea
+
+- https (encriptarea requesturilor): se face automat nu trebuie sa fac nimic
+- autentificarea clientului (aflam cine este clientul)
+- autorizarea clientului (ii dam permisiunile necesare clientului dupa autentificare
+- rate limits: pentru a nu primi spamuri care sa supraincarce serverul punem limite
+- input validation: verificam daca inputul oferit de user este valid si nu poate sustrage informatii din baza de date sau poate crea alte atacuri
+
+cookie, sesion storage vs local storage, 
+
+### **Token JWT**
+
+Un token JWT arată de obicei astfel:
+
+```
+
+eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c
+```
+
+- **Header**: Specifică algoritmul de semnare (de exemplu, HMAC SHA256).
+- **Payload**: Conține informații despre utilizator și alte date relevante.
+- **Semnătura**: este formata din hasharea headerului + payloadului + cheii (prin ea putem verifica daca datele tokenului au fost modificate
+
+### Procesul de autentificare si autorizare
+
+1. userul contacteaza serverul si se logheaza prin username / password / email
+2. serverul creeaza un token specific utilizatorului
+3. serverul ataseaza alaturi de orice urmator request facut de acel ip acest token prin cookie
+4. la fiecare request urmator se valideaza tokenul astfel: prima oara il decodifica in header si payload. dupa asta il reconstruieste folosind cheia. daca noul token coincide cu tokenul transmis atunci este autorizat requestul.
+- cum functioneaza: daca un atacator modifica payloadul sau headerul automat va trebui sa schimbe si semnatura deoarece aceasta devine invalida. aici intervine cheia. alt cineva inafara de server nu poate sa creeze o noua semnatura pt ca semnatura este valida daca contine cheia respectiva
