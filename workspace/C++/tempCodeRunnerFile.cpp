@@ -3,40 +3,36 @@ using namespace std;
 
 int main()
 {
-    int stiva[1000], lungimeStiva = 0;
-    int nrOperatii;
+    int a[10], n;
 
-    cin >> nrOperatii;
+    cin >> n;
 
-    string operatie;
-    int numar;
-
-    int elAfisate[200], lungimeElAfisate = 0;
-
-    for (int i = 0; i < nrOperatii; i++)
+    for (int i = 0; i < n; i++)
     {
-        cin >> operatie;
+        cin >> a[i];
 
-        if (operatie == "push")
+        if (a[i] == 1)
         {
-            cin >> numar;
+            cout << "DA" << '\n';
+        }
+        else
+        {
+            int x = 1, y = 1;
 
-            stiva[lungimeStiva++] = numar;
+            while (a[i] < x + y)
+            {
+                int c = x + y;
+                x = y;
+                y = c;
+            }
+            if (x + y != a[i])
+            {
+                cout << "NU" << '\n';
+            }
+            else
+            {
+                cout << "DA" << '\n';
+            }
         }
-        else if (operatie == "pop")
-        {
-            if (lungimeStiva > 0)
-                lungimeStiva--;
-        }
-        else if (operatie == "tops")
-        {
-            if (lungimeStiva > 0)
-                elAfisate[lungimeElAfisate++] = stiva[lungimeStiva - 1];
-        }
-    }
-
-    for (int i = 0; i < lungimeElAfisate; i++)
-    {
-        cout << elAfisate[i] << '\n';
     }
 }
