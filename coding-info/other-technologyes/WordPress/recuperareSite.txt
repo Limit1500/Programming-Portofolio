@@ -1,0 +1,10 @@
+daca am lucrat la un site local hostat acum mai mult timp va trebui sa ma reloghez pentru a putea relua proiectul.
+
+sunt 2 conturi pe care trebuie sa le recapat.
+1. cont de phpMyAdmin (contul prin care am acces la bazele de date care sunt legate de fiecare proiect). fiecare baza de date contine mai multe
+informatii inclusiv userii care au acces la acel site. Pentru a relua contul de php my admin trebuie sa ma loghez cu contul standard root fara parola.
+daca imi cere neaparat parola, pot accesa un fisiser care contine variabilele care ma obliga sa am parola si care sa fie parola si le pot modifica.
+
+2. dupa ce am acces la phpMyAdmin, ma duc in baza de date specifica site ului pe care vreau sa il recuperez si ma duc la users. Apas pe edit la userul
+pe care vreau sa il recapat. acolo o sa vad numele de utilizator si parola (la user_pass) encriptata. modific parola encriptata in parola pe care vreau eu sa o am si
+in dreapta fildului gasesc tipul de date. schimb in MD5 si dau in josul paginii go. gata, ma loghez si ar trebui sa mearga. <3
