@@ -146,3 +146,86 @@ HTTPS: Asigură transmiterea sigură a datelor între browser și server prin cr
 Servere: Găzduiesc date și aplicații accesibile prin internet.
 Data Centers: Facilități mari care adăpostesc servere și alte echipamente de rețea.
 Backbone: Rețele de mare capacitate care constituie coloana vertebrală a internetului, conectând diferite regiuni ale lumii.
+
+
+
+
+RETELISTICA:
+📡 Ce este un router?
+Un router este ca un paznic inteligent la poarta unei clădiri cu multe camere (dispozitive).
+
+Primește cereri de la dispozitivele din interior (telefon, laptop, PC…).
+
+Decide unde să le trimită mai departe.
+
+Primește răspunsurile de pe internet și le dă înapoi dispozitivului care a cerut.
+
+🧠 Ce face exact un router?
+1. Atribuie adrese IP (cu DHCP)
+Când pornești un dispozitiv (ex. telefonul), routerul îi zice:
+
+„Bun venit! Îți dau IP-ul 192.168.0.12!”
+
+El ține minte ce IP a dat fiecărui dispozitiv.
+
+2. Face NAT (Network Address Translation)
+Imaginația te ajută aici: ai 3 prieteni care trimit scrisori (cereri de internet) către un site. Dar poșta (internetul) nu acceptă scrisori de la persoane fără adresă recunoscută global.
+
+Așa că routerul le colectează pe toate, le pune într-un singur plic cu adresa lui (IP public), și le trimite mai departe. Când vin răspunsurile:
+
+Routerul știe exact cine a cerut ce,
+
+Le desface și trimite fiecăruia înapoi propriul răspuns.
+
+3. Este gateway-ul tău spre internet
+Toate pachetele care pleacă din rețea spre internet trec prin router, care e ca o ieșire principală.
+
+📥 Exemplu de flux (pas cu pas):
+Să zicem că vrei să intri pe www.google.com de pe telefonul tău:
+
+Telefonul tău are IP: 192.168.0.10.
+
+Scrii în browser: google.com.
+
+Telefonul cere adresa IP a lui google.com de la DNS.
+
+Apoi creează un pachet:
+
+Destinație: IP-ul lui Google.
+
+Expeditor: 192.168.0.10.
+
+Trimite pachetul la router (care e gateway-ul său, ex: 192.168.0.1).
+
+Routerul:
+
+Schimbă IP-ul expeditor cu IP-ul public al casei (ex: 85.123.56.20).
+
+Adaugă o notiță: „pachetul vine de la 192.168.0.10”.
+
+Trimite pachetul pe internet.
+
+Google răspunde către IP-ul public al routerului.
+
+Routerul:
+
+Se uită în notițe.
+
+Vede că acel răspuns trebuie dat la 192.168.0.10.
+
+Trimite răspunsul telefonului tău.
+
+Totul se întâmplă în milisecunde!
+
+🎨 Vrei o simulare vizuală?
+Pot să-ți fac o imagine logică care arată:
+
+Dispozitivele cu IP-urile lor
+
+Routerul și rolul lui
+
+Internetul și IP-urile publice
+
+Cum se mișcă pachetele
+
+Vrei să arate ca un desen explicativ, sau preferi ceva mai simplu și schematic, ca un grafic cu săgeți și cutii?
