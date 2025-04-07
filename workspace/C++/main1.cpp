@@ -1,125 +1,60 @@
 #include <iostream>
 #include <fstream>
+#include <algorithm>
+#include <cstring>
 using namespace std;
 
-ifstream input("info.in");
-ofstream output("info.out");
+ifstream input("submdiv.in");
+ofstream output("submdiv.out");
 
-int n, numereSelectate[10], numereleIntroduse[10];
+int n, m;
+int permutare[6], divizori[32], nrDiv = 0;
+bool sol = false;
 
 void afisare()
 {
-    for (int i = 0; i < n; i++)
+    for (int i = 0; i < m; i++)
     {
-        output << numereSelectate[i] << " ";
+        output << permutare[i] << " ";
     }
     output << '\n';
+    sol = true;
 }
 
-bool suntPrime(int a, int b)
+int gasesteDivizori()
 {
-    while (b != 0)
-    {
-        int r = a % b;
-        a = b;
-        b = r;
-    }
-    return (a == 1);
-}
 
-bool nuSeRepeta(int x, int k)
-{
-    for (int i = 0; i < k; i++)
-    {
-        if (numereSelectate[i] == x)
+    for (int d = 1; d * d <= n; d++)
+        if (n % d == 0)
         {
-            return false;
+            divizori[nrDiv++] = d;
+            if (d * d < n)
+                divizori[nrDiv++] = n / d;
         }
-    }
-    return true;
 }
 
-bool esteValid(int x, int k)
+void backtraking(int k = 0, int next = 0)
 {
-    if (k == 0)
-    {
-        return true;
-    }
-    if (suntPrime(x, numereSelectate[k - 1]) && nuSeRepeta(x, k))
-    {
-        return true;
-    }
-    return false;
-}
-
-void backtraking(int k = 0)
-{
-    if (k == n)
+    if (k == m)
     {
         afisare();
         return;
     }
-    else
+    for (int i = next; i < nrDiv; i++)
     {
-        for (int i = 0; i < n; i++)
-        {
-            if (esteValid(numereleIntroduse[i], k))
-            {
-                numereSelectate[k] = numereleIntroduse[i];
-                backtraking(k + 1);
-            }
-        }
-    }
-}
-
-void sortArray(int arr[], int n)
-{
-    for (int i = 0; i < n - 1; i++)
-    {
-        for (int j = i + 1; j < n; j++)
-        {
-            if (arr[i] > arr[j])
-            {
-                int temp = arr[i];
-                arr[i] = arr[j];
-                arr[j] = temp;
-            }
-        }
+        permutare[k] = divizori[i];
+        backtraking(k + 1, i + 1);
     }
 }
 
 int main()
 {
-    int a[10], n;
-
-    cin >> n;
-
-    for (int i = 0; i < n; i++)
+    input >> n >> m;
+    gasesteDivizori();
+    sort(divizori, divizori + nrDiv);
+    backtraking(0, 0);
+    if (sol == false)
     {
-        cin >> a[i];
-
-        if (a[i] == 1)
-        {
-            cout << "DA" << '\n';
-        }
-        else
-        {
-            int x = 1, y = 1;
-
-            while (a[i] > x + y)
-            {
-                int c = x + y;
-                x = y;
-                y = c;
-            }
-            if (x + y != a[i])
-            {
-                cout << "NU" << '\n';
-            }
-            else
-            {
-                cout << "DA" << '\n';
-            }
-        }
+        output << "fara solutie";
     }
 }
