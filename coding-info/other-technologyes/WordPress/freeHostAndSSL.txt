@@ -1,2 +1,3 @@
-tutorial full https://www.youtube.com/watch?v=JCq4xyx6bRQ
-dash.infinityfree.com host free
+tutorial full https://www.youtube.com/watch?v=JCq4xyx6bRQ + certificat ssl (te duci la manage your website si urmezi pasii de acolo de pe infinityfree.com si dupa instalezi un plugin si 
+ii dai run chiar daca are niste erori si o sa mearge (Really Simple Security, https://www.youtube.com/watch?v=VymFe8kAncs ))
+infinityfree.com host free

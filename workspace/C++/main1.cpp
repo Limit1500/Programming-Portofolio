@@ -1,60 +1,65 @@
 #include <iostream>
 #include <fstream>
-#include <algorithm>
-#include <cstring>
 using namespace std;
 
-ifstream input("submdiv.in");
-ofstream output("submdiv.out");
+ifstream input("info.in");
+ofstream output("plaja.out");
 
-int n, m;
-int permutare[6], divizori[32], nrDiv = 0;
-bool sol = false;
+int nrLinii, nrColoane, arieMax = 0;
+int hist[100];
 
-void afisare()
+void checkHist()
 {
-    for (int i = 0; i < m; i++)
+    hist[nrColoane] = 0;
+    int stiva[100], lungimeStiva = 0;
+    for (int i = 0; i <= nrColoane; i++)
     {
-        output << permutare[i] << " ";
-    }
-    output << '\n';
-    sol = true;
-}
-
-int gasesteDivizori()
-{
-
-    for (int d = 1; d * d <= n; d++)
-        if (n % d == 0)
+        if (lungimeStiva == 0 || hist[stiva[lungimeStiva - 1]] <= hist[i])
         {
-            divizori[nrDiv++] = d;
-            if (d * d < n)
-                divizori[nrDiv++] = n / d;
+            stiva[lungimeStiva++] = i;
         }
-}
-
-void backtraking(int k = 0, int next = 0)
-{
-    if (k == m)
-    {
-        afisare();
-        return;
-    }
-    for (int i = next; i < nrDiv; i++)
-    {
-        permutare[k] = divizori[i];
-        backtraking(k + 1, i + 1);
+        else
+        {
+            while (lungimeStiva && hist[stiva[lungimeStiva - 1]] > hist[i])
+            {
+                int arie = hist[stiva[lungimeStiva - 1]] * ((lungimeStiva >= 2) ? (i - 1 - stiva[lungimeStiva - 2]) : i);
+                if (arie > arieMax)
+                {
+                    arieMax = arie;
+                    cout << arie << ' ';
+                }
+                lungimeStiva--;
+            }
+            stiva[lungimeStiva++] = i;
+        }
     }
 }
 
 int main()
 {
-    input >> n >> m;
-    gasesteDivizori();
-    sort(divizori, divizori + nrDiv);
-    backtraking(0, 0);
-    if (sol == false)
+    input >> nrLinii >> nrColoane;
+    for (int i = 0; i < nrLinii; i++)
     {
-        output << "fara solutie";
+        char numar;
+        input.get(numar);
+        for (int j = 0; j < nrColoane; j++)
+        {
+            input.get(numar);
+            if (numar == '1')
+            {
+                hist[j] = 0;
+            }
+            else
+            {
+                hist[j]++;
+            }
+        }
+
+        cout << '\n';
+        cout << "Se calculeaza ariile pentru histul: ";
+        for (int j = 0; j < nrColoane; j++)
+            cout << hist[j] << ' ';
+        cout << '\n';
+        checkHist();
     }
 }
